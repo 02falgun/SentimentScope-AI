@@ -27,7 +27,7 @@
 ### 1. Clone & Setup Environment
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/SentimentScope-AI.git
+git clone https://github.com/02falgun/SentimentScope-AI.git
 cd SentimentScope-AI
 
 # Create and activate Python virtual environment

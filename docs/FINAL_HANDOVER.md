@@ -152,12 +152,12 @@ Dashboard will open at `http://localhost:8501`.
    git add .
    git commit -m "SentimentScope AI production ready release"
    git branch -M main
-   git remote add origin https://github.com/<your-username>/SentimentScope-AI.git
+   git remote add origin https://github.com/02falgun/SentimentScope-AI.git
    git push -u origin main
    ```
 2. Navigate to [share.streamlit.io](https://share.streamlit.io/) and log in with GitHub.
 3. Click **"New app"**.
-4. Select your repository, set **Branch** to `main`, and **Main file path** to `app.py`.
+4. Select your repository: `02falgun/SentimentScope-AI`, set **Branch** to `main`, and **Main file path** to `app.py`.
 5. Click **"Deploy!"**.
 
 ---

@@ -38,7 +38,7 @@ The dashboard will open automatically in your browser at `http://localhost:8501`
 2. Create a new GitHub repository (Public or Private) named `SentimentScope-AI`.
 3. Push your commits to GitHub:
    ```bash
-   git remote add origin https://github.com/<your-username>/SentimentScope-AI.git
+   git remote add origin https://github.com/02falgun/SentimentScope-AI.git
    git branch -M main
    git push -u origin main
    ```
@@ -46,7 +46,7 @@ The dashboard will open automatically in your browser at `http://localhost:8501`
 ### Step B: Deploy on Streamlit Cloud
 1. Go to [share.streamlit.io](https://share.streamlit.io/) and sign in with your GitHub account.
 2. Click **"New app"**.
-3. Select your repository: `<your-username>/SentimentScope-AI`.
+3. Select your repository: `02falgun/SentimentScope-AI`.
 4. Set **Branch**: `main`.
 5. Set **Main file path**: `app.py`.
 6. Click **"Deploy!"**.
