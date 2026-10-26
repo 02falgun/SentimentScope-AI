@@ -50,7 +50,7 @@ def render_ml_lab_page():
 
     # 2. Generalization & Template-Isolation Scientific Audit
     st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
-    with st.expander("Scientific Audit: Generalization Bounds & Group-CV Analysis (Viva Defense)", expanded=False):
+    with st.expander("Scientific Audit: Generalization Bounds & Group-CV Analysis", expanded=False):
         st.markdown(
             """
             <div class="academic-callout">
@@ -80,9 +80,9 @@ def render_ml_lab_page():
             render_metric_card("Monte Carlo Group-CV", "93.15%", "5-split GroupShuffleSplit (0.9193 F1)", "#64748B")
 
         st.caption(
-            "💡 **Viva Defense Guidance:** When presenting to faculty, explain that standard random splits measure "
-            "in-template interpolation (93.1% overlap), whereas strict Disjoint 5-Fold GroupKFold (95.28% Accuracy, 0.9543 Macro F1) "
-            "and out-of-distribution real-world tweets (90.9%) demonstrate genuine generalization."
+            "💡 **Methodological Note:** Standard random splits measure in-template interpolation (93.1% overlap), "
+            "whereas strict Disjoint 5-Fold GroupKFold (95.28% Accuracy, 0.9543 Macro F1) "
+            "and out-of-distribution real-world tweets (90.9%) demonstrate genuine generalization bounds."
         )
 
     # 3. Detailed Production Model Diagnostics

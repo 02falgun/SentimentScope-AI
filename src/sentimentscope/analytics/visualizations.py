@@ -19,8 +19,8 @@ LIGHT_LAYOUT = dict(
     paper_bgcolor="#FFFFFF",
     plot_bgcolor="#FFFFFF",
     font=dict(color="#111111", family="Inter, system-ui, -apple-system, sans-serif"),
-    margin=dict(l=24, r=24, t=44, b=24),
 )
+DEFAULT_MARGIN = dict(l=40, r=30, t=50, b=40)
 
 AXIS_STYLE = dict(
     showgrid=True,
@@ -44,6 +44,7 @@ def plot_sentiment_donut(distribution: Dict[str, int], title: str = "Sentiment S
         fig = go.Figure()
         fig.update_layout(
             **LIGHT_LAYOUT,
+            margin=DEFAULT_MARGIN,
             title=dict(text=f"{title} (No Data)", x=0.5, font=dict(size=14, color="#666666")),
             annotations=[dict(text="No sentiment records available", x=0.5, y=0.5, font_size=13, showarrow=False, font=dict(color="#8A8A8A"))],
         )
@@ -64,12 +65,13 @@ def plot_sentiment_donut(distribution: Dict[str, int], title: str = "Sentiment S
     )
     fig.update_layout(
         **LIGHT_LAYOUT,
+        margin=dict(l=30, r=30, t=50, b=55),
         title=dict(text=title, x=0.5, font=dict(size=15, color="#111111", weight=600)),
         showlegend=True,
         legend=dict(
             orientation="h",
             yanchor="bottom",
-            y=-0.18,
+            y=-0.22,
             xanchor="center",
             x=0.5,
             font=dict(color="#666666", size=11),
@@ -88,6 +90,7 @@ def plot_sentiment_bars(distribution: Dict[str, int], title: str = "Sentiment Vo
         fig = go.Figure()
         fig.update_layout(
             **LIGHT_LAYOUT,
+            margin=DEFAULT_MARGIN,
             title=dict(text=f"{title} (No Data)", x=0.5, font=dict(size=14, color="#666666")),
             annotations=[dict(text="No sentiment records available", x=0.5, y=0.5, font_size=13, showarrow=False, font=dict(color="#8A8A8A"))],
         )
@@ -108,6 +111,7 @@ def plot_sentiment_bars(distribution: Dict[str, int], title: str = "Sentiment Vo
     )
     fig.update_layout(
         **LIGHT_LAYOUT,
+        margin=dict(l=60, r=30, t=50, b=55),
         title=dict(text=title, x=0.5, font=dict(size=15, color="#111111", weight=600)),
         xaxis=dict(**AXIS_STYLE, title="Sentiment Category"),
         yaxis=dict(**AXIS_STYLE, title="Total Posts"),
@@ -119,7 +123,7 @@ def plot_daily_trends(trends_df: pd.DataFrame) -> go.Figure:
     """Renders a multi-line time series chart for daily sentiment trajectories."""
     if trends_df.empty:
         fig = go.Figure()
-        fig.update_layout(**LIGHT_LAYOUT, title="No date data available")
+        fig.update_layout(**LIGHT_LAYOUT, margin=DEFAULT_MARGIN, title="No date data available")
         return fig
 
     fig = go.Figure()
@@ -138,6 +142,7 @@ def plot_daily_trends(trends_df: pd.DataFrame) -> go.Figure:
 
     fig.update_layout(
         **LIGHT_LAYOUT,
+        margin=dict(l=60, r=30, t=50, b=75),
         title=dict(text="Daily Sentiment Volume Trend", x=0.5, font=dict(size=15, color="#111111", weight=600)),
         xaxis=dict(**AXIS_STYLE, title="Date"),
         yaxis=dict(**AXIS_STYLE, title="Post Count"),
@@ -145,7 +150,7 @@ def plot_daily_trends(trends_df: pd.DataFrame) -> go.Figure:
         legend=dict(
             orientation="h",
             yanchor="bottom",
-            y=-0.25,
+            y=-0.28,
             xanchor="center",
             x=0.5,
             font=dict(color="#666666", size=11),
@@ -158,7 +163,7 @@ def plot_platform_comparison(platform_df: pd.DataFrame) -> go.Figure:
     """Renders a grouped bar chart comparing sentiment across platforms."""
     if platform_df.empty:
         fig = go.Figure()
-        fig.update_layout(**LIGHT_LAYOUT, title="No platform data available")
+        fig.update_layout(**LIGHT_LAYOUT, margin=DEFAULT_MARGIN, title="No platform data available")
         return fig
 
     fig = go.Figure()
@@ -175,6 +180,7 @@ def plot_platform_comparison(platform_df: pd.DataFrame) -> go.Figure:
 
     fig.update_layout(
         **LIGHT_LAYOUT,
+        margin=dict(l=60, r=30, t=50, b=75),
         barmode="group",
         title=dict(text="Cross-Platform Sentiment Comparison", x=0.5, font=dict(size=15, color="#111111", weight=600)),
         xaxis=dict(**AXIS_STYLE, title="Social Media Platform"),
@@ -182,7 +188,7 @@ def plot_platform_comparison(platform_df: pd.DataFrame) -> go.Figure:
         legend=dict(
             orientation="h",
             yanchor="bottom",
-            y=-0.25,
+            y=-0.28,
             xanchor="center",
             x=0.5,
             font=dict(color="#666666", size=11),
@@ -195,7 +201,7 @@ def plot_engagement_comparison(engagement_df: pd.DataFrame) -> go.Figure:
     """Renders average likes and shares grouped by sentiment using disciplined grayscale."""
     if engagement_df.empty or "Avg_Likes" not in engagement_df.columns:
         fig = go.Figure()
-        fig.update_layout(**LIGHT_LAYOUT, title="No engagement metrics available")
+        fig.update_layout(**LIGHT_LAYOUT, margin=DEFAULT_MARGIN, title="No engagement metrics available")
         return fig
 
     fig = go.Figure()
@@ -219,6 +225,7 @@ def plot_engagement_comparison(engagement_df: pd.DataFrame) -> go.Figure:
 
     fig.update_layout(
         **LIGHT_LAYOUT,
+        margin=dict(l=60, r=30, t=50, b=75),
         barmode="group",
         title=dict(text="Average Engagement by Sentiment Class", x=0.5, font=dict(size=15, color="#111111", weight=600)),
         xaxis=dict(**AXIS_STYLE, title="Sentiment Class"),
@@ -226,7 +233,7 @@ def plot_engagement_comparison(engagement_df: pd.DataFrame) -> go.Figure:
         legend=dict(
             orientation="h",
             yanchor="bottom",
-            y=-0.25,
+            y=-0.28,
             xanchor="center",
             x=0.5,
             font=dict(color="#666666", size=11),
@@ -248,6 +255,7 @@ def plot_post_length_histogram(char_lengths: List[int]) -> go.Figure:
     )
     fig.update_layout(
         **LIGHT_LAYOUT,
+        margin=dict(l=60, r=30, t=50, b=55),
         title=dict(text="Post Character Length Distribution", x=0.5, font=dict(size=15, color="#111111", weight=600)),
         xaxis=dict(**AXIS_STYLE, title="Character Length"),
         yaxis=dict(**AXIS_STYLE, title="Post Count"),
@@ -263,7 +271,7 @@ def plot_top_words_bar(
     """Renders a horizontal bar chart of top terms."""
     if not word_freqs:
         fig = go.Figure()
-        fig.update_layout(**LIGHT_LAYOUT, title="No words found")
+        fig.update_layout(**LIGHT_LAYOUT, margin=DEFAULT_MARGIN, title="No words found")
         return fig
 
     words = [wf[0] for wf in word_freqs][::-1]
@@ -281,6 +289,7 @@ def plot_top_words_bar(
     )
     fig.update_layout(
         **LIGHT_LAYOUT,
+        margin=dict(l=85, r=30, t=50, b=55),
         title=dict(text=title, x=0.5, font=dict(size=14, color="#111111", weight=600)),
         xaxis=dict(**AXIS_STYLE, title="Frequency"),
         yaxis=dict(**AXIS_STYLE, title="Term"),
@@ -315,6 +324,7 @@ def plot_confusion_matrix(cm: List[List[int]], classes: List[str]) -> go.Figure:
     )
     fig.update_layout(
         **LIGHT_LAYOUT,
+        margin=dict(l=85, r=40, t=55, b=65),
         title=dict(text="Confusion Matrix (Held-Out Test Set)", x=0.5, font=dict(size=15, color="#111111", weight=600)),
         xaxis=dict(**AXIS_STYLE, title="Predicted Sentiment Class"),
         yaxis=dict(**AXIS_STYLE, title="True Ground-Truth Class", autorange="reversed"),
@@ -346,13 +356,14 @@ def plot_roc_curves(roc_curves: Optional[Dict[str, Dict[str, List[float]]]]) -> 
 
     fig.update_layout(
         **LIGHT_LAYOUT,
+        margin=dict(l=65, r=35, t=55, b=75),
         title=dict(text="One-vs-Rest ROC Curves", x=0.5, font=dict(size=15, color="#111111", weight=600)),
         xaxis=dict(**AXIS_STYLE, title="False Positive Rate", range=[0, 1]),
         yaxis=dict(**AXIS_STYLE, title="True Positive Rate", range=[0, 1.05]),
         legend=dict(
             orientation="h",
             yanchor="bottom",
-            y=-0.25,
+            y=-0.28,
             xanchor="center",
             x=0.5,
             font=dict(color="#666666", size=11),

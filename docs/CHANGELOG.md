@@ -3,6 +3,31 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [2.0.1] - 2026-10-27 — UI Bug Fixes & Public Demo Polish
+
+### Fixed
+- **Material Icon Font Preservation:**
+  - Removed broad `[class*="st-"]` and `[class*="css"]` font-family overrides in `src/sentimentscope/ui/styles.py` that caused Material Symbols ligatures to render as raw strings (`keyboard_double_arrow_left`, `keyboard_arrow_down`).
+  - Added explicit font preservation for `[data-testid="stIconMaterial"]`, `.material-symbols-rounded`, `.material-symbols-outlined`, and `.material-icons`.
+  - Restored clean chevrons on sidebar toggle buttons and expanders; eliminated `_arrow...` overlapping text in Visual Analytics filter label.
+- **Global Button Text Contrast:**
+  - Enforced `#FFFFFF !important` and `-webkit-text-fill-color: #FFFFFF !important` across all primary buttons, form submit buttons, download buttons, and their nested text containers.
+  - Specified high-contrast dark text (`#111111`) and clear borders for secondary action buttons across normal, hover, active, focus-visible, and disabled states.
+- **Keyword Search Table Layout & Responsive Width:**
+  - Reorganized `src/sentimentscope/ui/pages/search_page.py` layout to place sentiment share donut and category breakdown in a top grid.
+  - Allocated full container width to the `Matching Records` dataframe with explicit `column_config` allocating large width to `Text` and compact widths to `ID`, `Sentiment`, `Platform`, and `Date` to eliminate horizontal clipping.
+- **ML Lab Chart Margin & Readability:**
+  - Decoupled `margin` from global `LIGHT_LAYOUT` in `src/sentimentscope/analytics/visualizations.py` to prevent duplicate argument TypeErrors.
+  - Set generous margins on `plot_confusion_matrix` (`l=85, r=40, t=55, b=65`) and `plot_roc_curves` (`l=65, r=35, t=55, b=75`), ensuring y-axis titles, class labels, and bottom horizontal legends are completely visible without clipping.
+  - Applied ample margins to donut, bar, daily trends, and platform comparison charts.
+
+### Removed
+- **University Demonstration & Viva Talking Points Section:**
+  - Completely removed the "University Demonstration & Viva Talking Points" section and frequently asked examination Q&A from `src/sentimentscope/ui/pages/about_page.py`.
+  - Removed `(Viva Defense)` tag and viva defense guidance phrasing from `src/sentimentscope/ui/pages/ml_lab.py`, presenting all findings strictly as rigorous scientific generalization methodology.
+
+---
+
 ## [2.0.0] - 2026-10-26 — Premium UI/UX Transformation & Monochrome SaaS Design System
 
 ### Added

@@ -13,6 +13,7 @@ from src.sentimentscope.config import SENTIMENT_COLOR_MAP
 from src.sentimentscope.ui.components import (
     render_header,
     render_metric_card,
+    render_sentiment_badge,
 )
 
 
@@ -64,15 +65,52 @@ def render_search_page():
 
         if total > 0:
             st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
-            col_chart, col_table = st.columns([1, 2])
+            col_chart, col_dist = st.columns([1, 1])
 
             with col_chart:
                 fig_donut = plot_sentiment_donut(dist, title=f"Sentiment Split for '{query}'")
                 st.plotly_chart(fig_donut, use_container_width=True)
 
-            with col_table:
-                st.markdown(f"**Matching Records ({len(matches_df)} total):**")
-                display_cols = [c for c in ["Post ID", "Text", sentiment_col, "Platform", "Date"] if c and c in matches_df.columns]
-                st.dataframe(matches_df[display_cols], use_container_width=True, height=340)
+            with col_dist:
+                st.markdown(f"#### Sentiment Breakdown for '{query}'")
+                for s_cls in ["Positive", "Neutral", "Negative"]:
+                    cnt = dist.get(s_cls, 0)
+                    pct = (cnt / total * 100) if total > 0 else 0.0
+                    badge = render_sentiment_badge(s_cls)
+                    st.markdown(
+                        f"""
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border: 1px solid #E5E5E5; border-radius: 6px; margin-bottom: 8px; background: #FAFAFA;">
+                            <div>{badge}</div>
+                            <div style="font-weight: 600; color: #111111; font-size: 14px;">{cnt} posts <span style="font-weight: 400; color: #666666; font-size: 12px;">({pct:.1f}%)</span></div>
+                        </div>
+                        """,
+                        unsafe_allow_html=True,
+                    )
+
+            st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
+            st.markdown(f"### Matching Records ({len(matches_df)} posts found)")
+            st.caption("Inspect full social media posts, sentiment annotations, and platform metadata.")
+
+            display_cols = [c for c in ["Post ID", "Text", sentiment_col, "Platform", "Date"] if c and c in matches_df.columns]
+
+            col_config = {}
+            if "Post ID" in matches_df.columns:
+                col_config["Post ID"] = st.column_config.TextColumn("ID", width="small")
+            if "Text" in matches_df.columns:
+                col_config["Text"] = st.column_config.TextColumn("Post Content", width="large", help="Full text of the social post")
+            if sentiment_col and sentiment_col in matches_df.columns:
+                col_config[sentiment_col] = st.column_config.TextColumn("Sentiment", width="small")
+            if "Platform" in matches_df.columns:
+                col_config["Platform"] = st.column_config.TextColumn("Platform", width="small")
+            if "Date" in matches_df.columns:
+                col_config["Date"] = st.column_config.TextColumn("Date", width="small")
+
+            st.dataframe(
+                matches_df[display_cols],
+                column_config=col_config,
+                use_container_width=True,
+                height=360,
+                hide_index=True,
+            )
         else:
             st.info(f"No records matching query '{query}' were found in the active corpus.")

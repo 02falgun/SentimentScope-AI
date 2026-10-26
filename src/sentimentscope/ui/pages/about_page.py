@@ -1,7 +1,7 @@
 """
-SentimentScope AI — Architecture, Methodology & Viva Guide Workspace
+SentimentScope AI — System Architecture & Engineering Specifications
 Presents 3-tier system architecture, leakage-safe machine learning pipelines,
-generalization findings, and technical demonstration talking points.
+generalization findings, and technical methodology documentation.
 """
 
 import streamlit as st
@@ -11,7 +11,7 @@ from src.sentimentscope.ui.components import render_header
 def render_about_page():
     render_header(
         title="Documentation & Architecture",
-        subtitle="System Specifications, Machine Learning Methodology, and Viva Demonstration Guide",
+        subtitle="System Specifications, Machine Learning Methodology, and Technical Architecture",
         badge_text="PRD/SRS v1.0 Compliant",
         category_label="SYSTEM ARCHITECTURE",
     )
@@ -121,48 +121,3 @@ def render_about_page():
             """,
             unsafe_allow_html=True,
         )
-
-    # 3. Viva & Technical Examination Talking Points
-    st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
-    st.markdown("### University Demonstration & Viva Talking Points")
-
-    st.markdown(
-        """
-        <div class="academic-callout">
-            <h4 style="color: #111111; margin-bottom: 12px;">Frequently Asked Technical Viva Questions</h4>
-
-            <div style="margin-bottom: 14px;">
-                <strong style="color: #111111;">Q1: Why classical ML (Logistic Regression / SVM) rather than LLMs?</strong>
-                <p style="color: #555555; font-size: 13px; margin: 4px 0 0 0; line-height: 1.5;">
-                    Classical linear pipelines execute in sub-millisecond latencies (<1ms), require zero paid cloud API tokens,
-                    deploy deterministically on free cloud tiers without GPU dependencies, and offer mathematically interpretable linear coefficients.
-                </p>
-            </div>
-
-            <div style="margin-bottom: 14px;">
-                <strong style="color: #111111;">Q2: How was the 100% held-out test accuracy addressed?</strong>
-                <p style="color: #555555; font-size: 13px; margin: 4px 0 0 0; line-height: 1.5;">
-                    The 360-row sample dataset is built from 75 base sentence patterns; in standard random 80/20 splits, 93.1% of test rows share templates with training data.
-                    Under strict disjoint <strong>Group K-Fold Cross-Validation</strong> (5 folds, 72 rows/fold, zero template overlap across splits), the model achieves <strong>95.28% Accuracy and 0.9543 Macro F1</strong> across all 360 rows.
-                    Under 5-iteration Monte Carlo GroupShuffleSplit (random 20% group draws), performance is <strong>93.15% Accuracy and 0.9193 Macro F1</strong>, confirming genuine out-of-template generalization.
-                </p>
-            </div>
-
-            <div style="margin-bottom: 14px;">
-                <strong style="color: #111111;">Q3: How does the token-level explainability feature work?</strong>
-                <p style="color: #555555; font-size: 13px; margin: 4px 0 0 0; line-height: 1.5;">
-                    The pipeline multiplies the user's active TF-IDF token weights ($x_i$) by the linear classifier's learned coefficients ($w_{ij}$) for each class $j$.
-                    Tokens with large positive weights support the predicted class, while negative weights oppose it.
-                </p>
-            </div>
-
-            <div>
-                <strong style="color: #111111;">Q4: How does the application handle data privacy and security?</strong>
-                <p style="color: #555555; font-size: 13px; margin: 4px 0 0 0; line-height: 1.5;">
-                    User-uploaded CSV files are processed strictly in-memory inside the active Streamlit session state and are never written to server disk or external storage.
-                </p>
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )

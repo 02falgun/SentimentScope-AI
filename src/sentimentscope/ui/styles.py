@@ -9,10 +9,36 @@ CUSTOM_CSS = """
 /* Import Inter Font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* Global Font & Canvas Reset */
-html, body, [class*="css"], [class*="st-"] {
+/* Global Font & Text Reset */
+html, body, .stApp {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     color: #111111;
+}
+
+/* Explicitly preserve Streamlit Material Icons and Glyphs */
+[data-testid="stIconMaterial"],
+.material-symbols-rounded,
+.material-symbols-outlined,
+.material-icons,
+span[class*="material-symbols"],
+i[class*="material-icons"],
+span[data-testid="stIconMaterial"] {
+    font-family: 'Material Symbols Rounded', 'Material Symbols Outlined', 'Material Icons' !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    word-wrap: normal !important;
+    white-space: nowrap !important;
+    direction: ltr !important;
+    display: inline-block !important;
+    line-height: 1 !important;
+}
+
+/* Ensure Expander and Sidebar collapse icon containers don't leak ligatures as text */
+button[data-testid="stSidebarCollapseButton"] span[data-testid="stIconMaterial"],
+details[data-testid="stExpander"] summary span[data-testid="stIconMaterial"] {
+    font-family: 'Material Symbols Rounded', 'Material Symbols Outlined', 'Material Icons' !important;
 }
 
 /* Primary Application Canvas */
@@ -266,41 +292,144 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:has(input:checke
     margin-right: 6px;
 }
 
-/* Primary Action Buttons */
-.stButton > button {
-    border-radius: 6px !important;
-    font-weight: 500 !important;
-    border: 1px solid #E5E5E5 !important;
-    transition: all 0.15s ease !important;
-    font-size: 13px !important;
-}
-
+/* Primary Action Buttons (High Contrast Black with Pure White Text) */
 .stButton > button[kind="primary"],
-div[data-testid="stFormSubmitButton"] > button {
+.stButton > button[data-testid="baseButton-primary"],
+div[data-testid="stFormSubmitButton"] > button,
+div[data-testid="stFormSubmitButton"] > button[data-testid="baseButton-primary"],
+.stDownloadButton > button,
+.stDownloadButton > button[data-testid="baseButton-primary"] {
     background-color: #000000 !important;
     color: #FFFFFF !important;
-    border-color: #000000 !important;
-}
-
-.stButton > button[kind="primary"]:hover,
-div[data-testid="stFormSubmitButton"] > button:hover {
-    background-color: #262626 !important;
-    border-color: #262626 !important;
-    color: #FFFFFF !important;
-}
-
-.stDownloadButton > button {
-    background-color: #000000 !important;
-    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
     border: 1px solid #000000 !important;
     border-radius: 6px !important;
     font-weight: 500 !important;
+    font-size: 13px !important;
     transition: all 0.15s ease !important;
 }
 
+.stButton > button[kind="primary"] *,
+.stButton > button[data-testid="baseButton-primary"] *,
+div[data-testid="stFormSubmitButton"] > button *,
+div[data-testid="stFormSubmitButton"] > button[data-testid="baseButton-primary"] *,
+.stDownloadButton > button *,
+.stDownloadButton > button[data-testid="baseButton-primary"] * {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+.stButton > button[kind="primary"]:hover,
+.stButton > button[data-testid="baseButton-primary"]:hover,
+div[data-testid="stFormSubmitButton"] > button:hover,
 .stDownloadButton > button:hover {
     background-color: #262626 !important;
     border-color: #262626 !important;
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+.stButton > button[kind="primary"]:active,
+.stButton > button[data-testid="baseButton-primary"]:active,
+div[data-testid="stFormSubmitButton"] > button:active,
+.stDownloadButton > button:active {
+    background-color: #404040 !important;
+    border-color: #404040 !important;
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+.stButton > button[kind="primary"]:focus-visible,
+.stButton > button[data-testid="baseButton-primary"]:focus-visible,
+div[data-testid="stFormSubmitButton"] > button:focus-visible,
+.stDownloadButton > button:focus-visible {
+    outline: 2px solid #000000 !important;
+    outline-offset: 2px !important;
+}
+
+.stButton > button[kind="primary"]:disabled,
+.stButton > button[data-testid="baseButton-primary"]:disabled,
+div[data-testid="stFormSubmitButton"] > button:disabled,
+.stDownloadButton > button:disabled {
+    background-color: #737373 !important;
+    border-color: #737373 !important;
+    color: #D4D4D4 !important;
+    -webkit-text-fill-color: #D4D4D4 !important;
+    cursor: not-allowed !important;
+}
+
+/* Secondary / Default Action Buttons (Pure White with Dark Text) */
+.stButton > button[kind="secondary"],
+.stButton > button[data-testid="baseButton-secondary"],
+.stButton > button:not([kind="primary"]):not([data-testid="baseButton-primary"]) {
+    background-color: #FFFFFF !important;
+    color: #111111 !important;
+    -webkit-text-fill-color: #111111 !important;
+    border: 1px solid #D4D4D4 !important;
+    border-radius: 6px !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    transition: all 0.15s ease !important;
+}
+
+.stButton > button[kind="secondary"] *,
+.stButton > button[data-testid="baseButton-secondary"] *,
+.stButton > button:not([kind="primary"]):not([data-testid="baseButton-primary"]) * {
+    color: #111111 !important;
+    -webkit-text-fill-color: #111111 !important;
+}
+
+.stButton > button[kind="secondary"]:hover,
+.stButton > button[data-testid="baseButton-secondary"]:hover,
+.stButton > button:not([kind="primary"]):not([data-testid="baseButton-primary"]):hover {
+    background-color: #F5F5F5 !important;
+    border-color: #111111 !important;
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+}
+
+.stButton > button[kind="secondary"]:active,
+.stButton > button[data-testid="baseButton-secondary"]:active,
+.stButton > button:not([kind="primary"]):not([data-testid="baseButton-primary"]):active {
+    background-color: #E5E5E5 !important;
+    border-color: #000000 !important;
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+}
+
+.stButton > button[kind="secondary"]:focus-visible,
+.stButton > button[data-testid="baseButton-secondary"]:focus-visible,
+.stButton > button:not([kind="primary"]):not([data-testid="baseButton-primary"]):focus-visible {
+    outline: 2px solid #111111 !important;
+    outline-offset: 2px !important;
+}
+
+.stButton > button[kind="secondary"]:disabled,
+.stButton > button[data-testid="baseButton-secondary"]:disabled,
+.stButton > button:not([kind="primary"]):not([data-testid="baseButton-primary"]):disabled {
+    background-color: #FAFAFA !important;
+    border-color: #E5E5E5 !important;
+    color: #A3A3A3 !important;
+    -webkit-text-fill-color: #A3A3A3 !important;
+    cursor: not-allowed !important;
+}
+
+/* Expander Clean Monochrome Styling */
+details[data-testid="stExpander"] {
+    background-color: #FFFFFF !important;
+    border: 1px solid #E5E5E5 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+}
+
+details[data-testid="stExpander"] summary {
+    font-weight: 600 !important;
+    color: #111111 !important;
+    padding: 10px 14px !important;
+}
+
+details[data-testid="stExpander"] summary:hover {
+    color: #000000 !important;
 }
 
 /* Callout / Info Containers */
