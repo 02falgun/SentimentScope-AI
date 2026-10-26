@@ -143,8 +143,8 @@ def render_about_page():
                 <strong style="color: #111111;">Q2: How was the 100% held-out test accuracy addressed?</strong>
                 <p style="color: #555555; font-size: 13px; margin: 4px 0 0 0; line-height: 1.5;">
                     The 360-row sample dataset is built from 75 base sentence patterns; in standard random 80/20 splits, 93.1% of test rows share templates with training data.
-                    Under rigorous <strong>Group K-Fold Cross-Validation</strong> isolating unseen templates, the model achieves <strong>93.15% Accuracy and 0.9193 Macro F1</strong>,
-                    confirming genuine out-of-distribution generalization.
+                    Under strict disjoint <strong>Group K-Fold Cross-Validation</strong> (5 folds, 72 rows/fold, zero template overlap across splits), the model achieves <strong>95.28% Accuracy and 0.9543 Macro F1</strong> across all 360 rows.
+                    Under 5-iteration Monte Carlo GroupShuffleSplit (random 20% group draws), performance is <strong>93.15% Accuracy and 0.9193 Macro F1</strong>, confirming genuine out-of-template generalization.
                 </p>
             </div>
 

@@ -49,7 +49,7 @@ The underlying machine learning architecture, validation routines, leakage-safe 
 ## 3. Academic & Scientific Integrity Highlights
 
 1. **Group-CV Generalization Benchmark:**
-   The ML Lab and About sections clearly explain that the 100% random split test score is due to 93.1% base sentence template overlap in the synthetic 360-row sample dataset. Under strict **Group K-Fold Cross-Validation** isolating unseen templates, the pipeline achieves **93.15% Accuracy and 0.9193 Macro F1**, demonstrating genuine generalization.
+   The ML Lab and About sections clearly explain that the 100% random split test score is due to 93.1% base sentence template overlap in the synthetic 360-row sample dataset. Under strict disjoint **Group K-Fold Cross-Validation** partitioning all 360 rows into 5 non-overlapping folds (72 rows/fold), the pipeline achieves **95.28% Accuracy and 0.9543 Macro F1**. Under 5-iteration Monte Carlo GroupShuffleSplit (20% random group draws), performance is **93.15% Accuracy and 0.9193 Macro F1**, confirming genuine generalization.
 2. **Real-World Social Media Validation:**
    Tested against 11 real-world social media posts, achieving 90.9% accuracy with calibrated uncertainty intervals.
 3. **Leakage-Safe Pipelines:**

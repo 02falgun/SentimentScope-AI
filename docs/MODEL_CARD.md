@@ -73,16 +73,31 @@ In real-world machine learning, **100% test accuracy requires thorough scientifi
 3. **In-Template Memorization:** Because key n-grams of the sentence are present in `X_train`, the linear classifier easily correctly predicts 100% of the held-out test split.
 
 ### 5.2 Group-Aware Out-of-Template Cross-Validation
-To measure generalization on truly unseen text structures, we evaluated the pipeline using **Group K-Fold Cross-Validation** (isolating base templates so that no sentence template is shared between training and evaluation folds):
+To measure generalization on truly unseen text structures, we evaluated the pipeline under template-isolated group cross-validation:
 
-| Group-CV Fold | Test Samples | Accuracy | Macro F1 |
+#### Protocol A: Strict Disjoint Group K-Fold (`GroupKFold`, n_splits=5)
+Partitions all 75 base templates and 360 rows into 5 mutually exclusive test folds where each sample appears in a test set **exactly once** (72 samples and 15 templates per fold; sum = 360):
+
+| GroupKFold Split | Test Sample Count | Base Templates | Accuracy | Macro F1 |
+| :--- | :---: | :---: | :---: | :---: |
+| **Fold 1** | 72 | 15 | 95.83% | 0.9588 |
+| **Fold 2** | 72 | 15 | 91.67% | 0.9240 |
+| **Fold 3** | 72 | 15 | 100.00% | 1.0000 |
+| **Fold 4** | 72 | 15 | 91.67% | 0.9164 |
+| **Fold 5** | 72 | 15 | 97.22% | 0.9722 |
+| **Complete Dataset (Disjoint)** | **360 Total** | **75 Total** | **95.28%** | **0.9543** |
+
+#### Protocol B: Monte Carlo Group Shuffle Split (`GroupShuffleSplit`, n_splits=5, seed=42)
+5 independent random 20% group subsamples with replacement across iterations (yielding 57, 86, 72, 90, 84 sample counts totaling 389 test evaluations):
+
+| GroupShuffleSplit Iteration | Test Sample Count | Accuracy | Macro F1 |
 | :--- | :---: | :---: | :---: |
-| **Fold 1** | 57 | 91.23% | 0.8931 |
-| **Fold 2** | 86 | 94.19% | 0.9385 |
-| **Fold 3** | 72 | 91.67% | 0.9245 |
-| **Fold 4** | 90 | 92.22% | 0.8850 |
-| **Fold 5** | 84 | 96.43% | 0.9553 |
-| **Mean Group-CV Benchmark** | **77.8 avg** | **93.15%** | **0.9193** |
+| **Iteration 1** | 57 | 91.23% | 0.8931 |
+| **Iteration 2** | 86 | 94.19% | 0.9385 |
+| **Iteration 3** | 72 | 91.67% | 0.9245 |
+| **Iteration 4** | 90 | 92.22% | 0.8850 |
+| **Iteration 5** | 84 | 96.43% | 0.9553 |
+| **Average (Monte Carlo)** | **77.8 avg (389 total evaluations)** | **93.15%** | **0.9193** |
 
 ### 5.3 Out-of-Distribution Real-World Zero-Shot Validation
 Evaluating the model against 11 diverse, real-world social media posts (including subtle negations, customer complaints, and neutral scheduling notices):

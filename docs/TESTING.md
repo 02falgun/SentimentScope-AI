@@ -84,7 +84,7 @@ Visual inspection was conducted on `http://localhost:8505` via headless browser 
    - Displays Predicted Sentiment badge, confidence score (73.9%), inference latency (sub-millisecond), probability progress bars, and token attribution tags (`.token-support`, `.token-oppose`).
 3. **ML Lab & Benchmark:**
    - Model Comparison Leaderboard table rendered cleanly.
-   - Scientific Audit expander presents Group-CV metrics (93.1%, 93.15%, 0.9193).
+   - Scientific Audit expander presents Disjoint GroupKFold (95.28% Accuracy, 0.9543 Macro F1 across all 360 disjoint samples) alongside Monte Carlo GroupShuffleSplit comparison (93.15% Accuracy, 0.9193 Macro F1 across 389 evaluations).
    - Confusion matrix renders with clean sequential slate heatmap.
    - ROC curves render with distinct line colors.
 4. **Dataset Explorer, Visual Analytics, Search, Reports, About:**

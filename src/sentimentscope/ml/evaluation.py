@@ -166,13 +166,14 @@ def evaluate_template_generalization(
 ) -> Dict[str, Any]:
     """
     Performs Group K-Fold cross-validation by base sentence template.
-    Ensures no sentence template is shared between training and test sets,
-    providing a scientifically sound out-of-template generalization benchmark.
+    Uses GroupKFold to ensure a disjoint partition where every sample appears in
+    a test fold exactly once, with zero sentence templates shared across train and test.
+    Also computes GroupShuffleSplit (Monte Carlo) for comparative analysis.
     """
     import pandas as pd
     from sklearn.feature_extraction.text import TfidfVectorizer
     from sklearn.linear_model import LogisticRegression
-    from sklearn.model_selection import GroupShuffleSplit, train_test_split
+    from sklearn.model_selection import GroupKFold, GroupShuffleSplit, train_test_split
     from sklearn.pipeline import Pipeline
 
     if not isinstance(df, pd.DataFrame) or df.empty or text_col not in df.columns or label_col not in df.columns:
@@ -191,9 +192,40 @@ def evaluate_template_generalization(
     test_rows_in_train = strat_test[strat_test["_base_template"].isin(train_templates)]
     standard_split_overlap_pct = round((len(test_rows_in_train) / len(strat_test)) * 100, 1)
 
-    # Run Group Cross-Validation
+    # 1. Standard Disjoint GroupKFold (each sample tested exactly once)
+    gkf = GroupKFold(n_splits=n_splits)
+    gkf_fold_results: List[Dict[str, float]] = []
+
+    for fold_idx, (train_idx, test_idx) in enumerate(gkf.split(df_eval, groups=df_eval["_base_template"])):
+        train_fold = df_eval.iloc[train_idx]
+        test_fold = df_eval.iloc[test_idx]
+
+        pipe = Pipeline([
+            ("tfidf", TfidfVectorizer(ngram_range=(1, 2))),
+            ("clf", LogisticRegression(C=1.0, max_iter=1000, random_state=seed)),
+        ])
+
+        pipe.fit(train_fold[text_col], train_fold[label_col])
+        y_pred = pipe.predict(test_fold[text_col])
+
+        acc = float(accuracy_score(test_fold[label_col], y_pred))
+        f1 = float(f1_score(test_fold[label_col], y_pred, average="macro", zero_division=0))
+
+        gkf_fold_results.append({
+            "fold": fold_idx + 1,
+            "accuracy": round(acc, 4),
+            "macro_f1": round(f1, 4),
+            "test_samples": len(test_fold),
+            "test_groups": int(test_fold["_base_template"].nunique()),
+        })
+
+    gkf_mean_acc = round(float(np.mean([r["accuracy"] for r in gkf_fold_results])), 4)
+    gkf_mean_f1 = round(float(np.mean([r["macro_f1"] for r in gkf_fold_results])), 4)
+    gkf_total_test_samples = sum(r["test_samples"] for r in gkf_fold_results)
+
+    # 2. Repeated Monte Carlo GroupShuffleSplit (random 20% group draws with replacement across splits)
     gss = GroupShuffleSplit(n_splits=n_splits, test_size=0.2, random_state=seed)
-    fold_results: List[Dict[str, float]] = []
+    gss_fold_results: List[Dict[str, float]] = []
 
     for fold_idx, (train_idx, test_idx) in enumerate(gss.split(df_eval, groups=df_eval["_base_template"])):
         train_fold = df_eval.iloc[train_idx]
@@ -210,25 +242,32 @@ def evaluate_template_generalization(
         acc = float(accuracy_score(test_fold[label_col], y_pred))
         f1 = float(f1_score(test_fold[label_col], y_pred, average="macro", zero_division=0))
 
-        fold_results.append({
+        gss_fold_results.append({
             "fold": fold_idx + 1,
             "accuracy": round(acc, 4),
             "macro_f1": round(f1, 4),
             "test_samples": len(test_fold),
         })
 
-    mean_acc = round(float(np.mean([r["accuracy"] for r in fold_results])), 4)
-    mean_f1 = round(float(np.mean([r["macro_f1"] for r in fold_results])), 4)
+    gss_mean_acc = round(float(np.mean([r["accuracy"] for r in gss_fold_results])), 4)
+    gss_mean_f1 = round(float(np.mean([r["macro_f1"] for r in gss_fold_results])), 4)
 
     return {
         "total_templates": total_templates,
         "standard_split_template_overlap_pct": standard_split_overlap_pct,
-        "group_cv_folds": fold_results,
-        "group_cv_mean_accuracy": mean_acc,
-        "group_cv_mean_macro_f1": mean_f1,
+        "group_cv_folds": gkf_fold_results,
+        "group_cv_mean_accuracy": gkf_mean_acc,
+        "group_cv_mean_macro_f1": gkf_mean_f1,
+        "group_kfold_total_test_samples": gkf_total_test_samples,
+        "group_shuffle_split_folds": gss_fold_results,
+        "group_shuffle_split_mean_accuracy": gss_mean_acc,
+        "group_shuffle_split_mean_macro_f1": gss_mean_f1,
+        "group_shuffle_split_total_test_samples": sum(r["test_samples"] for r in gss_fold_results),
         "finding": (
             f"Under standard stratified split, {standard_split_overlap_pct}% of held-out test rows share "
-            f"base templates with training data, explaining 100% test scores. Under strict group cross-validation "
-            f"with isolated unseen templates, the model achieves {mean_acc*100:.2f}% accuracy and {mean_f1:.4f} Macro F1."
+            f"base templates with training data, explaining 100% test scores. Under strict disjoint Group K-Fold "
+            f"cross-validation (partitioning all {len(df_eval)} samples across {n_splits} folds with zero template leakage), "
+            f"the pipeline achieves {gkf_mean_acc*100:.2f}% accuracy and {gkf_mean_f1:.4f} Macro F1. "
+            f"Under 5-iteration Monte Carlo GroupShuffleSplit (20% random group draws), performance is {gss_mean_acc*100:.2f}% accuracy and {gss_mean_f1:.4f} Macro F1."
         ),
     }

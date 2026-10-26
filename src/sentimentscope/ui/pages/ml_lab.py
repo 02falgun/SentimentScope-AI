@@ -69,17 +69,20 @@ def render_ml_lab_page():
             unsafe_allow_html=True,
         )
 
-        gc1, gc2, gc3 = st.columns(3)
+        gc1, gc2, gc3, gc4 = st.columns(4)
         with gc1:
-            render_metric_card("Random Split Overlap", "93.1%", "Test rows sharing base templates", "#B91C1C")
+            render_metric_card("Random Split Overlap", "93.1%", "Test rows sharing templates", "#B91C1C")
         with gc2:
-            render_metric_card("Group-CV Accuracy", "93.15%", "5-Fold Group Cross-Validation", "#15803D")
+            render_metric_card("Disjoint GroupKFold", "95.28%", "5 Folds • 72 rows/fold (360 total)", "#15803D")
         with gc3:
-            render_metric_card("Group-CV Macro F1", "0.9193", "Equal-weighted across classes", "#111111")
+            render_metric_card("GroupKFold Macro F1", "0.9543", "Zero template leakage across folds", "#111111")
+        with gc4:
+            render_metric_card("Monte Carlo Group-CV", "93.15%", "5-split GroupShuffleSplit (0.9193 F1)", "#64748B")
 
         st.caption(
-            "💡 **Viva Defense Guidance:** When presenting to faculty, explain that random splits measure "
-            "in-template interpolation, whereas 5-Fold Group-CV (93.15%) and out-of-distribution real tweets (90.9%) demonstrate genuine vocabulary generalization."
+            "💡 **Viva Defense Guidance:** When presenting to faculty, explain that standard random splits measure "
+            "in-template interpolation (93.1% overlap), whereas strict Disjoint 5-Fold GroupKFold (95.28% Accuracy, 0.9543 Macro F1) "
+            "and out-of-distribution real-world tweets (90.9%) demonstrate genuine generalization."
         )
 
     # 3. Detailed Production Model Diagnostics
