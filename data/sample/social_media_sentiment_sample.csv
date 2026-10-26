@@ -1,0 +1,361 @@
+Post ID,Text,Platform,Date,Likes,Shares,Sentiment
+POST_00182,Reviewing the documentation on hyperparameter tuning and cross-validation strategies. Further details will follow.,Instagram,2026-07-09,323,44,Neutral
+POST_00111,"This library made text preprocessing effortless. Simple, clean, and blazingly fast. ⭐ Definitely a step forward.",Instagram,2026-07-11,422,124,Positive
+POST_00123,The quarterly financial report will be released this Thursday at 4 PM EST. #Finance #Markets Published on official channel.,Reddit,2026-07-23,403,89,Neutral
+POST_00325,Terrible experience at the airport check-in today. Flight delayed with zero explanation or apology. ✈️💔 Customer service was useless.,LinkedIn,2026-07-12,116,29,Negative
+POST_00179,Reviewing the documentation on hyperparameter tuning and cross-validation strategies. Published on official channel.,Reddit,2026-07-13,259,40,Neutral
+POST_00100,Brilliant user experience and well thought out architecture. Keep up the phenomenal work! 🏆 Worth checking out.,Reddit,2026-07-08,34,9,Positive
+POST_00128,The quarterly financial report will be released this Thursday at 4 PM EST. #Finance #Markets As announced.,LinkedIn,2026-07-31,463,122,Neutral
+POST_00167,The server maintenance window is scheduled for Saturday between 2 AM and 4 AM UTC. Under standard protocols.,Instagram,2026-07-06,544,211,Neutral
+POST_00234,A comparison of Bag of Words versus TF-IDF feature representations in text classification. Will follow up with notes.,Reddit,2026-07-28,81,11,Neutral
+POST_00206,Looking for baseline benchmarks on the Twitter US Airline Sentiment dataset. Further details will follow.,Reddit,2026-07-30,282,95,Neutral
+POST_00203,Looking for baseline benchmarks on the Twitter US Airline Sentiment dataset. Published on official channel.,Reddit,2026-07-10,299,88,Neutral
+POST_00334,Subscription fees doubled while features were removed without notice. Canceling immediately. 🛑 Avoid at all costs.,Instagram,2026-07-15,359,37,Negative
+POST_00262,Waited on hold for over 45 minutes and the agent just hung up on me. Terrible support! 👎 Avoid at all costs.,Reddit,2026-07-03,462,175,Negative
+POST_00126,The quarterly financial report will be released this Thursday at 4 PM EST. #Finance #Markets Further details will follow.,Instagram,2026-07-02,580,79,Neutral
+POST_00144,Python 3.12 was released with significant performance improvements and improved error traces. As announced.,Instagram,2026-07-24,179,61,Neutral
+POST_00164,The server maintenance window is scheduled for Saturday between 2 AM and 4 AM UTC. According to specifications.,Twitter,2026-07-17,359,19,Neutral
+POST_00150,The conference schedule for tomorrow has been uploaded to the official portal. Check your emails. Further details will follow.,Instagram,2026-07-09,441,60,Neutral
+POST_00041,The camera quality on this new phone is outstanding. Truly blown away by the clarity! 📸,Twitter,2026-07-03,507,170,Positive
+POST_00254,"I will never recommend this service to anyone, total disaster from start to finish. #Fail Avoid at all costs.",LinkedIn,2026-07-29,39,2,Negative
+POST_00140,Python 3.12 was released with significant performance improvements and improved error traces. According to specifications.,LinkedIn,2026-07-25,409,142,Neutral
+POST_00091,Our user engagement skyrocketed by 40% after launching the new dashboard. Fantastic impact! 📈 Kudos to the team.,Reddit,2026-07-22,265,75,Positive
+POST_00346,Misleading claims and poor accuracy on real-world tests. Would not recommend to anyone. Absolutely furious about this.,Instagram,2026-07-18,245,55,Negative
+POST_00207,Looking for baseline benchmarks on the Twitter US Airline Sentiment dataset. Under standard protocols.,Twitter,2026-07-02,179,58,Neutral
+POST_00248,This is the worst software update ever. Constantly crashes and ruined my work! 😡 Unbelievably bad.,LinkedIn,2026-07-11,417,115,Negative
+POST_00289,I cannot believe how poor the documentation is. Half the code examples produce syntax errors. 🤦‍♂️,Reddit,2026-07-13,474,85,Negative
+POST_00277,"Buggy interface, misleading marketing, and total lack of support. Never buying from them again! ❌ Customer service was useless.",Reddit,2026-07-09,503,195,Negative
+POST_00088,Great job to the developers on fixing that annoying bug so quickly. Much appreciated! Solid quality overall.,Reddit,2026-07-18,46,15,Positive
+POST_00037,Could not be happier with our team quarterly performance. Record growth all around! 🌟 Five stars from me!,Reddit,2026-07-05,392,124,Positive
+POST_00292,I cannot believe how poor the documentation is. Half the code examples produce syntax errors. 🤦‍♂️ Expecting an immediate refund.,LinkedIn,2026-07-02,389,49,Negative
+POST_00016,Antigravity and machine learning are revolutionizing productivity. Highly recommended! Solid quality overall.,Instagram,2026-07-09,474,129,Positive
+POST_00307,Ordered two weeks ago with express shipping and still no tracking update. Absolute scam! 😤 Total waste of time and money.,Instagram,2026-07-15,380,87,Negative
+POST_00252,"I will never recommend this service to anyone, total disaster from start to finish. #Fail Expecting an immediate refund.",LinkedIn,2026-07-08,102,20,Negative
+POST_00223,The webinar recording and slide deck have been archived for on-demand viewing. Under standard protocols.,Twitter,2026-07-07,540,95,Neutral
+POST_00341,The application froze four times while I was trying to submit my final assignment. Horrible app! 😠 Customer service was useless.,Instagram,2026-07-17,325,21,Negative
+POST_00025,"Loving the new dark mode theme. It looks sleek, modern, and very easy on the eyes.",Instagram,2026-07-05,281,27,Positive
+POST_00138,Python 3.12 was released with significant performance improvements and improved error traces. Will follow up with notes.,Instagram,2026-07-13,30,10,Neutral
+POST_00222,The webinar recording and slide deck have been archived for on-demand viewing. Further details will follow.,Twitter,2026-07-22,565,119,Neutral
+POST_00028,"Loving the new dark mode theme. It looks sleek, modern, and very easy on the eyes. Worth checking out.",Reddit,2026-07-17,515,42,Positive
+POST_00288,"Another day, another unexpected outage during peak working hours. Completely unacceptable. Unbelievably bad.",LinkedIn,2026-07-16,128,10,Negative
+POST_00345,Misleading claims and poor accuracy on real-world tests. Would not recommend to anyone.,Instagram,2026-07-24,450,50,Negative
+POST_00196,The meeting has been rescheduled to tomorrow afternoon due to room availability. According to specifications.,Instagram,2026-07-20,241,77,Neutral
+POST_00360,Customer support refused to issue a refund despite delivering a damaged product. Disgraceful! Unbelievably bad.,Instagram,2026-07-15,587,185,Negative
+POST_00348,Misleading claims and poor accuracy on real-world tests. Would not recommend to anyone. Expecting an immediate refund.,Twitter,2026-07-14,29,6,Negative
+POST_00004,"I absolutely love this new update! Everything is fast, smooth, and beautiful! 🚀 Worth checking out.",Twitter,2026-07-07,248,56,Positive
+POST_00072,Hands down the most reliable tool in my daily workflow. Cannot praise it enough! 💎 Solid quality overall.,LinkedIn,2026-07-07,331,44,Positive
+POST_00253,"I will never recommend this service to anyone, total disaster from start to finish. #Fail Customer service was useless.",Twitter,2026-07-25,112,22,Negative
+POST_00221,The webinar recording and slide deck have been archived for on-demand viewing. Shared for internal review.,Instagram,2026-07-28,536,181,Neutral
+POST_00177,Reviewing the documentation on hyperparameter tuning and cross-validation strategies.,Instagram,2026-07-18,256,74,Neutral
+POST_00216,Here is the summary of today industry news and technological developments. #TechBrief As announced.,Instagram,2026-07-03,491,84,Neutral
+POST_00017,The customer support team resolved my issue in under five minutes. Phenomenal service! 👏,LinkedIn,2026-07-06,389,67,Positive
+POST_00296,I cannot believe how poor the documentation is. Half the code examples produce syntax errors. 🤦‍♂️ Unbelievably bad.,Twitter,2026-07-31,475,38,Negative
+POST_00359,Customer support refused to issue a refund despite delivering a damaged product. Disgraceful! Worst decision of the year.,Reddit,2026-07-25,87,9,Negative
+POST_00311,Ordered two weeks ago with express shipping and still no tracking update. Absolute scam! 😤 Worst decision of the year.,Instagram,2026-07-22,120,26,Negative
+POST_00154,Attending the keynote lecture on Natural Language Processing at 10 AM. #AIConference Will follow up with notes.,Reddit,2026-07-07,30,8,Neutral
+POST_00103,Brilliant user experience and well thought out architecture. Keep up the phenomenal work! 🏆 Definitely a step forward.,LinkedIn,2026-07-31,38,3,Positive
+POST_00255,"I will never recommend this service to anyone, total disaster from start to finish. #Fail Worst decision of the year.",Twitter,2026-07-10,377,68,Negative
+POST_00143,Python 3.12 was released with significant performance improvements and improved error traces. Under standard protocols.,Instagram,2026-07-01,408,68,Neutral
+POST_00354,Customer support refused to issue a refund despite delivering a damaged product. Disgraceful! Absolutely furious about this.,Twitter,2026-07-13,327,101,Negative
+POST_00242,This is the worst software update ever. Constantly crashes and ruined my work! 😡 Absolutely furious about this.,Instagram,2026-07-13,165,36,Negative
+POST_00063,The documentation is crystal clear and everything worked on the first try. Thank you maintainers! 🙌 Definitely a step forward.,Instagram,2026-07-09,475,71,Positive
+POST_00051,"Not bad at all, actually exceeded my modest expectations in every way. Very pleased! 👍 Kudos to the team.",Instagram,2026-07-07,562,54,Positive
+POST_00085,Great job to the developers on fixing that annoying bug so quickly. Much appreciated! Five stars from me!,LinkedIn,2026-07-25,143,39,Positive
+POST_00131,Comparing Logistic Regression and Support Vector Machines on standard TF-IDF text features today. Published on official channel.,Reddit,2026-07-27,293,93,Neutral
+POST_00200,The meeting has been rescheduled to tomorrow afternoon due to room availability. As announced.,LinkedIn,2026-07-22,93,9,Neutral
+POST_00183,Reviewing the documentation on hyperparameter tuning and cross-validation strategies. Under standard protocols.,Twitter,2026-07-24,207,33,Neutral
+POST_00059,The documentation is crystal clear and everything worked on the first try. Thank you maintainers! 🙌 Kudos to the team.,Twitter,2026-07-15,573,48,Positive
+POST_00083,Great job to the developers on fixing that annoying bug so quickly. Much appreciated! Kudos to the team.,LinkedIn,2026-07-29,62,5,Positive
+POST_00122,The quarterly financial report will be released this Thursday at 4 PM EST. #Finance #Markets Will follow up with notes.,Twitter,2026-07-15,434,156,Neutral
+POST_00105,"This library made text preprocessing effortless. Simple, clean, and blazingly fast. ⭐",Instagram,2026-07-12,331,67,Positive
+POST_00250,"I will never recommend this service to anyone, total disaster from start to finish. #Fail Absolutely furious about this.",LinkedIn,2026-07-21,509,180,Negative
+POST_00295,I cannot believe how poor the documentation is. Half the code examples produce syntax errors. 🤦‍♂️ Worst decision of the year.,LinkedIn,2026-07-02,417,61,Negative
+POST_00023,The customer support team resolved my issue in under five minutes. Phenomenal service! 👏 Definitely a step forward.,Twitter,2026-07-07,590,210,Positive
+POST_00276,"Buggy interface, misleading marketing, and total lack of support. Never buying from them again! ❌ Expecting an immediate refund.",LinkedIn,2026-07-17,523,193,Negative
+POST_00235,A comparison of Bag of Words versus TF-IDF feature representations in text classification. Published on official channel.,Instagram,2026-07-11,529,75,Neutral
+POST_00084,Great job to the developers on fixing that annoying bug so quickly. Much appreciated! Worth checking out.,Instagram,2026-07-27,293,19,Positive
+POST_00168,The server maintenance window is scheduled for Saturday between 2 AM and 4 AM UTC. As announced.,LinkedIn,2026-07-20,561,180,Neutral
+POST_00018,The customer support team resolved my issue in under five minutes. Phenomenal service! 👏 Honestly impressive.,LinkedIn,2026-07-23,83,21,Positive
+POST_00350,Misleading claims and poor accuracy on real-world tests. Would not recommend to anyone. Avoid at all costs.,Instagram,2026-07-23,437,66,Negative
+POST_00075,Just deployed our sentiment analysis model to production! Smooth rollout and zero downtime. 🎉 Kudos to the team.,Twitter,2026-07-03,560,69,Positive
+POST_00265,The battery drains within three hours of normal usage. Terrible build quality for a high price. 📉,Instagram,2026-07-28,504,44,Negative
+POST_00125,The quarterly financial report will be released this Thursday at 4 PM EST. #Finance #Markets Shared for internal review.,Twitter,2026-07-25,445,56,Neutral
+POST_00045,The camera quality on this new phone is outstanding. Truly blown away by the clarity! 📸 Five stars from me!,Reddit,2026-07-23,329,62,Positive
+POST_00228,Testing the API endpoints for batch prediction and monitoring response latencies. According to specifications.,Twitter,2026-07-18,427,35,Neutral
+POST_00209,Here is the summary of today industry news and technological developments. #TechBrief,LinkedIn,2026-07-23,422,160,Neutral
+POST_00263,Waited on hold for over 45 minutes and the agent just hung up on me. Terrible support! 👎 Worst decision of the year.,LinkedIn,2026-07-21,444,129,Negative
+POST_00033,Could not be happier with our team quarterly performance. Record growth all around! 🌟,LinkedIn,2026-07-25,358,31,Positive
+POST_00271,The battery drains within three hours of normal usage. Terrible build quality for a high price. 📉 Worst decision of the year.,Reddit,2026-07-21,109,39,Negative
+POST_00297,The update broke our production pipeline and wasted the entire morning. Horrible release!,Reddit,2026-07-21,31,2,Negative
+POST_00246,This is the worst software update ever. Constantly crashes and ruined my work! 😡 Avoid at all costs.,Twitter,2026-07-24,157,30,Negative
+POST_00006,"I absolutely love this new update! Everything is fast, smooth, and beautiful! 🚀 Truly remarkable work.",Instagram,2026-07-08,469,120,Positive
+POST_00134,Comparing Logistic Regression and Support Vector Machines on standard TF-IDF text features today. Further details will follow.,LinkedIn,2026-07-11,563,44,Neutral
+POST_00204,Looking for baseline benchmarks on the Twitter US Airline Sentiment dataset. According to specifications.,Instagram,2026-07-03,249,92,Neutral
+POST_00120,"Had a wonderful experience with support today. Courteous, knowledgeable, and quick! ❤️ Solid quality overall.",Reddit,2026-07-26,213,21,Positive
+POST_00329,Subscription fees doubled while features were removed without notice. Canceling immediately. 🛑,Twitter,2026-07-20,283,17,Negative
+POST_00158,Attending the keynote lecture on Natural Language Processing at 10 AM. #AIConference Further details will follow.,Reddit,2026-07-31,328,28,Neutral
+POST_00188,Exploring different tokenization techniques for informal social media microblogging data. According to specifications.,Reddit,2026-07-09,56,21,Neutral
+POST_00317,"Not impressed at all with the new UI redesign. It is clunky, slow, frustrating, and hard to navigate. Customer service was useless.",Instagram,2026-07-11,474,89,Negative
+POST_00101,Brilliant user experience and well thought out architecture. Keep up the phenomenal work! 🏆 Five stars from me!,Instagram,2026-07-11,295,103,Positive
+POST_00328,Terrible experience at the airport check-in today. Flight delayed with zero explanation or apology. ✈️💔 Unbelievably bad.,LinkedIn,2026-07-19,241,80,Negative
+POST_00336,Subscription fees doubled while features were removed without notice. Canceling immediately. 🛑 Unbelievably bad.,Twitter,2026-07-29,63,6,Negative
+POST_00068,Hands down the most reliable tool in my daily workflow. Cannot praise it enough! 💎 Worth checking out.,Reddit,2026-07-03,79,22,Positive
+POST_00011,Antigravity and machine learning are revolutionizing productivity. Highly recommended! Kudos to the team.,Twitter,2026-07-24,480,114,Positive
+POST_00104,Brilliant user experience and well thought out architecture. Keep up the phenomenal work! 🏆 Solid quality overall.,LinkedIn,2026-07-06,281,17,Positive
+POST_00236,A comparison of Bag of Words versus TF-IDF feature representations in text classification. According to specifications.,Twitter,2026-07-10,315,108,Neutral
+POST_00283,"Another day, another unexpected outage during peak working hours. Completely unacceptable. Total waste of time and money.",LinkedIn,2026-07-19,400,135,Negative
+POST_00054,"Not bad at all, actually exceeded my modest expectations in every way. Very pleased! 👍 Truly remarkable work.",LinkedIn,2026-07-14,430,91,Positive
+POST_00117,"Had a wonderful experience with support today. Courteous, knowledgeable, and quick! ❤️ Five stars from me!",Reddit,2026-07-17,494,161,Positive
+POST_00219,The webinar recording and slide deck have been archived for on-demand viewing. Published on official channel.,Instagram,2026-07-27,573,36,Neutral
+POST_00046,The camera quality on this new phone is outstanding. Truly blown away by the clarity! 📸 Truly remarkable work.,LinkedIn,2026-07-15,539,112,Positive
+POST_00079,Just deployed our sentiment analysis model to production! Smooth rollout and zero downtime. 🎉 Definitely a step forward.,LinkedIn,2026-07-30,116,43,Positive
+POST_00001,"I absolutely love this new update! Everything is fast, smooth, and beautiful! 🚀",Twitter,2026-07-01,291,39,Positive
+POST_00055,"Not bad at all, actually exceeded my modest expectations in every way. Very pleased! 👍 Definitely a step forward.",Twitter,2026-07-22,110,7,Positive
+POST_00152,The conference schedule for tomorrow has been uploaded to the official portal. Check your emails. As announced.,Twitter,2026-07-31,368,47,Neutral
+POST_00019,The customer support team resolved my issue in under five minutes. Phenomenal service! 👏 Kudos to the team.,Reddit,2026-07-18,260,27,Positive
+POST_00092,Our user engagement skyrocketed by 40% after launching the new dashboard. Fantastic impact! 📈 Worth checking out.,LinkedIn,2026-07-25,583,209,Positive
+POST_00031,"Loving the new dark mode theme. It looks sleek, modern, and very easy on the eyes. Definitely a step forward.",Instagram,2026-07-13,489,115,Positive
+POST_00316,"Not impressed at all with the new UI redesign. It is clunky, slow, frustrating, and hard to navigate. Expecting an immediate refund.",Reddit,2026-07-14,472,170,Negative
+POST_00344,The application froze four times while I was trying to submit my final assignment. Horrible app! 😠 Unbelievably bad.,LinkedIn,2026-07-10,345,31,Negative
+POST_00081,Great job to the developers on fixing that annoying bug so quickly. Much appreciated!,Reddit,2026-07-09,298,77,Positive
+POST_00003,"I absolutely love this new update! Everything is fast, smooth, and beautiful! 🚀 Kudos to the team.",Twitter,2026-07-19,442,27,Positive
+POST_00069,Hands down the most reliable tool in my daily workflow. Cannot praise it enough! 💎 Five stars from me!,Reddit,2026-07-13,132,50,Positive
+POST_00323,Terrible experience at the airport check-in today. Flight delayed with zero explanation or apology. ✈️💔 Total waste of time and money.,LinkedIn,2026-07-22,135,26,Negative
+POST_00064,The documentation is crystal clear and everything worked on the first try. Thank you maintainers! 🙌 Solid quality overall.,Instagram,2026-07-05,204,31,Positive
+POST_00273,"Buggy interface, misleading marketing, and total lack of support. Never buying from them again! ❌",LinkedIn,2026-07-24,144,11,Negative
+POST_00163,The server maintenance window is scheduled for Saturday between 2 AM and 4 AM UTC. Published on official channel.,LinkedIn,2026-07-18,448,126,Neutral
+POST_00015,Antigravity and machine learning are revolutionizing productivity. Highly recommended! Definitely a step forward.,Twitter,2026-07-28,248,87,Positive
+POST_00009,Antigravity and machine learning are revolutionizing productivity. Highly recommended!,LinkedIn,2026-07-04,104,19,Positive
+POST_00118,"Had a wonderful experience with support today. Courteous, knowledgeable, and quick! ❤️ Truly remarkable work.",Reddit,2026-07-22,96,14,Positive
+POST_00247,This is the worst software update ever. Constantly crashes and ruined my work! 😡 Worst decision of the year.,Reddit,2026-07-03,490,158,Negative
+POST_00245,This is the worst software update ever. Constantly crashes and ruined my work! 😡 Customer service was useless.,Instagram,2026-07-04,548,202,Negative
+POST_00013,Antigravity and machine learning are revolutionizing productivity. Highly recommended! Five stars from me!,LinkedIn,2026-07-19,206,61,Positive
+POST_00280,"Buggy interface, misleading marketing, and total lack of support. Never buying from them again! ❌ Unbelievably bad.",Reddit,2026-07-28,416,161,Negative
+POST_00314,"Not impressed at all with the new UI redesign. It is clunky, slow, frustrating, and hard to navigate. Absolutely furious about this.",LinkedIn,2026-07-13,553,84,Negative
+POST_00161,The server maintenance window is scheduled for Saturday between 2 AM and 4 AM UTC.,Reddit,2026-07-04,318,110,Neutral
+POST_00149,The conference schedule for tomorrow has been uploaded to the official portal. Check your emails. Shared for internal review.,LinkedIn,2026-07-07,475,78,Neutral
+POST_00342,The application froze four times while I was trying to submit my final assignment. Horrible app! 😠 Avoid at all costs.,Instagram,2026-07-20,66,3,Negative
+POST_00109,"This library made text preprocessing effortless. Simple, clean, and blazingly fast. ⭐ Five stars from me!",LinkedIn,2026-07-20,331,93,Positive
+POST_00194,The meeting has been rescheduled to tomorrow afternoon due to room availability. Will follow up with notes.,Twitter,2026-07-05,162,54,Neutral
+POST_00039,Could not be happier with our team quarterly performance. Record growth all around! 🌟 Definitely a step forward.,Twitter,2026-07-30,381,136,Positive
+POST_00056,"Not bad at all, actually exceeded my modest expectations in every way. Very pleased! 👍 Solid quality overall.",LinkedIn,2026-07-26,121,16,Positive
+POST_00272,The battery drains within three hours of normal usage. Terrible build quality for a high price. 📉 Unbelievably bad.,Twitter,2026-07-10,461,28,Negative
+POST_00005,"I absolutely love this new update! Everything is fast, smooth, and beautiful! 🚀 Five stars from me!",Twitter,2026-07-18,213,64,Positive
+POST_00238,A comparison of Bag of Words versus TF-IDF feature representations in text classification. Further details will follow.,Instagram,2026-07-12,350,85,Neutral
+POST_00002,"I absolutely love this new update! Everything is fast, smooth, and beautiful! 🚀 Honestly impressive.",Reddit,2026-07-24,114,32,Positive
+POST_00211,Here is the summary of today industry news and technological developments. #TechBrief Published on official channel.,Instagram,2026-07-24,340,88,Neutral
+POST_00148,The conference schedule for tomorrow has been uploaded to the official portal. Check your emails. According to specifications.,Instagram,2026-07-06,61,8,Neutral
+POST_00151,The conference schedule for tomorrow has been uploaded to the official portal. Check your emails. Under standard protocols.,Twitter,2026-07-16,29,9,Neutral
+POST_00205,Looking for baseline benchmarks on the Twitter US Airline Sentiment dataset. Shared for internal review.,Reddit,2026-07-14,127,30,Neutral
+POST_00074,Just deployed our sentiment analysis model to production! Smooth rollout and zero downtime. 🎉 Honestly impressive.,Twitter,2026-07-01,479,128,Positive
+POST_00243,This is the worst software update ever. Constantly crashes and ruined my work! 😡 Total waste of time and money.,Twitter,2026-07-05,524,203,Negative
+POST_00333,Subscription fees doubled while features were removed without notice. Canceling immediately. 🛑 Customer service was useless.,Twitter,2026-07-03,553,69,Negative
+POST_00173,Does anyone know if the dataset includes timestamps or only post dates? Looking at the schema. Shared for internal review.,LinkedIn,2026-07-06,509,63,Neutral
+POST_00086,Great job to the developers on fixing that annoying bug so quickly. Much appreciated! Truly remarkable work.,LinkedIn,2026-07-06,462,112,Positive
+POST_00251,"I will never recommend this service to anyone, total disaster from start to finish. #Fail Total waste of time and money.",Twitter,2026-07-20,80,10,Negative
+POST_00300,The update broke our production pipeline and wasted the entire morning. Horrible release! Expecting an immediate refund.,Reddit,2026-07-27,248,40,Negative
+POST_00008,"I absolutely love this new update! Everything is fast, smooth, and beautiful! 🚀 Solid quality overall.",LinkedIn,2026-07-09,169,21,Positive
+POST_00058,The documentation is crystal clear and everything worked on the first try. Thank you maintainers! 🙌 Honestly impressive.,Reddit,2026-07-09,483,66,Positive
+POST_00352,Misleading claims and poor accuracy on real-world tests. Would not recommend to anyone. Unbelievably bad.,Instagram,2026-07-27,380,30,Negative
+POST_00306,Ordered two weeks ago with express shipping and still no tracking update. Absolute scam! 😤 Absolutely furious about this.,Instagram,2026-07-17,126,39,Negative
+POST_00308,Ordered two weeks ago with express shipping and still no tracking update. Absolute scam! 😤 Expecting an immediate refund.,Twitter,2026-07-15,525,66,Negative
+POST_00218,The webinar recording and slide deck have been archived for on-demand viewing. Will follow up with notes.,LinkedIn,2026-07-14,517,78,Neutral
+POST_00184,Reviewing the documentation on hyperparameter tuning and cross-validation strategies. As announced.,Reddit,2026-07-07,231,71,Neutral
+POST_00195,The meeting has been rescheduled to tomorrow afternoon due to room availability. Published on official channel.,LinkedIn,2026-07-03,264,24,Neutral
+POST_00102,Brilliant user experience and well thought out architecture. Keep up the phenomenal work! 🏆 Truly remarkable work.,LinkedIn,2026-07-12,531,100,Positive
+POST_00299,The update broke our production pipeline and wasted the entire morning. Horrible release! Total waste of time and money.,Reddit,2026-07-03,577,70,Negative
+POST_00107,"This library made text preprocessing effortless. Simple, clean, and blazingly fast. ⭐ Kudos to the team.",Twitter,2026-07-23,456,23,Positive
+POST_00007,"I absolutely love this new update! Everything is fast, smooth, and beautiful! 🚀 Definitely a step forward.",Twitter,2026-07-25,173,50,Positive
+POST_00090,Our user engagement skyrocketed by 40% after launching the new dashboard. Fantastic impact! 📈 Honestly impressive.,LinkedIn,2026-07-29,50,18,Positive
+POST_00301,The update broke our production pipeline and wasted the entire morning. Horrible release! Customer service was useless.,Reddit,2026-07-26,12,1,Negative
+POST_00057,The documentation is crystal clear and everything worked on the first try. Thank you maintainers! 🙌,Reddit,2026-07-18,469,46,Positive
+POST_00024,The customer support team resolved my issue in under five minutes. Phenomenal service! 👏 Solid quality overall.,LinkedIn,2026-07-07,521,98,Positive
+POST_00112,"This library made text preprocessing effortless. Simple, clean, and blazingly fast. ⭐ Solid quality overall.",Reddit,2026-07-07,440,124,Positive
+POST_00339,The application froze four times while I was trying to submit my final assignment. Horrible app! 😠 Total waste of time and money.,Reddit,2026-07-25,534,47,Negative
+POST_00132,Comparing Logistic Regression and Support Vector Machines on standard TF-IDF text features today. According to specifications.,Instagram,2026-07-21,254,37,Neutral
+POST_00258,Waited on hold for over 45 minutes and the agent just hung up on me. Terrible support! 👎 Absolutely furious about this.,Instagram,2026-07-20,256,57,Negative
+POST_00070,Hands down the most reliable tool in my daily workflow. Cannot praise it enough! 💎 Truly remarkable work.,Reddit,2026-07-19,50,13,Positive
+POST_00312,Ordered two weeks ago with express shipping and still no tracking update. Absolute scam! 😤 Unbelievably bad.,Instagram,2026-07-03,92,14,Negative
+POST_00353,Customer support refused to issue a refund despite delivering a damaged product. Disgraceful!,Twitter,2026-07-08,456,116,Negative
+POST_00229,Testing the API endpoints for batch prediction and monitoring response latencies. Shared for internal review.,Twitter,2026-07-15,130,35,Neutral
+POST_00313,"Not impressed at all with the new UI redesign. It is clunky, slow, frustrating, and hard to navigate.",Reddit,2026-07-03,139,20,Negative
+POST_00133,Comparing Logistic Regression and Support Vector Machines on standard TF-IDF text features today. Shared for internal review.,Twitter,2026-07-23,302,39,Neutral
+POST_00355,Customer support refused to issue a refund despite delivering a damaged product. Disgraceful! Total waste of time and money.,Reddit,2026-07-11,182,13,Negative
+POST_00142,Python 3.12 was released with significant performance improvements and improved error traces. Further details will follow.,Reddit,2026-07-16,234,34,Neutral
+POST_00096,Our user engagement skyrocketed by 40% after launching the new dashboard. Fantastic impact! 📈 Solid quality overall.,LinkedIn,2026-07-26,431,142,Positive
+POST_00124,The quarterly financial report will be released this Thursday at 4 PM EST. #Finance #Markets According to specifications.,Reddit,2026-07-05,15,5,Neutral
+POST_00318,"Not impressed at all with the new UI redesign. It is clunky, slow, frustrating, and hard to navigate. Avoid at all costs.",Twitter,2026-07-11,447,71,Negative
+POST_00014,Antigravity and machine learning are revolutionizing productivity. Highly recommended! Truly remarkable work.,Twitter,2026-07-22,243,77,Positive
+POST_00065,Hands down the most reliable tool in my daily workflow. Cannot praise it enough! 💎,Twitter,2026-07-19,565,40,Positive
+POST_00036,Could not be happier with our team quarterly performance. Record growth all around! 🌟 Worth checking out.,Twitter,2026-07-28,315,108,Positive
+POST_00155,Attending the keynote lecture on Natural Language Processing at 10 AM. #AIConference Published on official channel.,Reddit,2026-07-05,494,140,Neutral
+POST_00052,"Not bad at all, actually exceeded my modest expectations in every way. Very pleased! 👍 Worth checking out.",Instagram,2026-07-08,494,164,Positive
+POST_00233,A comparison of Bag of Words versus TF-IDF feature representations in text classification.,Reddit,2026-07-30,530,164,Neutral
+POST_00108,"This library made text preprocessing effortless. Simple, clean, and blazingly fast. ⭐ Worth checking out.",Reddit,2026-07-12,451,33,Positive
+POST_00136,Comparing Logistic Regression and Support Vector Machines on standard TF-IDF text features today. As announced.,Reddit,2026-07-03,434,83,Neutral
+POST_00129,Comparing Logistic Regression and Support Vector Machines on standard TF-IDF text features today.,Instagram,2026-07-27,571,117,Neutral
+POST_00098,Brilliant user experience and well thought out architecture. Keep up the phenomenal work! 🏆 Honestly impressive.,Twitter,2026-07-13,49,17,Positive
+POST_00215,Here is the summary of today industry news and technological developments. #TechBrief Under standard protocols.,LinkedIn,2026-07-06,456,124,Neutral
+POST_00239,A comparison of Bag of Words versus TF-IDF feature representations in text classification. Under standard protocols.,Instagram,2026-07-15,339,120,Neutral
+POST_00119,"Had a wonderful experience with support today. Courteous, knowledgeable, and quick! ❤️ Definitely a step forward.",LinkedIn,2026-07-03,250,71,Positive
+POST_00224,The webinar recording and slide deck have been archived for on-demand viewing. As announced.,Instagram,2026-07-21,462,145,Neutral
+POST_00332,Subscription fees doubled while features were removed without notice. Canceling immediately. 🛑 Expecting an immediate refund.,Instagram,2026-07-03,155,47,Negative
+POST_00220,The webinar recording and slide deck have been archived for on-demand viewing. According to specifications.,Twitter,2026-07-11,268,43,Neutral
+POST_00095,Our user engagement skyrocketed by 40% after launching the new dashboard. Fantastic impact! 📈 Definitely a step forward.,Reddit,2026-07-29,432,25,Positive
+POST_00050,"Not bad at all, actually exceeded my modest expectations in every way. Very pleased! 👍 Honestly impressive.",LinkedIn,2026-07-03,536,71,Positive
+POST_00121,The quarterly financial report will be released this Thursday at 4 PM EST. #Finance #Markets,Twitter,2026-07-08,496,130,Neutral
+POST_00212,Here is the summary of today industry news and technological developments. #TechBrief According to specifications.,Twitter,2026-07-03,244,94,Neutral
+POST_00256,"I will never recommend this service to anyone, total disaster from start to finish. #Fail Unbelievably bad.",Reddit,2026-07-08,553,107,Negative
+POST_00062,The documentation is crystal clear and everything worked on the first try. Thank you maintainers! 🙌 Truly remarkable work.,Twitter,2026-07-06,398,20,Positive
+POST_00137,Python 3.12 was released with significant performance improvements and improved error traces.,Instagram,2026-07-14,73,8,Neutral
+POST_00060,The documentation is crystal clear and everything worked on the first try. Thank you maintainers! 🙌 Worth checking out.,Twitter,2026-07-03,252,27,Positive
+POST_00115,"Had a wonderful experience with support today. Courteous, knowledgeable, and quick! ❤️ Kudos to the team.",LinkedIn,2026-07-10,225,45,Positive
+POST_00278,"Buggy interface, misleading marketing, and total lack of support. Never buying from them again! ❌ Avoid at all costs.",LinkedIn,2026-07-24,356,118,Negative
+POST_00192,Exploring different tokenization techniques for informal social media microblogging data. As announced.,Twitter,2026-07-09,499,44,Neutral
+POST_00274,"Buggy interface, misleading marketing, and total lack of support. Never buying from them again! ❌ Absolutely furious about this.",LinkedIn,2026-07-11,435,48,Negative
+POST_00281,"Another day, another unexpected outage during peak working hours. Completely unacceptable.",LinkedIn,2026-07-03,414,22,Negative
+POST_00157,Attending the keynote lecture on Natural Language Processing at 10 AM. #AIConference Shared for internal review.,Reddit,2026-07-20,127,40,Neutral
+POST_00114,"Had a wonderful experience with support today. Courteous, knowledgeable, and quick! ❤️ Honestly impressive.",LinkedIn,2026-07-13,571,195,Positive
+POST_00061,The documentation is crystal clear and everything worked on the first try. Thank you maintainers! 🙌 Five stars from me!,Instagram,2026-07-16,228,80,Positive
+POST_00240,A comparison of Bag of Words versus TF-IDF feature representations in text classification. As announced.,Reddit,2026-07-19,402,52,Neutral
+POST_00294,I cannot believe how poor the documentation is. Half the code examples produce syntax errors. 🤦‍♂️ Avoid at all costs.,Twitter,2026-07-22,386,92,Negative
+POST_00094,Our user engagement skyrocketed by 40% after launching the new dashboard. Fantastic impact! 📈 Truly remarkable work.,Reddit,2026-07-28,176,68,Positive
+POST_00106,"This library made text preprocessing effortless. Simple, clean, and blazingly fast. ⭐ Honestly impressive.",Twitter,2026-07-13,600,69,Positive
+POST_00012,Antigravity and machine learning are revolutionizing productivity. Highly recommended! Worth checking out.,Instagram,2026-07-03,575,87,Positive
+POST_00113,"Had a wonderful experience with support today. Courteous, knowledgeable, and quick! ❤️",Instagram,2026-07-22,188,49,Positive
+POST_00185,Exploring different tokenization techniques for informal social media microblogging data.,LinkedIn,2026-07-24,547,141,Neutral
+POST_00043,The camera quality on this new phone is outstanding. Truly blown away by the clarity! 📸 Kudos to the team.,Reddit,2026-07-09,550,195,Positive
+POST_00208,Looking for baseline benchmarks on the Twitter US Airline Sentiment dataset. As announced.,LinkedIn,2026-07-15,137,29,Neutral
+POST_00160,Attending the keynote lecture on Natural Language Processing at 10 AM. #AIConference As announced.,Instagram,2026-07-13,213,16,Neutral
+POST_00327,Terrible experience at the airport check-in today. Flight delayed with zero explanation or apology. ✈️💔 Worst decision of the year.,Twitter,2026-07-12,579,103,Negative
+POST_00178,Reviewing the documentation on hyperparameter tuning and cross-validation strategies. Will follow up with notes.,Instagram,2026-07-15,27,2,Neutral
+POST_00213,Here is the summary of today industry news and technological developments. #TechBrief Shared for internal review.,Twitter,2026-07-25,285,71,Neutral
+POST_00357,Customer support refused to issue a refund despite delivering a damaged product. Disgraceful! Customer service was useless.,LinkedIn,2026-07-12,161,21,Negative
+POST_00282,"Another day, another unexpected outage during peak working hours. Completely unacceptable. Absolutely furious about this.",Twitter,2026-07-15,387,110,Negative
+POST_00331,Subscription fees doubled while features were removed without notice. Canceling immediately. 🛑 Total waste of time and money.,LinkedIn,2026-07-01,195,69,Negative
+POST_00319,"Not impressed at all with the new UI redesign. It is clunky, slow, frustrating, and hard to navigate. Worst decision of the year.",LinkedIn,2026-07-12,166,48,Negative
+POST_00153,Attending the keynote lecture on Natural Language Processing at 10 AM. #AIConference,Twitter,2026-07-25,51,16,Neutral
+POST_00291,I cannot believe how poor the documentation is. Half the code examples produce syntax errors. 🤦‍♂️ Total waste of time and money.,Twitter,2026-07-27,511,135,Negative
+POST_00264,Waited on hold for over 45 minutes and the agent just hung up on me. Terrible support! 👎 Unbelievably bad.,Instagram,2026-07-28,319,38,Negative
+POST_00356,Customer support refused to issue a refund despite delivering a damaged product. Disgraceful! Expecting an immediate refund.,Twitter,2026-07-17,532,62,Negative
+POST_00343,The application froze four times while I was trying to submit my final assignment. Horrible app! 😠 Worst decision of the year.,LinkedIn,2026-07-31,226,71,Negative
+POST_00087,Great job to the developers on fixing that annoying bug so quickly. Much appreciated! Definitely a step forward.,Instagram,2026-07-18,19,1,Positive
+POST_00170,Does anyone know if the dataset includes timestamps or only post dates? Looking at the schema. Will follow up with notes.,Reddit,2026-07-27,98,14,Neutral
+POST_00266,The battery drains within three hours of normal usage. Terrible build quality for a high price. 📉 Absolutely furious about this.,Instagram,2026-07-19,377,94,Negative
+POST_00135,Comparing Logistic Regression and Support Vector Machines on standard TF-IDF text features today. Under standard protocols.,Reddit,2026-07-08,402,117,Neutral
+POST_00347,Misleading claims and poor accuracy on real-world tests. Would not recommend to anyone. Total waste of time and money.,LinkedIn,2026-07-03,416,146,Negative
+POST_00190,Exploring different tokenization techniques for informal social media microblogging data. Further details will follow.,Instagram,2026-07-04,22,5,Neutral
+POST_00214,Here is the summary of today industry news and technological developments. #TechBrief Further details will follow.,Reddit,2026-07-16,541,150,Neutral
+POST_00139,Python 3.12 was released with significant performance improvements and improved error traces. Published on official channel.,Instagram,2026-07-16,16,6,Neutral
+POST_00287,"Another day, another unexpected outage during peak working hours. Completely unacceptable. Worst decision of the year.",Twitter,2026-07-05,56,21,Negative
+POST_00285,"Another day, another unexpected outage during peak working hours. Completely unacceptable. Customer service was useless.",LinkedIn,2026-07-30,236,65,Negative
+POST_00026,"Loving the new dark mode theme. It looks sleek, modern, and very easy on the eyes. Honestly impressive.",LinkedIn,2026-07-24,448,163,Positive
+POST_00202,Looking for baseline benchmarks on the Twitter US Airline Sentiment dataset. Will follow up with notes.,Instagram,2026-07-15,491,74,Neutral
+POST_00302,The update broke our production pipeline and wasted the entire morning. Horrible release! Avoid at all costs.,Reddit,2026-07-05,563,77,Negative
+POST_00076,Just deployed our sentiment analysis model to production! Smooth rollout and zero downtime. 🎉 Worth checking out.,LinkedIn,2026-07-05,367,131,Positive
+POST_00335,Subscription fees doubled while features were removed without notice. Canceling immediately. 🛑 Worst decision of the year.,LinkedIn,2026-07-24,342,110,Negative
+POST_00080,Just deployed our sentiment analysis model to production! Smooth rollout and zero downtime. 🎉 Solid quality overall.,Reddit,2026-07-09,128,46,Positive
+POST_00071,Hands down the most reliable tool in my daily workflow. Cannot praise it enough! 💎 Definitely a step forward.,Instagram,2026-07-22,588,136,Positive
+POST_00116,"Had a wonderful experience with support today. Courteous, knowledgeable, and quick! ❤️ Worth checking out.",LinkedIn,2026-07-15,462,94,Positive
+POST_00099,Brilliant user experience and well thought out architecture. Keep up the phenomenal work! 🏆 Kudos to the team.,Reddit,2026-07-07,481,82,Positive
+POST_00249,"I will never recommend this service to anyone, total disaster from start to finish. #Fail",LinkedIn,2026-07-28,556,101,Negative
+POST_00175,Does anyone know if the dataset includes timestamps or only post dates? Looking at the schema. Under standard protocols.,LinkedIn,2026-07-18,20,4,Neutral
+POST_00110,"This library made text preprocessing effortless. Simple, clean, and blazingly fast. ⭐ Truly remarkable work.",Twitter,2026-07-24,317,72,Positive
+POST_00093,Our user engagement skyrocketed by 40% after launching the new dashboard. Fantastic impact! 📈 Five stars from me!,Instagram,2026-07-20,168,62,Positive
+POST_00275,"Buggy interface, misleading marketing, and total lack of support. Never buying from them again! ❌ Total waste of time and money.",Reddit,2026-07-26,562,200,Negative
+POST_00267,The battery drains within three hours of normal usage. Terrible build quality for a high price. 📉 Total waste of time and money.,LinkedIn,2026-07-01,415,60,Negative
+POST_00010,Antigravity and machine learning are revolutionizing productivity. Highly recommended! Honestly impressive.,LinkedIn,2026-07-28,362,94,Positive
+POST_00186,Exploring different tokenization techniques for informal social media microblogging data. Will follow up with notes.,Twitter,2026-07-27,208,31,Neutral
+POST_00261,Waited on hold for over 45 minutes and the agent just hung up on me. Terrible support! 👎 Customer service was useless.,Instagram,2026-07-29,304,87,Negative
+POST_00217,The webinar recording and slide deck have been archived for on-demand viewing.,LinkedIn,2026-07-11,117,40,Neutral
+POST_00048,The camera quality on this new phone is outstanding. Truly blown away by the clarity! 📸 Solid quality overall.,Reddit,2026-07-19,235,12,Positive
+POST_00270,The battery drains within three hours of normal usage. Terrible build quality for a high price. 📉 Avoid at all costs.,LinkedIn,2026-07-08,204,54,Negative
+POST_00066,Hands down the most reliable tool in my daily workflow. Cannot praise it enough! 💎 Honestly impressive.,LinkedIn,2026-07-02,61,15,Positive
+POST_00358,Customer support refused to issue a refund despite delivering a damaged product. Disgraceful! Avoid at all costs.,Reddit,2026-07-09,212,23,Negative
+POST_00193,The meeting has been rescheduled to tomorrow afternoon due to room availability.,Twitter,2026-07-13,513,38,Neutral
+POST_00279,"Buggy interface, misleading marketing, and total lack of support. Never buying from them again! ❌ Worst decision of the year.",Instagram,2026-07-31,87,8,Negative
+POST_00309,Ordered two weeks ago with express shipping and still no tracking update. Absolute scam! 😤 Customer service was useless.,Twitter,2026-07-24,543,84,Negative
+POST_00067,Hands down the most reliable tool in my daily workflow. Cannot praise it enough! 💎 Kudos to the team.,Reddit,2026-07-02,530,41,Positive
+POST_00201,Looking for baseline benchmarks on the Twitter US Airline Sentiment dataset.,Reddit,2026-07-18,86,9,Neutral
+POST_00338,The application froze four times while I was trying to submit my final assignment. Horrible app! 😠 Absolutely furious about this.,Instagram,2026-07-16,462,90,Negative
+POST_00180,Reviewing the documentation on hyperparameter tuning and cross-validation strategies. According to specifications.,LinkedIn,2026-07-16,576,135,Neutral
+POST_00073,Just deployed our sentiment analysis model to production! Smooth rollout and zero downtime. 🎉,Instagram,2026-07-05,317,66,Positive
+POST_00042,The camera quality on this new phone is outstanding. Truly blown away by the clarity! 📸 Honestly impressive.,Reddit,2026-07-05,496,189,Positive
+POST_00171,Does anyone know if the dataset includes timestamps or only post dates? Looking at the schema. Published on official channel.,Instagram,2026-07-08,485,120,Neutral
+POST_00077,Just deployed our sentiment analysis model to production! Smooth rollout and zero downtime. 🎉 Five stars from me!,Reddit,2026-07-12,301,31,Positive
+POST_00130,Comparing Logistic Regression and Support Vector Machines on standard TF-IDF text features today. Will follow up with notes.,Reddit,2026-07-24,496,102,Neutral
+POST_00146,The conference schedule for tomorrow has been uploaded to the official portal. Check your emails. Will follow up with notes.,Instagram,2026-07-19,587,165,Neutral
+POST_00198,The meeting has been rescheduled to tomorrow afternoon due to room availability. Further details will follow.,Instagram,2026-07-10,592,158,Neutral
+POST_00286,"Another day, another unexpected outage during peak working hours. Completely unacceptable. Avoid at all costs.",Instagram,2026-07-30,319,88,Negative
+POST_00049,"Not bad at all, actually exceeded my modest expectations in every way. Very pleased! 👍",Twitter,2026-07-08,79,28,Positive
+POST_00169,Does anyone know if the dataset includes timestamps or only post dates? Looking at the schema.,Instagram,2026-07-14,284,46,Neutral
+POST_00034,Could not be happier with our team quarterly performance. Record growth all around! 🌟 Honestly impressive.,Instagram,2026-07-06,474,24,Positive
+POST_00172,Does anyone know if the dataset includes timestamps or only post dates? Looking at the schema. According to specifications.,Instagram,2026-07-11,39,8,Neutral
+POST_00027,"Loving the new dark mode theme. It looks sleek, modern, and very easy on the eyes. Kudos to the team.",Instagram,2026-07-12,234,93,Positive
+POST_00174,Does anyone know if the dataset includes timestamps or only post dates? Looking at the schema. Further details will follow.,LinkedIn,2026-07-11,296,106,Neutral
+POST_00210,Here is the summary of today industry news and technological developments. #TechBrief Will follow up with notes.,Instagram,2026-07-15,92,23,Neutral
+POST_00199,The meeting has been rescheduled to tomorrow afternoon due to room availability. Under standard protocols.,Twitter,2026-07-31,222,59,Neutral
+POST_00145,The conference schedule for tomorrow has been uploaded to the official portal. Check your emails.,Reddit,2026-07-20,556,33,Neutral
+POST_00191,Exploring different tokenization techniques for informal social media microblogging data. Under standard protocols.,Instagram,2026-07-16,461,78,Neutral
+POST_00187,Exploring different tokenization techniques for informal social media microblogging data. Published on official channel.,LinkedIn,2026-07-06,319,17,Neutral
+POST_00082,Great job to the developers on fixing that annoying bug so quickly. Much appreciated! Honestly impressive.,LinkedIn,2026-07-07,280,63,Positive
+POST_00268,The battery drains within three hours of normal usage. Terrible build quality for a high price. 📉 Expecting an immediate refund.,Twitter,2026-07-30,518,176,Negative
+POST_00269,The battery drains within three hours of normal usage. Terrible build quality for a high price. 📉 Customer service was useless.,LinkedIn,2026-07-25,245,64,Negative
+POST_00304,The update broke our production pipeline and wasted the entire morning. Horrible release! Unbelievably bad.,LinkedIn,2026-07-26,253,64,Negative
+POST_00225,Testing the API endpoints for batch prediction and monitoring response latencies.,Reddit,2026-07-09,572,54,Neutral
+POST_00127,The quarterly financial report will be released this Thursday at 4 PM EST. #Finance #Markets Under standard protocols.,Twitter,2026-07-15,146,48,Neutral
+POST_00021,The customer support team resolved my issue in under five minutes. Phenomenal service! 👏 Five stars from me!,LinkedIn,2026-07-27,67,8,Positive
+POST_00089,Our user engagement skyrocketed by 40% after launching the new dashboard. Fantastic impact! 📈,Reddit,2026-07-14,140,9,Positive
+POST_00259,Waited on hold for over 45 minutes and the agent just hung up on me. Terrible support! 👎 Total waste of time and money.,Reddit,2026-07-08,482,131,Negative
+POST_00044,The camera quality on this new phone is outstanding. Truly blown away by the clarity! 📸 Worth checking out.,Instagram,2026-07-31,226,84,Positive
+POST_00176,Does anyone know if the dataset includes timestamps or only post dates? Looking at the schema. As announced.,Reddit,2026-07-03,257,77,Neutral
+POST_00053,"Not bad at all, actually exceeded my modest expectations in every way. Very pleased! 👍 Five stars from me!",Reddit,2026-07-04,109,30,Positive
+POST_00321,Terrible experience at the airport check-in today. Flight delayed with zero explanation or apology. ✈️💔,Twitter,2026-07-14,108,33,Negative
+POST_00032,"Loving the new dark mode theme. It looks sleek, modern, and very easy on the eyes. Solid quality overall.",Twitter,2026-07-22,127,36,Positive
+POST_00351,Misleading claims and poor accuracy on real-world tests. Would not recommend to anyone. Worst decision of the year.,Instagram,2026-07-01,342,37,Negative
+POST_00257,Waited on hold for over 45 minutes and the agent just hung up on me. Terrible support! 👎,Reddit,2026-07-06,189,14,Negative
+POST_00244,This is the worst software update ever. Constantly crashes and ruined my work! 😡 Expecting an immediate refund.,LinkedIn,2026-07-28,112,39,Negative
+POST_00310,Ordered two weeks ago with express shipping and still no tracking update. Absolute scam! 😤 Avoid at all costs.,Twitter,2026-07-02,500,173,Negative
+POST_00165,The server maintenance window is scheduled for Saturday between 2 AM and 4 AM UTC. Shared for internal review.,Instagram,2026-07-27,511,44,Neutral
+POST_00097,Brilliant user experience and well thought out architecture. Keep up the phenomenal work! 🏆,Reddit,2026-07-09,173,56,Positive
+POST_00293,I cannot believe how poor the documentation is. Half the code examples produce syntax errors. 🤦‍♂️ Customer service was useless.,Instagram,2026-07-31,251,87,Negative
+POST_00231,Testing the API endpoints for batch prediction and monitoring response latencies. Under standard protocols.,LinkedIn,2026-07-14,504,198,Neutral
+POST_00022,The customer support team resolved my issue in under five minutes. Phenomenal service! 👏 Truly remarkable work.,Twitter,2026-07-26,333,63,Positive
+POST_00284,"Another day, another unexpected outage during peak working hours. Completely unacceptable. Expecting an immediate refund.",LinkedIn,2026-07-04,249,53,Negative
+POST_00298,The update broke our production pipeline and wasted the entire morning. Horrible release! Absolutely furious about this.,LinkedIn,2026-07-08,138,44,Negative
+POST_00337,The application froze four times while I was trying to submit my final assignment. Horrible app! 😠,Twitter,2026-07-22,93,13,Negative
+POST_00197,The meeting has been rescheduled to tomorrow afternoon due to room availability. Shared for internal review.,Instagram,2026-07-15,463,71,Neutral
+POST_00340,The application froze four times while I was trying to submit my final assignment. Horrible app! 😠 Expecting an immediate refund.,Instagram,2026-07-04,300,86,Negative
+POST_00305,Ordered two weeks ago with express shipping and still no tracking update. Absolute scam! 😤,Twitter,2026-07-06,281,19,Negative
+POST_00315,"Not impressed at all with the new UI redesign. It is clunky, slow, frustrating, and hard to navigate. Total waste of time and money.",Instagram,2026-07-04,127,44,Negative
+POST_00047,The camera quality on this new phone is outstanding. Truly blown away by the clarity! 📸 Definitely a step forward.,Reddit,2026-07-08,75,12,Positive
+POST_00040,Could not be happier with our team quarterly performance. Record growth all around! 🌟 Solid quality overall.,LinkedIn,2026-07-08,69,9,Positive
+POST_00147,The conference schedule for tomorrow has been uploaded to the official portal. Check your emails. Published on official channel.,Twitter,2026-07-21,448,43,Neutral
+POST_00189,Exploring different tokenization techniques for informal social media microblogging data. Shared for internal review.,LinkedIn,2026-07-23,139,37,Neutral
+POST_00030,"Loving the new dark mode theme. It looks sleek, modern, and very easy on the eyes. Truly remarkable work.",Reddit,2026-07-26,442,114,Positive
+POST_00020,The customer support team resolved my issue in under five minutes. Phenomenal service! 👏 Worth checking out.,Instagram,2026-07-09,580,73,Positive
+POST_00232,Testing the API endpoints for batch prediction and monitoring response latencies. As announced.,Reddit,2026-07-15,574,57,Neutral
+POST_00237,A comparison of Bag of Words versus TF-IDF feature representations in text classification. Shared for internal review.,Instagram,2026-07-28,162,33,Neutral
+POST_00159,Attending the keynote lecture on Natural Language Processing at 10 AM. #AIConference Under standard protocols.,Twitter,2026-07-30,329,82,Neutral
+POST_00038,Could not be happier with our team quarterly performance. Record growth all around! 🌟 Truly remarkable work.,Twitter,2026-07-20,341,75,Positive
+POST_00260,Waited on hold for over 45 minutes and the agent just hung up on me. Terrible support! 👎 Expecting an immediate refund.,Instagram,2026-07-09,19,6,Negative
+POST_00181,Reviewing the documentation on hyperparameter tuning and cross-validation strategies. Shared for internal review.,Instagram,2026-07-24,573,94,Neutral
+POST_00029,"Loving the new dark mode theme. It looks sleek, modern, and very easy on the eyes. Five stars from me!",Twitter,2026-07-28,122,12,Positive
+POST_00303,The update broke our production pipeline and wasted the entire morning. Horrible release! Worst decision of the year.,Reddit,2026-07-04,36,3,Negative
+POST_00141,Python 3.12 was released with significant performance improvements and improved error traces. Shared for internal review.,Instagram,2026-07-18,569,187,Neutral
+POST_00156,Attending the keynote lecture on Natural Language Processing at 10 AM. #AIConference According to specifications.,Reddit,2026-07-15,272,86,Neutral
+POST_00324,Terrible experience at the airport check-in today. Flight delayed with zero explanation or apology. ✈️💔 Expecting an immediate refund.,Instagram,2026-07-28,62,24,Negative
+POST_00227,Testing the API endpoints for batch prediction and monitoring response latencies. Published on official channel.,Reddit,2026-07-23,172,27,Neutral
+POST_00241,This is the worst software update ever. Constantly crashes and ruined my work! 😡,Instagram,2026-07-02,335,104,Negative
+POST_00035,Could not be happier with our team quarterly performance. Record growth all around! 🌟 Kudos to the team.,LinkedIn,2026-07-17,192,43,Positive
+POST_00226,Testing the API endpoints for batch prediction and monitoring response latencies. Will follow up with notes.,LinkedIn,2026-07-15,506,46,Neutral
+POST_00078,Just deployed our sentiment analysis model to production! Smooth rollout and zero downtime. 🎉 Truly remarkable work.,LinkedIn,2026-07-20,551,29,Positive
+POST_00162,The server maintenance window is scheduled for Saturday between 2 AM and 4 AM UTC. Will follow up with notes.,Twitter,2026-07-26,589,190,Neutral
+POST_00322,Terrible experience at the airport check-in today. Flight delayed with zero explanation or apology. ✈️💔 Absolutely furious about this.,LinkedIn,2026-07-26,143,34,Negative
+POST_00166,The server maintenance window is scheduled for Saturday between 2 AM and 4 AM UTC. Further details will follow.,LinkedIn,2026-07-21,480,142,Neutral
+POST_00320,"Not impressed at all with the new UI redesign. It is clunky, slow, frustrating, and hard to navigate. Unbelievably bad.",Instagram,2026-07-03,103,35,Negative
+POST_00326,Terrible experience at the airport check-in today. Flight delayed with zero explanation or apology. ✈️💔 Avoid at all costs.,Reddit,2026-07-05,503,64,Negative
+POST_00330,Subscription fees doubled while features were removed without notice. Canceling immediately. 🛑 Absolutely furious about this.,LinkedIn,2026-07-23,326,121,Negative
+POST_00290,I cannot believe how poor the documentation is. Half the code examples produce syntax errors. 🤦‍♂️ Absolutely furious about this.,Instagram,2026-07-19,168,60,Negative
+POST_00349,Misleading claims and poor accuracy on real-world tests. Would not recommend to anyone. Customer service was useless.,Twitter,2026-07-28,330,83,Negative
+POST_00230,Testing the API endpoints for batch prediction and monitoring response latencies. Further details will follow.,Reddit,2026-07-16,308,70,Neutral
