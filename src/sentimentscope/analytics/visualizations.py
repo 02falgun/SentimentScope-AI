@@ -11,6 +11,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 from src.sentimentscope.config import CANONICAL_SENTIMENTS, SENTIMENT_COLOR_MAP
+from src.sentimentscope.data.preprocessing import EFFECTIVE_STOPWORDS
 
 # Dark Theme Tokens
 DARK_LAYOUT = dict(
