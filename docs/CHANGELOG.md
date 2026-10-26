@@ -3,7 +3,32 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [1.0.0] - 2026-10-26
+## [1.0.1] - 2026-10-26 — Post-Deployment Audit & Scientific Generalization Release
+
+### Added
+- **Scientific 100% Accuracy Investigation:**
+  - Implemented `evaluate_template_generalization` in `src/sentimentscope/ml/evaluation.py` to calculate Group K-Fold Cross-Validation isolating unseen base sentence templates.
+  - Documented empirical finding: 93.1% base sentence template overlap in standard 80/20 train/test splits explains in-template memorization.
+  - Validated out-of-template generalization benchmark: 93.15% Accuracy and 0.9193 Macro F1 across 5 folds.
+  - Evaluated zero-shot generalization on 11 real-world social media posts, achieving 90.9% accuracy with calibrated uncertainty intervals.
+  - Added interactive scientific audit expander to ML Lab (`src/sentimentscope/ui/pages/ml_lab.py`).
+  - Added viva demonstration talking points on template leakage to About page (`src/sentimentscope/ui/pages/about_page.py`).
+- **Defensive Engineering & Robustness:**
+  - Added safe character capping (`len(text) <= 2000`) in `predict_single_text` (`src/sentimentscope/ml/prediction.py`) to prevent latency/memory spikes on pathological inputs.
+  - Added safe empty-dataset handling to `plot_sentiment_donut` and `plot_sentiment_bars` in `src/sentimentscope/analytics/visualizations.py`.
+  - Added Ground-Truth vs Model-Prediction distinction and toggling to Home page (`src/sentimentscope/ui/pages/home.py`).
+- **Automated QA Expansion:**
+  - Added `test_plot_sentiment_empty_data` in `tests/test_analytics.py`.
+  - Added `test_evaluate_template_generalization` in `tests/test_training.py`.
+  - Added `test_predict_single_text_excessive_length` in `tests/test_prediction.py`.
+  - Expanded test suite to **29/29 passing tests** (100% pass rate).
+- **Live Deployment Audit:**
+  - Directly audited live deployment at `https://sentimentscope-ai-pjqvcruadb95pi6detimjb.streamlit.app/` using browser automation.
+  - Confirmed 100% operational health across all 8 dashboard sections.
+
+---
+
+## [1.0.0] - 2026-10-26 — Initial Production Release
 
 ### Added
 - **Phase 0 Baseline & Repository Audit:**

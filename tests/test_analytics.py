@@ -73,3 +73,14 @@ def test_compute_platform_breakdown(sample_df):
     assert not breakdown.empty
     assert "Platform" in breakdown.columns
     assert "Total" in breakdown.columns
+
+
+def test_plot_sentiment_empty_data():
+    from src.sentimentscope.analytics.visualizations import plot_sentiment_bars, plot_sentiment_donut
+    empty_dist = {"Negative": 0, "Neutral": 0, "Positive": 0}
+    fig_donut = plot_sentiment_donut(empty_dist)
+    fig_bar = plot_sentiment_bars(empty_dist)
+    assert fig_donut is not None
+    assert fig_bar is not None
+    assert "No Data" in fig_donut.layout.title.text
+    assert "No Data" in fig_bar.layout.title.text

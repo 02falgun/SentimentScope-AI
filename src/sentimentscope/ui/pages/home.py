@@ -22,8 +22,36 @@ def render_home_page():
     model_artifact = st.session_state.get("model_artifact")
     dataset_name = st.session_state.get("dataset_name", "Built-In Sample Dataset")
 
+    # Determine available sentiment sources
+    has_ground_truth = not df.empty and "Sentiment" in df.columns
+    has_predicted = not df.empty and "Predicted_Sentiment" in df.columns
+
+    if has_ground_truth and has_predicted:
+        source_choice = st.radio(
+            "Sentiment Data Source:",
+            options=["Ground-Truth Labels", "Model Predictions"],
+            horizontal=True,
+            help="Toggle between human-annotated ground-truth labels and model-generated inferences.",
+        )
+        sentiment_col = "Sentiment" if source_choice == "Ground-Truth Labels" else "Predicted_Sentiment"
+        source_label = source_choice
+    elif has_ground_truth:
+        sentiment_col = "Sentiment"
+        source_label = "Ground-Truth Labels"
+    elif has_predicted:
+        sentiment_col = "Predicted_Sentiment"
+        source_label = "Model Predictions"
+    else:
+        sentiment_col = "Sentiment"
+        source_label = "None Mapped"
+
     # Status Cards Row
-    st.markdown("### 📊 System Status & Active Dataset")
+    st.markdown(f"### 📊 System Status & Active Dataset")
+    if source_label != "None Mapped":
+        st.caption(f"Currently displaying distributions from: **{source_label}**")
+    else:
+        st.caption("No sentiment column mapped. Ingest or batch-predict labels in Dataset Explorer.")
+
     c1, c2, c3, c4 = st.columns(4)
 
     total_rows = len(df) if not df.empty else 0
@@ -35,7 +63,7 @@ def render_home_page():
             border_accent="#6366F1",
         )
 
-    dist = compute_sentiment_distribution(df, "Sentiment")
+    dist = compute_sentiment_distribution(df, sentiment_col=sentiment_col)
     counts = dist["counts"]
     pcts = dist["percentages"]
 
@@ -67,14 +95,16 @@ def render_home_page():
 
     # Visual Overview Row
     st.markdown("### 📈 Sentiment Snapshot")
+    if total_rows == 0:
+        st.info("No records available in the active dataset. Load the sample dataset or upload a CSV in Dataset Explorer.")
     col_left, col_right = st.columns([1, 1])
 
     with col_left:
-        fig_donut = plot_sentiment_donut(counts, title="Sentiment Proportions")
+        fig_donut = plot_sentiment_donut(counts, title=f"Sentiment Proportions ({source_label})")
         st.plotly_chart(fig_donut, use_container_width=True)
 
     with col_right:
-        fig_bar = plot_sentiment_bars(counts, title="Sentiment Volumes")
+        fig_bar = plot_sentiment_bars(counts, title=f"Sentiment Volumes ({source_label})")
         st.plotly_chart(fig_bar, use_container_width=True)
 
     # Active Model Information Card

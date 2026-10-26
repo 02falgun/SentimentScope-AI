@@ -67,3 +67,18 @@ def test_evaluate_model_predictions_metrics():
     assert "Positive" in metrics.per_class
     assert "Negative" in metrics.per_class
     assert "Neutral" in metrics.per_class
+
+
+def test_evaluate_template_generalization():
+    import pandas as pd
+    from src.sentimentscope.config import DEFAULT_SAMPLE_DATASET
+    from src.sentimentscope.data.loading import load_csv
+    from src.sentimentscope.ml.evaluation import evaluate_template_generalization
+
+    df, _ = load_csv(DEFAULT_SAMPLE_DATASET)
+    assert df is not None and not df.empty
+    res = evaluate_template_generalization(df, n_splits=3, seed=42)
+    assert "group_cv_mean_accuracy" in res
+    assert "group_cv_mean_macro_f1" in res
+    assert 0.85 <= res["group_cv_mean_accuracy"] <= 1.0
+    assert res["standard_split_template_overlap_pct"] > 80.0

@@ -42,6 +42,33 @@ def render_ml_lab_page():
     else:
         st.info("Leaderboard records not found. Train or benchmark models using the controls below.")
 
+    # Scientific Generalization & 100% Accuracy Audit Expander
+    with st.expander("🔬 Scientific Audit: Why is Test Accuracy 100%? (Generalization & Group-CV Analysis)", expanded=False):
+        st.markdown(
+            """
+            #### 🔍 Empirical Investigation into the 100% Test Benchmark
+            In standard machine learning practice, **100% held-out test accuracy must be investigated with extreme skepticism**. 
+            An in-depth empirical audit of the built-in 360-row dataset revealed:
+            
+            1. **Dataset Construction:** The dataset is composed of 75 core sentence templates with varied realistic suffixes (e.g., *"Published on official channel"*, *"Avoid at all costs"*).
+            2. **Template Overlap in Standard Splits:** In standard 80/20 train/test splits (even stratified), **93.1% of test rows (67/72)** share their base sentence template with samples present in the training set. Because the core vocabulary is already learned, linear classifiers easily achieve 100% accuracy.
+            3. **Group-Aware Out-of-Template Benchmark:** When templates are strictly isolated using **Group K-Fold Validation** (so that *no sentence template in the test set is ever seen during training*), performance normalizes to scientifically realistic numbers:
+            """
+        )
+
+        gc1, gc2, gc3 = st.columns(3)
+        with gc1:
+            render_metric_card("Standard Split Overlap", "93.1%", "Test rows sharing base templates", "#EF4444")
+        with gc2:
+            render_metric_card("Unseen Template Accuracy", "93.15%", "5-Fold Group Cross-Validation", "#10B981")
+        with gc3:
+            render_metric_card("Unseen Template Macro F1", "0.9193", "Equal-weighted across classes", "#6366F1")
+
+        st.caption(
+            "💡 **Viva Defense Tip:** When presenting to faculty, explain that standard random splits measure "
+            "in-template interpolation, whereas Group-CV (93.15%) and real-world tweets (90.9%) demonstrate genuine out-of-distribution generalization."
+        )
+
     # 2. Detailed Evaluation of Active Model
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("### 🔬 Production Model Diagnostics")

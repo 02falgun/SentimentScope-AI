@@ -48,6 +48,10 @@ def predict_single_text(
             error="Input text is empty or contains only whitespace.",
         )
 
+    # Safe capping for extreme text lengths
+    if len(text) > 2000:
+        text = text[:2000]
+
     pipeline: Pipeline = artifact["pipeline"]
     model_name = artifact.get("model_name", "Sentiment Classifier")
     classes = list(artifact.get("classes", ["Negative", "Neutral", "Positive"]))

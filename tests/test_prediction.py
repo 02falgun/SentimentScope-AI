@@ -58,3 +58,11 @@ def test_predict_batch_texts(model_artifact):
     assert df_pred["Predicted_Sentiment"].iloc[0] == "Positive"
     assert df_pred["Predicted_Sentiment"].iloc[1] == "Negative"
     assert df_pred["Predicted_Sentiment"].iloc[2] == "Neutral"
+
+
+def test_predict_single_text_excessive_length(model_artifact):
+    long_text = "This is a great app! " * 200  # 4200 characters
+    res = predict_single_text(long_text, model_artifact)
+    assert res.error is None
+    assert res.predicted_sentiment == "Positive"
+    assert res.confidence_score > 0.0

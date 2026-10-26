@@ -1,11 +1,14 @@
 # SentimentScope AI — Professional Machine Learning Lab Project
 
 [![Python 3.11 | 3.12](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue.svg)](https://www.python.org/)
-[![Streamlit Cloud Ready](https://img.shields.io/badge/deployment-Streamlit%20Community%20Cloud-FF4B4B.svg)](https://streamlit.io/cloud)
-[![Tests Passing](https://img.shields.io/badge/tests-26%2F26%20passing-success.svg)](file:///Users/kavyakumarthakur/Sharda%20Stuffs/ML-Proj/docs/TESTING.md)
+[![Streamlit Cloud Ready](https://img.shields.io/badge/deployment-Streamlit%20Community%20Cloud-FF4B4B.svg)](https://sentimentscope-ai-pjqvcruadb95pi6detimjb.streamlit.app/)
+[![Tests Passing](https://img.shields.io/badge/tests-29%2F29%20passing-success.svg)](docs/TESTING.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **SentimentScope AI** is an AI-powered social media sentiment analysis and trend monitoring system built as a university Machine Learning laboratory project. It demonstrates genuine machine learning concepts, leakage-safe pipelines, reproducible benchmarking across multiple algorithms, token-level explainability, and an executive-ready Streamlit dashboard.
+
+🌐 **Live Streamlit Community Cloud URL:**  
+[https://sentimentscope-ai-pjqvcruadb95pi6detimjb.streamlit.app/](https://sentimentscope-ai-pjqvcruadb95pi6detimjb.streamlit.app/)
 
 ---
 
@@ -41,7 +44,7 @@ pip install -r requirements.txt
 ### 2. Run Automated Test Suite
 ```bash
 PYTHONPATH=. pytest tests/ -v
-# Output: 26 passed in ~2.6s (100% pass rate)
+# Output: 29 passed in ~3.5s (100% pass rate)
 ```
 
 ### 3. Train Production Model
@@ -69,6 +72,8 @@ Open `http://localhost:8501` in your browser.
 | 6 | Linear SVM (Calibrated) | Bag of Words | 100.00% | 1.0000 | 1.0000 | 0.05 ms |
 | 7 | Random Forest | Bag of Words | 100.00% | 1.0000 | 1.0000 | 0.21 ms |
 | 8 | Random Forest | TF-IDF | 98.61% | 0.9861 | 0.9861 | 0.24 ms |
+
+> 🔬 **Generalization & Group-CV Benchmark:** The 100% held-out test score on the sample dataset reflects template interpolation (93.1% base sentence template overlap across standard 80/20 splits). When evaluated under strict **Group K-Fold Cross-Validation isolating unseen sentence templates**, the model achieves **93.15% Accuracy and 0.9193 Macro F1**, and **90.9%** zero-shot accuracy on unseen real-world tweets. See [docs/MODEL_CARD.md](docs/MODEL_CARD.md) for full empirical analysis.
 
 ---
 

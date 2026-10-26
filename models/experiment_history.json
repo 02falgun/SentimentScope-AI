@@ -9,7 +9,7 @@
     "Macro Precision": 1.0,
     "Macro Recall": 1.0,
     "ROC-AUC": 1.0,
-    "Train Time (s)": 1.234,
+    "Train Time (s)": 1.2586,
     "Latency (ms/sample)": 0.04
   },
   {
@@ -35,7 +35,7 @@
     "Macro Precision": 1.0,
     "Macro Recall": 1.0,
     "ROC-AUC": 1.0,
-    "Train Time (s)": 0.0232,
+    "Train Time (s)": 0.0222,
     "Latency (ms/sample)": 0.05
   },
   {
@@ -48,7 +48,7 @@
     "Macro Precision": 1.0,
     "Macro Recall": 1.0,
     "ROC-AUC": 1.0,
-    "Train Time (s)": 0.015,
+    "Train Time (s)": 0.0156,
     "Latency (ms/sample)": 0.04
   },
   {
@@ -74,7 +74,7 @@
     "Macro Precision": 1.0,
     "Macro Recall": 1.0,
     "ROC-AUC": 1.0,
-    "Train Time (s)": 0.0209,
+    "Train Time (s)": 0.0208,
     "Latency (ms/sample)": 0.05
   },
   {
@@ -87,8 +87,8 @@
     "Macro Precision": 1.0,
     "Macro Recall": 1.0,
     "ROC-AUC": 1.0,
-    "Train Time (s)": 0.0708,
-    "Latency (ms/sample)": 0.21
+    "Train Time (s)": 0.0752,
+    "Latency (ms/sample)": 0.23
   },
   {
     "Experiment ID": "random_forest_tfidf",
@@ -100,7 +100,7 @@
     "Macro Precision": 0.9867,
     "Macro Recall": 0.9861,
     "ROC-AUC": 1.0,
-    "Train Time (s)": 0.0801,
+    "Train Time (s)": 0.0815,
     "Latency (ms/sample)": 0.24
   }
 ]

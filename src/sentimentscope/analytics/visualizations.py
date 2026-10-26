@@ -28,6 +28,15 @@ def plot_sentiment_donut(distribution: Dict[str, int], title: str = "Sentiment S
     values = [distribution.get(cls, 0) for cls in labels]
     colors = [SENTIMENT_COLOR_MAP.get(cls, "#6366F1") for cls in labels]
 
+    if not labels or sum(values) == 0:
+        fig = go.Figure()
+        fig.update_layout(
+            **DARK_LAYOUT,
+            title=dict(text=f"{title} (No Data)", x=0.5, font=dict(size=15, color="#94A3B8")),
+            annotations=[dict(text="No sentiment records available", x=0.5, y=0.5, font_size=13, showarrow=False, font=dict(color="#64748B"))],
+        )
+        return fig
+
     fig = go.Figure(
         data=[
             go.Pie(
@@ -55,6 +64,15 @@ def plot_sentiment_bars(distribution: Dict[str, int], title: str = "Sentiment Vo
     classes = CANONICAL_SENTIMENTS
     counts = [distribution.get(cls, 0) for cls in classes]
     colors = [SENTIMENT_COLOR_MAP[cls] for cls in classes]
+
+    if sum(counts) == 0:
+        fig = go.Figure()
+        fig.update_layout(
+            **DARK_LAYOUT,
+            title=dict(text=f"{title} (No Data)", x=0.5, font=dict(size=15, color="#94A3B8")),
+            annotations=[dict(text="No sentiment records available", x=0.5, y=0.5, font_size=13, showarrow=False, font=dict(color="#64748B"))],
+        )
+        return fig
 
     fig = go.Figure(
         data=[

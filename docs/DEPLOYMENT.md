@@ -1,6 +1,9 @@
 # SentimentScope AI — Streamlit Community Cloud Deployment Guide
 
-This guide provides step-by-step instructions for deploying SentimentScope AI to **Streamlit Community Cloud** (100% free tier) and running locally.
+This guide provides step-by-step instructions for deploying SentimentScope AI to **Streamlit Community Cloud** (100% free tier), maintaining the live deployment, and running locally.
+
+🌐 **Live Streamlit Community Cloud Deployment:**  
+[https://sentimentscope-ai-pjqvcruadb95pi6detimjb.streamlit.app/](https://sentimentscope-ai-pjqvcruadb95pi6detimjb.streamlit.app/)
 
 ---
 
@@ -27,48 +30,61 @@ The dashboard will open automatically in your browser at `http://localhost:8501`
 
 ---
 
-## 2. Streamlit Community Cloud (Free Tier) Deployment
+## 2. Streamlit Community Cloud Deployment Configuration
 
-### Step A: Push Code to a GitHub Repository
-1. Initialize git (if not already done) and commit the project files:
-   ```bash
-   git add .
-   git commit -m "Complete SentimentScope AI deployment bundle"
-   ```
-2. Create a new GitHub repository (Public or Private) named `SentimentScope-AI`.
-3. Push your commits to GitHub:
-   ```bash
-   git remote add origin https://github.com/02falgun/SentimentScope-AI.git
-   git branch -M main
-   git push -u origin main
-   ```
+### Repository Details
+- **GitHub Repository:** `02falgun/SentimentScope-AI`
+- **Target Branch:** `main`
+- **Entrypoint:** `app.py`
+- **Python Version:** 3.12
+- **Deployment URL:** [https://sentimentscope-ai-pjqvcruadb95pi6detimjb.streamlit.app/](https://sentimentscope-ai-pjqvcruadb95pi6detimjb.streamlit.app/)
 
-### Step B: Deploy on Streamlit Cloud
-1. Go to [share.streamlit.io](https://share.streamlit.io/) and sign in with your GitHub account.
-2. Click **"New app"**.
-3. Select your repository: `02falgun/SentimentScope-AI`.
-4. Set **Branch**: `main`.
-5. Set **Main file path**: `app.py`.
-6. Click **"Deploy!"**.
-
-Streamlit Cloud will automatically detect `requirements.txt`, install all scientific packages, and launch the application.
+### How Streamlit Cloud Builds the Application
+1. Detects `requirements.txt` at the repository root and installs all scientific and UI wheels.
+2. Checks `.streamlit/config.toml` for custom theme colors (slate/indigo/emerald) and server configuration.
+3. Launches `app.py` headlessly via Streamlit runner.
+4. Executes `@st.cache_resource` for the serialized model artifact (`models/sentiment_model.joblib`) and `@st.cache_data` for the sample dataset (`data/sample/social_media_sentiment_sample.csv`).
 
 ---
 
 ## 3. Cold-Start and Resource Budget Considerations
 
 - **Memory Footprint:** The application and models consume approximately **160 MB** of RAM, well below Streamlit Cloud's 1 GB free-tier limit.
-- **Cold-Start Behavior:** If `models/sentiment_model.joblib` is present in the repository, the app starts in **< 3 seconds**. If the model is absent, `app.py` automatically trains the winning pipeline on the sample dataset on first launch without crashing.
-- **No External Secrets Required:** SentimentScope AI runs self-contained without needing API keys or database connection strings.
+- **Cold-Start Behavior:** Because `models/sentiment_model.joblib` is committed directly to GitHub, the application cold-starts in **< 3 seconds**. Even if the artifact were accidentally deleted, `app.py` automatically trains the winning pipeline on the sample dataset on first launch without crashing.
+- **No External Secrets Required:** SentimentScope AI runs self-contained without requiring API keys, cloud tokens, or database connection strings.
 
 ---
 
-## 4. Manual Post-Deployment Smoke Test Checklist
+## 4. How to Update the Live Deployment Manually
 
-Once deployed on Streamlit Cloud, verify the following:
-- [ ] **Home View:** System status cards display 360 records and model accuracy.
-- [ ] **Live Prediction:** Click a sample button (e.g. "Thrilled with update! 🚀") and click "Analyze Sentiment". Verify sentiment badge, confidence, and token attribution appear in under 2 seconds.
-- [ ] **Dataset Explorer:** Upload a CSV and verify column auto-mapping and quality profiling.
-- [ ] **ML Lab:** Verify the 8-entry model leaderboard and confusion matrix heatmap render cleanly.
-- [ ] **Visual Analytics:** Check that all Plotly charts (donut, bars, daily trends, wordcloud) render inline.
-- [ ] **Reports:** Click "Download Executive Report (PDF)" and open the resulting PDF file to verify proper formatting.
+When you are ready to update the live Streamlit Cloud app with local changes:
+```bash
+# 1. Check your status and staged changes
+git status
+
+# 2. Commit your changes
+git commit -m "feat: audit enhancements and group-CV generalization documentation"
+
+# 3. Push to GitHub main branch
+git push origin main
+```
+
+Streamlit Community Cloud is connected via webhook to `main`. It will automatically pull the newest commit and rebuild within 60–90 seconds.  
+If the app does not automatically rebuild:
+1. Open [https://share.streamlit.io/](https://share.streamlit.io/).
+2. Click the three dots `...` next to `SentimentScope-AI`.
+3. Click **"Reboot app"**.
+
+---
+
+## 5. Verified Post-Deployment Smoke Test Checklist
+
+The following items were independently verified on the live Streamlit Community Cloud deployment:
+- [x] **Home View:** Status cards display 360 records and model accuracy.
+- [x] **Live Prediction:** Sample buttons populate text area; classification returns predicted sentiment, confidence %, latency (<1ms), and token attributions in <2 seconds.
+- [x] **Dataset Explorer:** Custom CSV loading, column auto-mapping, row attrition metrics, and batch inference operational.
+- [x] **ML Lab:** 8-entry model leaderboard, confusion matrix heatmap, ROC curves, and scientific generalization expander render cleanly.
+- [x] **Visual Analytics:** All Plotly charts (donut, bars, daily trends, wordcloud, engagement, post lengths) render inline.
+- [x] **Keyword Search:** Polarity index calculation and query matching table function properly.
+- [x] **Reports:** "Download Executive Report (PDF)" compiles valid PDF binary buffer.
+- [x] **About & Architecture:** System diagram and viva demonstration guide render correctly.
