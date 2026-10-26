@@ -1,45 +1,44 @@
 """
 SentimentScope AI — PDF Report Generation Service
-Generates structured executive analytical summaries using fpdf2.
+Generates structured executive analytical summaries using fpdf2 adhering to the
+monochrome SaaS design system (pure black-and-white rules and typography).
 """
 
 from datetime import datetime, timezone
 import io
 from typing import Any, Dict, List, Optional
 from fpdf import FPDF
+from fpdf.enums import XPos, YPos
 import pandas as pd
 
 from src.sentimentscope.config import CANONICAL_SENTIMENTS
 
 
-from fpdf.enums import XPos, YPos
-
-
 class SentimentReportPDF(FPDF):
-    """Custom FPDF2 subclass with automated headers, footers, and section styles."""
+    """Custom FPDF2 subclass with monochrome executive headers, footers, and section styles."""
 
     def header(self):
-        self.set_font("Helvetica", "B", 14)
-        self.set_text_color(30, 41, 59)
-        self.cell(0, 10, "SentimentScope AI - Executive Analytics & Model Report", border=False, new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="L")
-        self.set_draw_color(99, 102, 241)
-        self.set_line_width(0.6)
+        self.set_font("Helvetica", "B", 13)
+        self.set_text_color(17, 17, 17)
+        self.cell(0, 8, "SentimentScope AI - Executive Analytics & Model Audit Report", border=False, new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="L")
+        self.set_draw_color(17, 17, 17)
+        self.set_line_width(0.5)
         self.line(self.get_x(), self.get_y(), self.get_x() + 190, self.get_y())
         self.ln(5)
 
     def footer(self):
         self.set_y(-15)
-        self.set_font("Helvetica", "I", 8)
-        self.set_text_color(100, 116, 139)
-        self.cell(0, 10, f"Page {self.page_no()}/{{nb}} | SentimentScope AI Laboratory Project | Generated for Demonstration", border=False, align="C")
+        self.set_font("Helvetica", "", 8)
+        self.set_text_color(138, 138, 138)
+        self.cell(0, 10, f"Page {self.page_no()}/{{nb}} | SentimentScope AI Laboratory Project | Production Release v2.0", border=False, align="C")
 
     def section_title(self, title: str):
-        self.ln(3)
-        self.set_font("Helvetica", "B", 12)
-        self.set_text_color(99, 102, 241)
-        self.cell(0, 8, title, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-        self.set_font("Helvetica", "", 10)
-        self.set_text_color(51, 65, 85)
+        self.ln(4)
+        self.set_font("Helvetica", "B", 11)
+        self.set_text_color(17, 17, 17)
+        self.cell(0, 7, title, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        self.set_font("Helvetica", "", 9.5)
+        self.set_text_color(51, 51, 51)
         self.ln(1)
 
 
@@ -60,7 +59,7 @@ def generate_pdf_report(
     top_hashtags: Optional[List[tuple]] = None,
 ) -> bytes:
     """
-    Builds and renders a downloadable binary PDF report.
+    Builds and renders a downloadable binary PDF report in monochrome executive format.
     """
     pdf = SentimentReportPDF()
     pdf.alias_nb_pages()
@@ -80,19 +79,22 @@ def generate_pdf_report(
     pdf.multi_cell(0, 5, safe_text(meta_text))
     pdf.ln(3)
 
-    # 2. Sentiment Distribution
+    # 2. Sentiment Distribution Table
     pdf.section_title("2. Aggregate Sentiment Distribution")
     counts = sentiment_dist.get("counts", {})
     percentages = sentiment_dist.get("percentages", {})
 
-    pdf.set_fill_color(241, 245, 249)
+    pdf.set_draw_color(229, 229, 229)
+    pdf.set_fill_color(245, 245, 245)
     pdf.set_font("Helvetica", "B", 9)
+    pdf.set_text_color(17, 17, 17)
     pdf.cell(50, 7, "Sentiment Category", border=1, fill=True)
     pdf.cell(40, 7, "Post Count", border=1, fill=True, align="R")
     pdf.cell(40, 7, "Percentage Share", border=1, fill=True, align="R")
     pdf.ln()
 
     pdf.set_font("Helvetica", "", 9)
+    pdf.set_text_color(51, 51, 51)
     for cls in CANONICAL_SENTIMENTS:
         cnt = counts.get(cls, 0)
         pct = percentages.get(cls, 0.0)
@@ -114,8 +116,8 @@ def generate_pdf_report(
 
         ml_text = (
             f"Active Model: {safe_text(model_name)}\n"
-            f"Held-Out Test Accuracy: {acc:.2f}% (Target: >= 80.00%)\n"
-            f"Macro F1-Score: {mf1:.4f} (Target: >= 0.7800)\n"
+            f"Held-Out Test Accuracy: {acc:.2f}% (PRD Baseline: >= 80.00%)\n"
+            f"Macro F1-Score: {mf1:.4f} (PRD Baseline: >= 0.7800)\n"
             f"Weighted F1-Score: {wf1:.4f}\n"
             "Evaluation Protocol: Stratified 80/20 held-out split with fixed random seed."
         )
@@ -125,11 +127,13 @@ def generate_pdf_report(
 
     pdf.ln(3)
 
-    # 4. Platform Breakdown
+    # 4. Cross-Platform Breakdown Table
     if platform_breakdown is not None and not platform_breakdown.empty:
         pdf.section_title("4. Cross-Platform Sentiment Breakdown")
-        pdf.set_fill_color(241, 245, 249)
+        pdf.set_fill_color(245, 245, 245)
+        pdf.set_draw_color(229, 229, 229)
         pdf.set_font("Helvetica", "B", 9)
+        pdf.set_text_color(17, 17, 17)
         pdf.cell(45, 7, "Platform", border=1, fill=True)
         pdf.cell(30, 7, "Positive", border=1, fill=True, align="R")
         pdf.cell(30, 7, "Neutral", border=1, fill=True, align="R")
@@ -138,6 +142,7 @@ def generate_pdf_report(
         pdf.ln()
 
         pdf.set_font("Helvetica", "", 9)
+        pdf.set_text_color(51, 51, 51)
         for _, row in platform_breakdown.iterrows():
             plat_label = safe_text(str(row.get("Platform", "Other")))
             pdf.cell(45, 6, plat_label, border=1)
@@ -149,14 +154,14 @@ def generate_pdf_report(
 
         pdf.ln(3)
 
-    # 5. Top Hashtags
+    # 5. Trending Hashtags
     if top_hashtags:
         pdf.section_title("5. Trending Hashtags")
         tag_str = ", ".join([f"{safe_text(tag)} ({cnt})" for tag, cnt in top_hashtags[:8]])
         pdf.multi_cell(0, 5, safe_text(f"Most frequent hashtags identified in post text:\n{tag_str}"))
         pdf.ln(3)
 
-    # 6. Ethical Considerations & Limitations
+    # 6. Methodology & Limitations Notice
     pdf.section_title("6. Methodology & Limitations Notice")
     disclaimer = (
         "SentimentScope AI utilizes classical natural language processing models (TF-IDF with scikit-learn). "

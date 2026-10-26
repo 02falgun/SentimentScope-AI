@@ -1,5 +1,7 @@
 """
-SentimentScope AI — ML Lab & Model Comparison Page
+SentimentScope AI — ML Lab & Model Benchmark Workspace
+Academic evaluation suite displaying cross-algorithm benchmarks, leakage-safe pipelines,
+Group-CV generalization audits, confusion matrices, and error inspections.
 """
 
 import streamlit as st
@@ -10,29 +12,33 @@ from src.sentimentscope.config import DEFAULT_MODEL_PATH, RANDOM_SEED
 from src.sentimentscope.ml.model_registry import load_experiment_history, save_model_artifact
 from src.sentimentscope.ml.prediction import predict_batch_texts
 from src.sentimentscope.ml.training import run_full_experiment_suite
-from src.sentimentscope.ui.components import render_hero, render_metric_card
+from src.sentimentscope.ui.components import (
+    render_header,
+    render_metric_card,
+)
 
 
 def render_ml_lab_page():
-    render_hero(
-        title="ML Lab — Model Benchmark & Evaluation",
-        subtitle="Rigorous Comparison Across Classical ML Algorithms, Metrics, and Error Analyses",
+    render_header(
+        title="ML Lab & Evaluation Benchmark",
+        subtitle="Empirical Model Comparison Across Classical Classifiers, Feature Spaces & Generalization Bounds",
         badge_text="Leakage-Safe Pipelines",
+        category_label="RESEARCH & BENCHMARKING",
     )
 
     model_artifact = st.session_state.get("model_artifact")
     active_df: pd.DataFrame = st.session_state.get("active_df", pd.DataFrame())
 
-    # 1. Model Leaderboard
-    st.markdown("### 🏆 Model Comparison Leaderboard")
+    # 1. Model Comparison Leaderboard
+    st.markdown("### Cross-Algorithm Benchmark Leaderboard")
     st.caption(
-        "Evaluated on a strictly held-out test split (20%) using Stratified K-Fold validation and fixed random seed (42)."
+        "Standard benchmark protocol: Stratified 80/20 train/test split with fixed random seed (42). "
+        "Transformers and vectorizers are fitted strictly inside `sklearn.pipeline.Pipeline` on training folds."
     )
 
     history = load_experiment_history()
     if history:
         lb_df = pd.DataFrame(history)
-        # Reorder columns nicely
         display_cols = [
             "Model", "Representation", "Accuracy", "Macro F1", "Weighted F1",
             "Macro Precision", "Macro Recall", "ROC-AUC", "Train Time (s)", "Latency (ms/sample)"
@@ -40,38 +46,45 @@ def render_ml_lab_page():
         cols_present = [c for c in display_cols if c in lb_df.columns]
         st.dataframe(lb_df[cols_present], use_container_width=True)
     else:
-        st.info("Leaderboard records not found. Train or benchmark models using the controls below.")
+        st.info("Leaderboard records not found. Benchmark models using the controls below.")
 
-    # Scientific Generalization & 100% Accuracy Audit Expander
-    with st.expander("🔬 Scientific Audit: Why is Test Accuracy 100%? (Generalization & Group-CV Analysis)", expanded=False):
+    # 2. Generalization & Template-Isolation Scientific Audit
+    st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
+    with st.expander("Scientific Audit: Generalization Bounds & Group-CV Analysis (Viva Defense)", expanded=False):
         st.markdown(
             """
-            #### 🔍 Empirical Investigation into the 100% Test Benchmark
-            In standard machine learning practice, **100% held-out test accuracy must be investigated with extreme skepticism**. 
-            An in-depth empirical audit of the built-in 360-row dataset revealed:
-            
-            1. **Dataset Construction:** The dataset is composed of 75 core sentence templates with varied realistic suffixes (e.g., *"Published on official channel"*, *"Avoid at all costs"*).
-            2. **Template Overlap in Standard Splits:** In standard 80/20 train/test splits (even stratified), **93.1% of test rows (67/72)** share their base sentence template with samples present in the training set. Because the core vocabulary is already learned, linear classifiers easily achieve 100% accuracy.
-            3. **Group-Aware Out-of-Template Benchmark:** When templates are strictly isolated using **Group K-Fold Validation** (so that *no sentence template in the test set is ever seen during training*), performance normalizes to scientifically realistic numbers:
-            """
+            <div class="academic-callout">
+                <h4>Empirical Examination of the 100% Held-Out Test Metric</h4>
+                <p style="color: #444444; font-size: 13px; line-height: 1.6; margin-bottom: 12px;">
+                    In rigorous machine learning research, <strong>100% test accuracy demands empirical skepticism</strong>.
+                    An architectural audit of the 360-row demonstration corpus revealed the structural mechanism behind this result:
+                </p>
+                <ol style="color: #444444; font-size: 13px; line-height: 1.6; margin-bottom: 16px;">
+                    <li><strong>Corpus Generation:</strong> The dataset is built from 75 base sentence patterns multiplied by diverse realistic suffix clauses.</li>
+                    <li><strong>In-Template Interpolation:</strong> In standard random 80/20 splits, <strong>93.1% of test rows (67/72)</strong> share their base sentence template with training samples, allowing linear models to memorize core n-grams.</li>
+                    <li><strong>Out-of-Template Group Cross-Validation:</strong> When base templates are strictly isolated into distinct folds using <strong>Group K-Fold Cross-Validation</strong> (zero sentence templates shared across train and test), performance normalizes to genuine generalization bounds:</li>
+                </ol>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
 
         gc1, gc2, gc3 = st.columns(3)
         with gc1:
-            render_metric_card("Standard Split Overlap", "93.1%", "Test rows sharing base templates", "#EF4444")
+            render_metric_card("Random Split Overlap", "93.1%", "Test rows sharing base templates", "#B91C1C")
         with gc2:
-            render_metric_card("Unseen Template Accuracy", "93.15%", "5-Fold Group Cross-Validation", "#10B981")
+            render_metric_card("Group-CV Accuracy", "93.15%", "5-Fold Group Cross-Validation", "#15803D")
         with gc3:
-            render_metric_card("Unseen Template Macro F1", "0.9193", "Equal-weighted across classes", "#6366F1")
+            render_metric_card("Group-CV Macro F1", "0.9193", "Equal-weighted across classes", "#111111")
 
         st.caption(
-            "💡 **Viva Defense Tip:** When presenting to faculty, explain that standard random splits measure "
-            "in-template interpolation, whereas Group-CV (93.15%) and real-world tweets (90.9%) demonstrate genuine out-of-distribution generalization."
+            "💡 **Viva Defense Guidance:** When presenting to faculty, explain that random splits measure "
+            "in-template interpolation, whereas 5-Fold Group-CV (93.15%) and out-of-distribution real tweets (90.9%) demonstrate genuine vocabulary generalization."
         )
 
-    # 2. Detailed Evaluation of Active Model
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("### 🔬 Production Model Diagnostics")
+    # 3. Detailed Production Model Diagnostics
+    st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
+    st.markdown("### Production Model Diagnostics")
 
     if model_artifact:
         metrics = model_artifact.get("metrics", {})
@@ -80,15 +93,15 @@ def render_ml_lab_page():
 
         m1, m2, m3, m4 = st.columns(4)
         with m1:
-            render_metric_card("Accuracy", f"{metrics.get('accuracy', 0.0)*100:.2f}%", "PRD Target: >= 80%", "#10B981")
+            render_metric_card("Held-Out Accuracy", f"{metrics.get('accuracy', 0.0)*100:.2f}%", "PRD Baseline: >= 80.0%", "#15803D")
         with m2:
-            render_metric_card("Macro F1", f"{metrics.get('macro_f1', 0.0):.4f}", "PRD Target: >= 0.78", "#6366F1")
+            render_metric_card("Macro F1-Score", f"{metrics.get('macro_f1', 0.0):.4f}", "PRD Baseline: >= 0.780", "#111111")
         with m3:
-            render_metric_card("Weighted F1", f"{metrics.get('weighted_f1', 0.0):.4f}", "Class-size weighted", "#38BDF8")
+            render_metric_card("Weighted F1-Score", f"{metrics.get('weighted_f1', 0.0):.4f}", "Sample-size weighted", "#111111")
         with m4:
-            render_metric_card("Inference Latency", f"{metrics.get('inference_latency_ms', 0.0):.2f} ms", "Per-sample latency", "#F59E0B")
+            render_metric_card("Inference Latency", f"{metrics.get('inference_latency_ms', 0.0):.2f} ms", "Single-sample throughput", "#111111")
 
-        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
         col_cm, col_roc = st.columns([1, 1])
 
         with col_cm:
@@ -97,34 +110,33 @@ def render_ml_lab_page():
                 fig_cm = plot_confusion_matrix(cm, classes)
                 st.plotly_chart(fig_cm, use_container_width=True)
             else:
-                st.write("Confusion matrix data unavailable.")
+                st.info("Confusion matrix data unavailable for active artifact.")
 
         with col_roc:
             roc_curves = metrics.get("roc_curves")
             fig_roc = plot_roc_curves(roc_curves)
             st.plotly_chart(fig_roc, use_container_width=True)
 
-        # Per-Class Classification Report
+        # Per-Class Classification Report Table
         per_class = metrics.get("per_class", {})
         if per_class:
-            st.markdown("#### Per-Class Performance Breakdown:")
+            st.markdown("#### Per-Class Precision, Recall & F1 Breakdown:")
             per_class_df = pd.DataFrame(per_class).T.reset_index().rename(columns={"index": "Class"})
             st.dataframe(per_class_df, use_container_width=True)
     else:
         st.warning("No production model metrics loaded.")
 
-    # 3. Misclassified Sample Inspector (Phase 5 Feature)
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("### 🕵️ Misclassified Sample Inspector")
+    # 4. Misclassified Sample Inspector
+    st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
+    st.markdown("### Misclassified Sample Inspector")
     st.caption(
-        "Inspect samples where model predictions differ from ground-truth labels to diagnose ambiguous phrasing, negation nuance, or labeling noise."
+        "Diagnose samples where model predictions diverge from ground-truth labels to uncover linguistic ambiguity, subtle negation, or label noise."
     )
 
     if model_artifact and not active_df.empty and "Sentiment" in active_df.columns:
-        # Check if predictions are computed
         if "Predicted_Sentiment" not in active_df.columns:
-            if st.button("Generate Predictions on Active Dataset to Inspect Errors"):
-                with st.spinner("Generating predictions..."):
+            if st.button("Generate Predictions on Active Dataset to Inspect Errors", type="secondary"):
+                with st.spinner("Generating batch predictions across active corpus..."):
                     preds_df = predict_batch_texts(active_df["Text"].tolist(), model_artifact)
                     active_df["Predicted_Sentiment"] = preds_df["Predicted_Sentiment"].values
                     active_df["Model_Confidence"] = preds_df["Confidence"].values
@@ -137,22 +149,28 @@ def render_ml_lab_page():
             err_count = len(misclassified)
             err_rate = (err_count / total_eval) * 100 if total_eval > 0 else 0.0
 
-            st.write(f"**Misclassified Records:** `{err_count}` / `{total_eval}` ({err_rate:.2f}% error rate)")
+            st.markdown(
+                f"""
+                <div style="font-size: 13px; color: #111111; margin-bottom: 8px;">
+                    Identified <strong>{err_count}</strong> divergent records out of <strong>{total_eval}</strong> total posts
+                    ({err_rate:.2f}% error rate on active slice).
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
             if err_count > 0:
-                st.dataframe(
-                    misclassified[["Post ID", "Text", "Sentiment", "Predicted_Sentiment", "Model_Confidence"]],
-                    use_container_width=True,
-                )
+                cols_to_show = [c for c in ["Post ID", "Text", "Sentiment", "Predicted_Sentiment", "Model_Confidence"] if c in misclassified.columns]
+                st.dataframe(misclassified[cols_to_show], use_container_width=True)
             else:
-                st.success("🎉 Zero misclassifications detected on this dataset!")
+                st.success("Zero misclassifications detected on this active corpus!")
     else:
-        st.info("Load a dataset with ground-truth sentiment labels to enable the error inspector.")
+        st.info("Ingest a dataset containing ground-truth sentiment labels to enable error diagnosis.")
 
-    # 4. Retraining / Benchmark Controls
-    st.markdown("<br><hr>", unsafe_allow_html=True)
-    st.markdown("### ⚙️ Retrain & Benchmark Models on Active Dataset")
-    st.caption("Execute a complete benchmark across all 4 classical machine learning architectures.")
+    # 5. Retrain & Re-Benchmark Suite
+    st.markdown("<div style='border-top: 1px solid #E5E5E5; margin: 28px 0 20px 0;'></div>", unsafe_allow_html=True)
+    st.markdown("### Retrain & Benchmark Models on Active Corpus")
+    st.caption("Executes all 4 classical algorithms (Logistic Regression, Naive Bayes, Linear SVM, Random Forest) with fixed random seed.")
 
     c_rep, c_btn = st.columns([2, 1])
     with c_rep:
@@ -164,8 +182,8 @@ def render_ml_lab_page():
         )
 
     with c_btn:
-        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
-        train_clicked = st.button("🚀 Run ML Benchmark", type="primary", use_container_width=True)
+        st.markdown("<div style='height: 26px;'></div>", unsafe_allow_html=True)
+        train_clicked = st.button("Run ML Benchmark", type="primary", use_container_width=True)
 
     if train_clicked:
         if active_df.empty or "Sentiment" not in active_df.columns:
@@ -179,7 +197,7 @@ def render_ml_lab_page():
         }
         feats = feature_map[selected_rep]
 
-        with st.spinner("Training and evaluating all models..."):
+        with st.spinner("Training pipelines across algorithms and computing cross-validated metrics..."):
             suite = run_full_experiment_suite(
                 active_df,
                 text_col="Text",
@@ -188,13 +206,12 @@ def render_ml_lab_page():
                 seed=RANDOM_SEED,
             )
 
-            # Persist best model
             best_id = suite["best_model_id"]
             best_exp = suite["experiments"][best_id]
             best_pipe = best_exp["pipeline"]
             best_met = best_exp["metrics"]
 
-            artifact_path = save_model_artifact(
+            save_model_artifact(
                 pipeline=best_pipe,
                 model_name=best_exp["display_name"],
                 feature_type=best_exp["feature_type"],
@@ -216,7 +233,6 @@ def render_ml_lab_page():
                 random_seed=RANDOM_SEED,
             )
 
-            # Update session state
             st.session_state.model_artifact = {
                 "pipeline": best_pipe,
                 "model_name": best_exp["display_name"],
@@ -234,6 +250,6 @@ def render_ml_lab_page():
             }
 
             st.success(
-                f"Benchmark complete! Top model '{best_exp['display_name']}' saved with Accuracy: {best_met.accuracy*100:.2f}% and Macro F1: {best_met.macro_f1:.4f}."
+                f"Benchmark complete! Top model '{best_exp['display_name']}' selected with Accuracy: {best_met.accuracy*100:.2f}% and Macro F1: {best_met.macro_f1:.4f}."
             )
             st.rerun()

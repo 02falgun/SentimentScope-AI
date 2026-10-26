@@ -1,25 +1,24 @@
 """
-SentimentScope AI — Documentation, Architecture & Viva Talking Points Page
+SentimentScope AI — Architecture, Methodology & Viva Guide Workspace
+Presents 3-tier system architecture, leakage-safe machine learning pipelines,
+generalization findings, and technical demonstration talking points.
 """
 
 import streamlit as st
-from src.sentimentscope.ui.components import render_hero
+from src.sentimentscope.ui.components import render_header
 
 
 def render_about_page():
-    render_hero(
+    render_header(
         title="Documentation & Architecture",
-        subtitle="System Specifications, Machine Learning Methodology, and Demonstration Guide",
+        subtitle="System Specifications, Machine Learning Methodology, and Viva Demonstration Guide",
         badge_text="PRD/SRS v1.0 Compliant",
+        category_label="SYSTEM ARCHITECTURE",
     )
 
-    st.markdown("### 📘 System Architecture & Dataflow")
-    st.markdown(
-        """
-        SentimentScope AI uses a strict 3-tier modular software architecture separating **Data Processing**, 
-        **Machine Learning**, and **Presentation/Serving**:
-        """
-    )
+    # 1. Modular System Architecture
+    st.markdown("### System Architecture & Pipeline Dataflow")
+    st.caption("SentimentScope AI implements a 3-tier modular architecture separating Data Processing, ML Pipelines, and Serving.")
 
     st.code(
         """
@@ -27,21 +26,21 @@ def render_about_page():
 |                            SENTIMENTSCOPE AI ARCHITECTURE                         |
 +-----------------------------------------------------------------------------------+
 |                                                                                   |
-|  [ INGESTION LAYER ]                                                              |
+|  [ INGESTION & VALIDATION LAYER ]                                                 |
 |  +--------------------+       +--------------------+       +-------------------+  |
-|  | CSV File Uploader  | ----> | Multi-Encoding     | ----> | Token-Based       |  |
-|  | / Sample Dataset   |       | Fallback (UTF-8,   |       | Schema Mapping    |  |
-|  +--------------------+       | Latin-1, CP1252)   |       +-------------------+  |
-|                               +--------------------+                 |            |
-|                                                                      v            |
-|  [ PREPROCESSING & QUALITY LAYER ]                                                |
-|  +--------------------+       +--------------------+       +-------------------+  |
-|  | Exact Text         | ----> | Negation-          | ----> | Data Quality      |  |
-|  | Deduplication      |       | Preserving Stops   |       | Profiling & Flags |  |
+|  | CSV Ingestion /    | ----> | Multi-Encoding     | ----> | Token-Based       |  |
+|  | Sample Dataset     |       | Fallback (UTF-8)   |       | Schema Mapping    |  |
 |  +--------------------+       +--------------------+       +-------------------+  |
 |                                                                      |            |
 |                                                                      v            |
-|  [ MODEL BENCHMARK & SERVING LAYER ]                                              |
+|  [ PREPROCESSING & QUALITY PROFILING ]                                            |
+|  +--------------------+       +--------------------+       +-------------------+  |
+|  | Text Deduplication | ----> | Negation-          | ----> | Row Attrition &   |  |
+|  | & Missing Drops    |       | Preserving Stops   |       | Quality Profiling |  |
+|  +--------------------+       +--------------------+       +-------------------+  |
+|                                                                      |            |
+|                                                                      v            |
+|  [ MODEL TRAINING & BENCHMARK SUITE ]                                             |
 |  +-----------------------------------------------------------------------------+  |
 |  | scikit-learn Pipeline (TfidfVectorizer / CountVectorizer)                   |  |
 |  | - Logistic Regression (L2 / Balanced)                                       |  |
@@ -51,82 +50,119 @@ def render_about_page():
 |  +-----------------------------------------------------------------------------+  |
 |                                       |                                           |
 |                                       v                                           |
-|  [ SERVING & ANALYTICS LAYER ]                                                    |
+|  [ SERVING & ANALYTICS WORKSPACE ]                                                |
 |  +--------------------+       +--------------------+       +-------------------+  |
-|  | Real-Time Single   |       | Multi-Dimensional  |       | Structured PDF    |  |
-|  | Inference (<2s)    |       | Interactive Charts |       | Report Generator  |  |
+|  | Real-Time Single   |       | Interactive Plotly |       | Executive PDF &   |  |
+|  | Inference (<2ms)   |       | Visualizations     |       | CSV Exporters     |  |
 |  +--------------------+       +--------------------+       +-------------------+  |
 +-----------------------------------------------------------------------------------+
         """,
         language="text",
     )
 
-    # Academic & Technical Methodology
-    st.markdown("### 🔬 Machine Learning Concepts Demonstrated")
+    # 2. Key Machine Learning Concepts Demonstrated
+    st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
+    st.markdown("### Machine Learning Principles Demonstrated")
 
     t1, t2 = st.columns(2)
     with t1:
         st.markdown(
             """
-            #### 1. Leakage-Safe Feature Pipelines
-            - All feature extraction (`TfidfVectorizer` and `CountVectorizer`) is integrated inside `sklearn.pipeline.Pipeline`.
-            - Text transformations are fitted **strictly** on training folds (`X_train`), preventing vocabulary and document-frequency leakage from the held-out test set.
-            - Model checkpoints serialize the combined transformer and classifier into a single immutable artifact (`sentiment_model.joblib`).
-            """
+            <div class="action-card" style="margin-bottom: 14px;">
+                <h4 style="color: #111111;">1. Leakage-Safe Feature Pipelines</h4>
+                <p style="color: #555555; line-height: 1.5; font-size: 13px;">
+                    All feature extraction (<code>TfidfVectorizer</code> and <code>CountVectorizer</code>) is encapsulated directly inside
+                    <code>sklearn.pipeline.Pipeline</code>. Vocabulary formation and IDF weights are fitted strictly on training folds,
+                    preventing document-frequency data leakage from held-out evaluation sets.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
 
         st.markdown(
             """
-            #### 2. Negation Preservation in NLP
-            - Standard stopword filters strip words like `not`, `no`, `never`, which catastrophically flips negative sentiment into positive.
-            - SentimentScope AI implements an explicit negation-preservation strategy maintaining critical tokens (`not`, `never`, `hardly`, `without`, `barely`).
-            """
+            <div class="action-card">
+                <h4 style="color: #111111;">2. Negation Preservation in Stopwords</h4>
+                <p style="color: #555555; line-height: 1.5; font-size: 13px;">
+                    Standard NLP stopword lists discard negation words (<code>not</code>, <code>no</code>, <code>never</code>, <code>without</code>),
+                    inadvertently inverting critical sentiments (e.g. <em>"not bad"</em> -> <em>"bad"</em>).
+                    SentimentScope AI preserves 27 critical negation markers to safeguard contextual polarity.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
 
     with t2:
         st.markdown(
             """
-            #### 3. Honest Probability & Decision Semantics
-            - Logistic Regression and Naive Bayes produce genuine posterior class probabilities.
-            - Linear SVM is wrapped in `CalibratedClassifierCV` via training-only 3-fold cross-validation to provide valid probability distributions rather than arbitrary score scaling.
-            - Predictions with low margin between classes automatically trigger an **Uncertainty Warning**.
-            """
+            <div class="action-card" style="margin-bottom: 14px;">
+                <h4 style="color: #111111;">3. Calibrated Posterior Probabilities</h4>
+                <p style="color: #555555; line-height: 1.5; font-size: 13px;">
+                    Logistic Regression and Naive Bayes produce genuine posterior probabilities.
+                    Linear SVM is wrapped in <code>CalibratedClassifierCV</code> via training-only 3-fold cross-validation
+                    to compute authentic probability distributions. Low-margin predictions trigger automated uncertainty notices.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
 
         st.markdown(
             """
-            #### 4. Macro F1 Model Selection Metric
-            - While Accuracy is sensitive to class imbalance, **Macro F1** gives equal weight to all three classes (Positive, Neutral, Negative).
-            - The ML Lab leaderboard ranks candidates primarily on held-out Macro F1, ensuring balanced classification performance.
-            """
+            <div class="action-card">
+                <h4 style="color: #111111;">4. Macro F1 Model Selection Metric</h4>
+                <p style="color: #555555; line-height: 1.5; font-size: 13px;">
+                    Standard accuracy can be misleading under class imbalance. The ML Lab ranks candidate models primarily by
+                    <strong>Macro F1-Score</strong>, giving equal weight to Positive, Neutral, and Negative classes to prevent bias toward majority classes.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
 
-    # Faculty Viva & Demonstration Talking Points
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("### 🎓 Laboratory Demonstration / Viva Guide")
-    st.markdown(
-        """
-        When presenting this project to faculty or examiners, emphasize the following points:
-        1. **Why classical ML over LLMs?**
-           - Classical models (Logistic Regression + TF-IDF) execute in sub-millisecond latencies, require zero paid API credentials, run deterministically on low-cost cloud tiers, and offer mathematically interpretable linear coefficients.
-        2. **How is data quality enforced?**
-           - The system profiles row attrition (exact deduplication, empty text removal) and detects severe class imbalance (<10% representation) before model training.
-        3. **How does the explainability feature work?**
-           - The app inspects linear weights ($w_i$) associated with active vocabulary tokens in the user's sentence to visualize which words pushed the prediction toward positive vs negative polarity.
-        4. **How are custom uploads secured?**
-           - Uploaded CSVs are parsed strictly in-memory within the active session state and are never persisted to the server filesystem.
-        5. **How do you address the 100% test accuracy on the sample dataset?**
-           - The 360-row sample dataset is built from 75 base sentence templates; standard stratified random splitting allows 93.1% of test samples to share templates with training data. Under scientifically rigorous Group K-Fold cross-validation isolating unseen templates, the pipeline achieves **93.15% Accuracy and 0.9193 Macro F1**, demonstrating genuine generalization.
-        """
-    )
+    # 3. Viva & Technical Examination Talking Points
+    st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
+    st.markdown("### University Demonstration & Viva Talking Points")
 
-    # Limitations & Scope
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("### ⚠️ Model Limitations & Ethical Considerations")
     st.markdown(
         """
-        - **Target Language:** Current model pipeline is trained on English text.
-        - **Sarcasm and Metaphor:** Classical bag-of-words and n-gram models can misinterpret irony or sarcasm where individual words appear positive.
-        - **Vocabulary Shifts:** Highly domain-specific slang not present in the training set falls into out-of-vocabulary (OOV).
-        """
+        <div class="academic-callout">
+            <h4 style="color: #111111; margin-bottom: 12px;">Frequently Asked Technical Viva Questions</h4>
+
+            <div style="margin-bottom: 14px;">
+                <strong style="color: #111111;">Q1: Why classical ML (Logistic Regression / SVM) rather than LLMs?</strong>
+                <p style="color: #555555; font-size: 13px; margin: 4px 0 0 0; line-height: 1.5;">
+                    Classical linear pipelines execute in sub-millisecond latencies (<1ms), require zero paid cloud API tokens,
+                    deploy deterministically on free cloud tiers without GPU dependencies, and offer mathematically interpretable linear coefficients.
+                </p>
+            </div>
+
+            <div style="margin-bottom: 14px;">
+                <strong style="color: #111111;">Q2: How was the 100% held-out test accuracy addressed?</strong>
+                <p style="color: #555555; font-size: 13px; margin: 4px 0 0 0; line-height: 1.5;">
+                    The 360-row sample dataset is built from 75 base sentence patterns; in standard random 80/20 splits, 93.1% of test rows share templates with training data.
+                    Under rigorous <strong>Group K-Fold Cross-Validation</strong> isolating unseen templates, the model achieves <strong>93.15% Accuracy and 0.9193 Macro F1</strong>,
+                    confirming genuine out-of-distribution generalization.
+                </p>
+            </div>
+
+            <div style="margin-bottom: 14px;">
+                <strong style="color: #111111;">Q3: How does the token-level explainability feature work?</strong>
+                <p style="color: #555555; font-size: 13px; margin: 4px 0 0 0; line-height: 1.5;">
+                    The pipeline multiplies the user's active TF-IDF token weights ($x_i$) by the linear classifier's learned coefficients ($w_{ij}$) for each class $j$.
+                    Tokens with large positive weights support the predicted class, while negative weights oppose it.
+                </p>
+            </div>
+
+            <div>
+                <strong style="color: #111111;">Q4: How does the application handle data privacy and security?</strong>
+                <p style="color: #555555; font-size: 13px; margin: 4px 0 0 0; line-height: 1.5;">
+                    User-uploaded CSV files are processed strictly in-memory inside the active Streamlit session state and are never written to server disk or external storage.
+                </p>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
     )

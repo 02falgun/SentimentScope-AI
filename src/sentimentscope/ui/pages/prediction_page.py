@@ -1,5 +1,7 @@
 """
-SentimentScope AI — Live Single-Text Prediction Page
+SentimentScope AI — Live Single-Text Prediction Workspace
+Dedicated AI analysis workspace for real-time natural language sentiment classification,
+calibrated probability estimation, and token-level feature attribution.
 """
 
 import streamlit as st
@@ -7,8 +9,11 @@ import pandas as pd
 
 from src.sentimentscope.config import CANONICAL_SENTIMENTS, SENTIMENT_COLOR_MAP
 from src.sentimentscope.ml.prediction import predict_single_text
-from src.sentimentscope.ui.components import render_hero, render_sentiment_badge
-
+from src.sentimentscope.ui.components import (
+    render_header,
+    render_metric_card,
+    render_sentiment_badge,
+)
 
 SAMPLE_PROMPTS = [
     "I absolutely love this new update! Everything is fast, smooth, and beautiful! 🚀",
@@ -20,115 +25,148 @@ SAMPLE_PROMPTS = [
 
 
 def render_prediction_page():
-    render_hero(
-        title="Live Sentiment Prediction",
-        subtitle="Real-Time Natural Language Inference with Token-Level Explainability",
-        badge_text="Sub-2s Latency",
+    render_header(
+        title="Live Sentiment Inference",
+        subtitle="Real-time Natural Language Inference with Token-Level Feature Attribution & Calibrated Probabilities",
+        badge_text="Sub-Millisecond Inference",
+        category_label="AI INFERENCE WORKSPACE",
     )
 
     model_artifact = st.session_state.get("model_artifact")
     if not model_artifact:
-        st.error("⚠️ No machine learning model is loaded. Please load or train a model in the ML Lab.")
+        st.error("⚠️ No active machine learning model artifact found. Please load or train a model in the ML Lab.")
         return
 
     # Initialize session history
     if "prediction_history" not in st.session_state:
         st.session_state.prediction_history = []
 
-    st.markdown("#### Select a Quick Example or Enter Custom Text:")
-    # Example buttons in columns
-    cols = st.columns(len(SAMPLE_PROMPTS))
+    # Quick Sample Selection
+    st.markdown("<div style='font-size: 13px; font-weight: 600; color: #111111; margin-bottom: 6px;'>Quick Test Cases:</div>", unsafe_allow_html=True)
+    sample_cols = st.columns(len(SAMPLE_PROMPTS))
     chosen_sample = None
     for idx, prompt in enumerate(SAMPLE_PROMPTS):
-        with cols[idx]:
-            label = prompt[:20] + "..."
-            if st.button(label, key=f"sample_btn_{idx}", help=prompt):
+        with sample_cols[idx]:
+            short_lbl = prompt.split()[0] + " " + " ".join(prompt.split()[1:3]) + "..."
+            if st.button(short_lbl, key=f"sample_btn_{idx}", help=prompt, use_container_width=True):
                 chosen_sample = prompt
 
-    # Text input area
+    # Text Input & Controls
     default_text = chosen_sample if chosen_sample else ""
     user_input = st.text_area(
-        "Enter Social Media Text / Tweet / Comment:",
+        "Enter Social Media Text, Tweet, or Customer Review:",
         value=default_text,
-        height=110,
+        height=100,
         max_chars=500,
-        placeholder="Type or paste any customer review, tweet, or statement here...",
-        help="Input is processed strictly in-memory during this session.",
+        placeholder="Type or paste any post, comment, or statement to evaluate...",
+        help="Input text is processed strictly in-memory during this session and is never persisted.",
     )
 
-    col_btn, col_info = st.columns([1, 3])
+    col_btn, col_stats = st.columns([1, 3])
     with col_btn:
-        analyze_clicked = st.button("🔍 Analyze Sentiment", type="primary", use_container_width=True)
+        analyze_clicked = st.button("Analyze Sentiment", type="primary", use_container_width=True)
+    with col_stats:
+        char_len = len(user_input)
+        word_len = len(user_input.split())
+        st.markdown(
+            f"""
+            <div style="font-size: 12px; color: #666666; padding-top: 10px;">
+                Length: <strong>{char_len}/500</strong> characters &nbsp;•&nbsp;
+                Words: <strong>{word_len}</strong> &nbsp;•&nbsp;
+                Pipeline: <span style="color: #111111; font-weight: 500;">{model_artifact.get('model_name', 'Classifier')}</span>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
-    with col_info:
-        st.caption(f"Character count: {len(user_input)}/500 | Target Language: English")
-
+    # Execution State
     if analyze_clicked or chosen_sample:
         if not user_input.strip():
-            st.warning("Please enter some text before analyzing.")
+            st.warning("Please provide non-empty text input for inference.")
             return
 
-        with st.spinner("Analyzing text representations..."):
+        with st.spinner("Executing inference and extracting token attributions..."):
             result = predict_single_text(user_input, model_artifact)
 
         if result.error:
-            st.error(result.error)
+            st.error(f"Inference error: {result.error}")
             return
 
-        # Store in session history
+        # Record in session history
         st.session_state.prediction_history.append({
             "Text": user_input,
             "Predicted_Sentiment": result.predicted_sentiment,
             "Confidence": round(result.confidence_score * 100, 1),
-            "Latency_ms": result.latency_ms,
+            "Latency_ms": round(result.latency_ms, 2),
         })
 
-        # Display Outcome Card
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("### 🎯 Prediction Results")
+        # Structured Prediction Outcome Block
+        st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
+        st.markdown("### Inference Diagnostics & Attribution")
 
-        res_c1, res_c2, res_c3 = st.columns([1.2, 1, 1])
-
+        res_c1, res_c2, res_c3 = st.columns(3)
         with res_c1:
-            st.markdown(f"**Predicted Sentiment:**")
-            st.markdown(f"<div style='margin-top: 8px;'>{render_sentiment_badge(result.predicted_sentiment)}</div>", unsafe_allow_html=True)
-
+            render_metric_card(
+                label="Predicted Sentiment",
+                value=result.predicted_sentiment,
+                sub_text="Maximum posterior class probability",
+                border_accent=SENTIMENT_COLOR_MAP.get(result.predicted_sentiment, "#111111"),
+            )
         with res_c2:
-            st.markdown(f"**Confidence Score:**")
-            st.markdown(f"<h3 style='margin: 0; color: #F8FAFC;'>{result.confidence_score * 100:.1f}%</h3>", unsafe_allow_html=True)
-
+            render_metric_card(
+                label="Model Confidence",
+                value=f"{result.confidence_score * 100:.1f}%",
+                sub_text="Calibrated probability estimate",
+                border_accent="#111111",
+            )
         with res_c3:
-            st.markdown(f"**Inference Latency:**")
-            st.markdown(f"<h3 style='margin: 0; color: #38BDF8;'>{result.latency_ms:.1f} ms</h3>", unsafe_allow_html=True)
+            render_metric_card(
+                label="Inference Latency",
+                value=f"{result.latency_ms:.2f} ms",
+                sub_text="Single-sample pipeline execution",
+                border_accent="#111111",
+            )
 
-        # Uncertainty alert if applicable
+        # Uncertainty Notice if margins are narrow
         if result.is_uncertain:
             st.markdown(
                 f"""
-                <div class="badge-warning" style="margin-top: 16px;">
-                    ⚠️ <b>Prediction Uncertainty Notice:</b> {result.uncertainty_reason}
+                <div class="badge-warning" style="margin-top: 14px;">
+                    ⚠️ <strong>Prediction Uncertainty:</strong> {result.uncertainty_reason}
                 </div>
                 """,
                 unsafe_allow_html=True,
             )
 
-        # Probabilities breakdown
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("#### Probability Distribution:")
+        # Class Probability Breakdown
+        st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
+        st.markdown("#### Calibrated Probability Distribution:")
+        st.caption("Class probabilities are derived from Logistic Regression sigmoid/softmax scoring or calibrated SVM margins.")
+
         p_cols = st.columns(3)
         for idx, cls in enumerate(CANONICAL_SENTIMENTS):
             prob = result.probabilities.get(cls, 0.0)
             with p_cols[idx]:
-                st.markdown(f"**{cls}**: `{prob * 100:.1f}%`")
+                st.markdown(
+                    f"""
+                    <div style="background-color: #FAFAFA; border: 1px solid #E5E5E5; border-radius: 6px; padding: 10px 14px; margin-bottom: 8px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #111111;">
+                            <span>{cls}</span>
+                            <span style="font-variant-numeric: tabular-nums;">{prob * 100:.1f}%</span>
+                        </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
                 st.progress(float(prob))
 
-        # Token Attribution / Explainability
+        # Token Attribution & Explainability
         if result.token_explanations:
-            st.markdown("<br>", unsafe_allow_html=True)
-            st.markdown("#### 🔬 Token-Level Feature Attribution:")
+            st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
+            st.markdown("#### Token-Level Feature Attribution:")
             st.caption(
-                "Highlighted words show learned vocabulary weights supporting or opposing this classification. "
-                "Feature importance reflects statistical association in training data, not causal intent."
+                "Weights ($w_i$) reflect the linear model's learned associations in TF-IDF feature space. "
+                "Tokens tagged green support the predicted class, red tokens oppose it, and neutral tokens were unweighted or out-of-vocabulary."
             )
 
             html_tokens = []
@@ -138,25 +176,34 @@ def render_prediction_page():
                 impact = item["impact"]
 
                 if "Supports" in impact:
-                    html_tokens.append(f"<span class='token-support' title='Weight: {wt} ({impact})'>{tok} (▲ {wt})</span>")
+                    html_tokens.append(f"<span class='token-support' title='Weight: {wt} ({impact})'>{tok} (+{wt})</span>")
                 elif "Opposes" in impact:
-                    html_tokens.append(f"<span class='token-oppose' title='Weight: {wt} ({impact})'>{tok} (▼ {wt})</span>")
+                    html_tokens.append(f"<span class='token-oppose' title='Weight: {wt} ({impact})'>{tok} (-{wt})</span>")
                 else:
-                    html_tokens.append(f"<span class='token-neutral' title='Neutral / OOV'>{tok}</span>")
+                    html_tokens.append(f"<span class='token-neutral' title='Neutral / Stopword'>{tok}</span>")
 
-            st.markdown(" ".join(html_tokens), unsafe_allow_html=True)
+            st.markdown(
+                f"""
+                <div style="background-color: #FAFAFA; border: 1px solid #E5E5E5; border-radius: 6px; padding: 14px 16px;">
+                    {' '.join(html_tokens)}
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
-    # Session Prediction History
+    # Session Prediction History Table
     if st.session_state.prediction_history:
-        st.markdown("<br><hr>", unsafe_allow_html=True)
-        st.markdown("### 📜 Session Prediction History")
-        history_df = pd.DataFrame(st.session_state.prediction_history)
-        st.dataframe(history_df, use_container_width=True)
+        st.markdown("<div style='border-top: 1px solid #E5E5E5; margin: 28px 0 20px 0;'></div>", unsafe_allow_html=True)
+        st.markdown("### Session Inference History")
+        st.caption("Log of single inferences evaluated during this active user session.")
 
-        csv_data = history_df.to_csv(index=False).encode("utf-8")
+        hist_df = pd.DataFrame(st.session_state.prediction_history)
+        st.dataframe(hist_df, use_container_width=True)
+
+        csv_bytes = hist_df.to_csv(index=False).encode("utf-8")
         st.download_button(
-            label="📥 Download Session Predictions (CSV)",
-            data=csv_data,
-            file_name="sentiment_predictions_history.csv",
+            label="Download Session Inferences (CSV)",
+            data=csv_bytes,
+            file_name="sentimentscope_session_inferences.csv",
             mime="text/csv",
         )

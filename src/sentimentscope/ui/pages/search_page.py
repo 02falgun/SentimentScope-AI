@@ -1,5 +1,7 @@
 """
-SentimentScope AI — Keyword Search & Topic Monitoring Page
+SentimentScope AI — Keyword Search & Topic Monitoring Workspace
+Targeted brand, topic, and phrase filtering with aggregate polarity scoring
+adhering to the monochrome SaaS design system.
 """
 
 import streamlit as st
@@ -7,14 +9,19 @@ import pandas as pd
 
 from src.sentimentscope.analytics.metrics import search_dataset_by_keyword
 from src.sentimentscope.analytics.visualizations import plot_sentiment_donut
-from src.sentimentscope.ui.components import render_hero, render_metric_card
+from src.sentimentscope.config import SENTIMENT_COLOR_MAP
+from src.sentimentscope.ui.components import (
+    render_header,
+    render_metric_card,
+)
 
 
 def render_search_page():
-    render_hero(
-        title="Keyword Search & Opinion Mining",
-        subtitle="Search Targeted Brands, Topics, or Terms Across the Active Dataset",
-        badge_text="Polarity Scoring",
+    render_header(
+        title="Keyword Search & Topic Mining",
+        subtitle="Search Targeted Brands, Entities, or Terminology Across the Active Corpus with Polarity Indexing",
+        badge_text="Polarity Indexing",
+        category_label="SEARCH & MINING",
     )
 
     df: pd.DataFrame = st.session_state.get("active_df", pd.DataFrame())
@@ -28,12 +35,12 @@ def render_search_page():
     with col_input:
         query = st.text_input(
             "Enter Topic, Keyword, or Hashtag to Track:",
-            placeholder="e.g. update, performance, support, bug, battery, AI",
+            placeholder="e.g. update, performance, support, battery, crash, AI",
             value="update",
         )
     with col_action:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
-        search_clicked = st.button("🔎 Search Dataset", type="primary", use_container_width=True)
+        search_clicked = st.button("Search Corpus", type="primary", use_container_width=True)
 
     if query.strip():
         search_res = search_dataset_by_keyword(df, keyword=query, text_col="Text", sentiment_col=sentiment_col or "Sentiment")
@@ -44,19 +51,19 @@ def render_search_page():
         dist = search_res["sentiment_distribution"]
         matches_df = search_res["results_df"]
 
-        st.markdown(f"### Results for Query: *'{query}'*")
+        st.markdown(f"### Query Results: *'{query}'*")
 
         m1, m2, m3 = st.columns(3)
         with m1:
-            render_metric_card("Matching Records", f"{total:,}", f"Found in {len(df):,} total posts")
+            render_metric_card("Matching Records", f"{total:,}", f"Found in {len(df):,} total posts", "#111111")
         with m2:
-            accent = "#10B981" if avg_score > 0 else ("#EF4444" if avg_score < 0 else "#64748B")
+            accent = SENTIMENT_COLOR_MAP["Positive"] if avg_score > 0 else (SENTIMENT_COLOR_MAP["Negative"] if avg_score < 0 else SENTIMENT_COLOR_MAP["Neutral"])
             render_metric_card("Mean Sentiment Index", f"{avg_score:+.2f}", "Scale: -1.0 (Neg) to +1.0 (Pos)", accent)
         with m3:
-            render_metric_card("Overall Polarity", polarity_lbl, "Weighted orientation")
+            render_metric_card("Overall Polarity", polarity_lbl, "Weighted orientation", "#111111")
 
         if total > 0:
-            st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
             col_chart, col_table = st.columns([1, 2])
 
             with col_chart:
@@ -64,8 +71,8 @@ def render_search_page():
                 st.plotly_chart(fig_donut, use_container_width=True)
 
             with col_table:
-                st.markdown(f"**Sample Matching Posts ({len(matches_df)} total):**")
+                st.markdown(f"**Matching Records ({len(matches_df)} total):**")
                 display_cols = [c for c in ["Post ID", "Text", sentiment_col, "Platform", "Date"] if c and c in matches_df.columns]
-                st.dataframe(matches_df[display_cols], use_container_width=True, height=350)
+                st.dataframe(matches_df[display_cols], use_container_width=True, height=340)
         else:
-            st.info(f"No records containing '{query}' were found in the current dataset.")
+            st.info(f"No records matching query '{query}' were found in the active corpus.")

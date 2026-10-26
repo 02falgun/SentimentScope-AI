@@ -39,11 +39,23 @@ The dashboard will open automatically in your browser at `http://localhost:8501`
 - **Python Version:** 3.12
 - **Deployment URL:** [https://sentimentscope-ai-pjqvcruadb95pi6detimjb.streamlit.app/](https://sentimentscope-ai-pjqvcruadb95pi6detimjb.streamlit.app/)
 
+### Monochrome Theme Configuration
+The deployment uses `.streamlit/config.toml` configuring the Monochrome SaaS theme:
+```toml
+[theme]
+primaryColor = "#000000"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F5F5F5"
+textColor = "#111111"
+font = "sans serif"
+```
+
 ### How Streamlit Cloud Builds the Application
 1. Detects `requirements.txt` at the repository root and installs all scientific and UI wheels.
-2. Checks `.streamlit/config.toml` for custom theme colors (slate/indigo/emerald) and server configuration.
+2. Checks `.streamlit/config.toml` for custom monochrome theme and server configuration.
 3. Launches `app.py` headlessly via Streamlit runner.
-4. Executes `@st.cache_resource` for the serialized model artifact (`models/sentiment_model.joblib`) and `@st.cache_data` for the sample dataset (`data/sample/social_media_sentiment_sample.csv`).
+4. Injects custom CSS rules from `src/sentimentscope/ui/styles.py`.
+5. Executes `@st.cache_resource` for the serialized model artifact (`models/sentiment_model.joblib`) and `@st.cache_data` for the sample dataset (`data/sample/social_media_sentiment_sample.csv`).
 
 ---
 
@@ -57,34 +69,12 @@ The dashboard will open automatically in your browser at `http://localhost:8501`
 
 ## 4. How to Update the Live Deployment Manually
 
-When you are ready to update the live Streamlit Cloud app with local changes:
+When you are ready to update the live Streamlit Cloud app with local changes, commit and push to `main`:
+
 ```bash
-# 1. Check your status and staged changes
-git status
-
-# 2. Commit your changes
-git commit -m "feat: audit enhancements and group-CV generalization documentation"
-
-# 3. Push to GitHub main branch
+git add .
+git commit -m "feat(ui): monochrome SaaS design system and premium dashboard overhaul"
 git push origin main
 ```
 
-Streamlit Community Cloud is connected via webhook to `main`. It will automatically pull the newest commit and rebuild within 60–90 seconds.  
-If the app does not automatically rebuild:
-1. Open [https://share.streamlit.io/](https://share.streamlit.io/).
-2. Click the three dots `...` next to `SentimentScope-AI`.
-3. Click **"Reboot app"**.
-
----
-
-## 5. Verified Post-Deployment Smoke Test Checklist
-
-The following items were independently verified on the live Streamlit Community Cloud deployment:
-- [x] **Home View:** Status cards display 360 records and model accuracy.
-- [x] **Live Prediction:** Sample buttons populate text area; classification returns predicted sentiment, confidence %, latency (<1ms), and token attributions in <2 seconds.
-- [x] **Dataset Explorer:** Custom CSV loading, column auto-mapping, row attrition metrics, and batch inference operational.
-- [x] **ML Lab:** 8-entry model leaderboard, confusion matrix heatmap, ROC curves, and scientific generalization expander render cleanly.
-- [x] **Visual Analytics:** All Plotly charts (donut, bars, daily trends, wordcloud, engagement, post lengths) render inline.
-- [x] **Keyword Search:** Polarity index calculation and query matching table function properly.
-- [x] **Reports:** "Download Executive Report (PDF)" compiles valid PDF binary buffer.
-- [x] **About & Architecture:** System diagram and viva demonstration guide render correctly.
+Streamlit Community Cloud automatically listens to commits on `main` and redeploys the updated version within 60–90 seconds.

@@ -2,28 +2,32 @@
 
 ## 1. Test Suite Overview
 
-SentimentScope AI includes a rigorous automated test suite powered by `pytest`. The tests validate all layers of the system:
-- **Preprocessing:** Cleaning, regex filters, negation preservation, emoji and hashtag handling.
-- **Uploads & Ingestion:** File parsing, encoding fallbacks, column guessing, schema validation, duplicate and null handling.
-- **ML Training & Benchmarking:** Scikit-learn pipeline integrity, stratified splitting, evaluation metrics, and Group K-Fold template isolation.
-- **Prediction:** Single-text inference, batch inference, latency budget (<2s), confidence bounds, empty input recovery, and excessive length protection.
-- **Analytics:** Sentiment counts, word frequencies, length metrics, temporal trends, platform breakdowns, keyword search, and empty visualization fallbacks.
-- **Reporting:** Structured binary PDF report generation.
+SentimentScope AI maintains a comprehensive automated testing and validation protocol:
+- **Unit & Integration Suite (pytest):** 29 automated test cases covering preprocessing, data ingestion, ML pipelines, predictions, analytics, and PDF reports.
+- **Model Smoke Validation (`scripts/validate_model.py`):** Direct inference validation against positive, negative, and neutral test sentences verifying latency and class probabilities.
+- **Syntax & Code Hygiene:** `git diff --check` verifying zero trailing whitespace and formatting cleanliness.
+- **Visual Inspection via Headless Browser Automation:** Playwright/Chromium verification across all 8 dashboard pages verifying rendering, typography, chart loading, and interactivity.
 
 ---
 
-## 2. Test Execution Command
+## 2. Test Execution Commands
 
-Run the complete test suite from the repository root:
+Run the full pytest suite from repository root:
 
 ```bash
-# Using the local virtual environment
+# Execute automated test suite
 PYTHONPATH=. .venv/bin/pytest tests/ -v
+
+# Execute model smoke validation
+.venv/bin/python scripts/validate_model.py
+
+# Verify code formatting hygiene
+git diff --check
 ```
 
 ---
 
-## 3. Actual Test Results (Verified)
+## 3. Actual Unit Test Results (29/29 Passing)
 
 ```text
 ============================= test session starts ==============================
@@ -60,10 +64,28 @@ tests/test_uploads.py::test_normalize_sentiment_label PASSED             [ 93%]
 tests/test_uploads.py::test_validate_and_profile_dataframe_handling PASSED [ 96%]
 tests/test_uploads.py::test_empty_dataframe_validation PASSED            [100%]
 
-============================== 29 passed in 3.71s ==============================
+============================== 29 passed in 3.72s ==============================
 ```
 
-- **Total Tests:** 29
-- **Passing:** 29 (100%)
-- **Failures:** 0
-- **Execution Time:** ~3.71 seconds
+---
+
+## 4. Visual Verification Findings (Headless Browser)
+
+Visual inspection was conducted on `http://localhost:8505` via headless browser subagent across all sections:
+
+1. **Overview Dashboard:**
+   - Pure `#FFFFFF` background with crisp `#111111` typography and `#E5E5E5` 1px borders.
+   - Sidebar displays `SentimentScope AI` with clean Model Active and Dataset Active status cards.
+   - 4 KPI cards rendered with tabular numerals and restrained sentiment accents (`#15803D`, `#64748B`, `#B91C1C`).
+   - Plotly donut chart and volume bar chart render with white separators and high contrast.
+2. **Live Prediction:**
+   - Quick test chips click smoothly and populate text area.
+   - Black primary action button (`#000000`, white text) triggers real-time inference.
+   - Displays Predicted Sentiment badge, confidence score (73.9%), inference latency (sub-millisecond), probability progress bars, and token attribution tags (`.token-support`, `.token-oppose`).
+3. **ML Lab & Benchmark:**
+   - Model Comparison Leaderboard table rendered cleanly.
+   - Scientific Audit expander presents Group-CV metrics (93.1%, 93.15%, 0.9193).
+   - Confusion matrix renders with clean sequential slate heatmap.
+   - ROC curves render with distinct line colors.
+4. **Dataset Explorer, Visual Analytics, Search, Reports, About:**
+   - All charts, file uploaders, data tables, and PDF generators executed without errors.

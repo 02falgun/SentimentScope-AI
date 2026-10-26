@@ -1,5 +1,7 @@
 """
-SentimentScope AI — Home / Overview Page
+SentimentScope AI — Home / Overview Dashboard
+Renders executive KPI metrics, sentiment distribution visuals, active model diagnostics,
+and quick-action navigation adhering to the monochrome SaaS design system.
 """
 
 import streamlit as st
@@ -8,14 +10,20 @@ import pandas as pd
 from src.sentimentscope.analytics.metrics import compute_sentiment_distribution
 from src.sentimentscope.analytics.visualizations import plot_sentiment_bars, plot_sentiment_donut
 from src.sentimentscope.config import SENTIMENT_COLOR_MAP
-from src.sentimentscope.ui.components import render_hero, render_metric_card, render_sentiment_badge
+from src.sentimentscope.ui.components import (
+    render_action_card,
+    render_header,
+    render_metric_card,
+    render_sentiment_badge,
+)
 
 
 def render_home_page():
-    render_hero(
-        title="SentimentScope AI",
-        subtitle="Intelligent Social Media Sentiment Analysis & Trend Monitoring System",
-        badge_text="Ready for Deployment",
+    render_header(
+        title="Sentiment Intelligence",
+        subtitle="AI-Powered Social Media Sentiment Analysis & Trend Monitoring System",
+        badge_text="Production v2.0",
+        category_label="EXECUTIVE DASHBOARD",
     )
 
     df: pd.DataFrame = st.session_state.get("active_df", pd.DataFrame())
@@ -29,7 +37,7 @@ def render_home_page():
     if has_ground_truth and has_predicted:
         source_choice = st.radio(
             "Sentiment Data Source:",
-            options=["Ground-Truth Labels", "Model Predictions"],
+            options=["Ground-Truth Labels", "Model Inferences"],
             horizontal=True,
             help="Toggle between human-annotated ground-truth labels and model-generated inferences.",
         )
@@ -40,130 +48,144 @@ def render_home_page():
         source_label = "Ground-Truth Labels"
     elif has_predicted:
         sentiment_col = "Predicted_Sentiment"
-        source_label = "Model Predictions"
+        source_label = "Model Inferences"
     else:
         sentiment_col = "Sentiment"
         source_label = "None Mapped"
 
-    # Status Cards Row
-    st.markdown(f"### 📊 System Status & Active Dataset")
-    if source_label != "None Mapped":
-        st.caption(f"Currently displaying distributions from: **{source_label}**")
-    else:
-        st.caption("No sentiment column mapped. Ingest or batch-predict labels in Dataset Explorer.")
-
-    c1, c2, c3, c4 = st.columns(4)
-
-    total_rows = len(df) if not df.empty else 0
-    with c1:
-        render_metric_card(
-            label="Active Dataset",
-            value=f"{total_rows:,}",
-            sub_text=f"Records from {dataset_name}",
-            border_accent="#6366F1",
+    # Context Header Bar
+    c_info, c_source = st.columns([3, 1])
+    with c_info:
+        st.markdown(
+            f"""
+            <div style="font-size: 15px; font-weight: 600; color: #111111; margin-bottom: 2px;">
+                Active Corpus Intelligence
+            </div>
+            <div style="font-size: 13px; color: #666666; margin-bottom: 12px;">
+                Displaying distribution for: <strong>{dataset_name}</strong> &nbsp;•&nbsp; Source: <span style="color: #111111; font-weight: 500;">{source_label}</span>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
 
-    dist = compute_sentiment_distribution(df, sentiment_col=sentiment_col)
-    counts = dist["counts"]
-    pcts = dist["percentages"]
+    # 1. Primary KPI Metric Row
+    c1, c2, c3, c4 = st.columns(4)
+    total_rows = len(df) if not df.empty else 0
+
+    dist = compute_sentiment_distribution(df, sentiment_col=sentiment_col) if not df.empty else {"counts": {}, "percentages": {}}
+    counts = dist.get("counts", {})
+    pcts = dist.get("percentages", {})
+
+    with c1:
+        render_metric_card(
+            label="Total Analyzed Posts",
+            value=f"{total_rows:,}",
+            sub_text="Cleaned posts in active corpus",
+            border_accent="#111111",
+        )
 
     with c2:
         render_metric_card(
-            label="Positive Posts",
+            label="Positive Sentiment",
             value=f"{counts.get('Positive', 0):,}",
-            sub_text=f"{pcts.get('Positive', 0.0):.1f}% of total",
+            sub_text=f"{pcts.get('Positive', 0.0):.1f}% of total volume",
             border_accent=SENTIMENT_COLOR_MAP["Positive"],
         )
 
     with c3:
         render_metric_card(
-            label="Neutral Posts",
+            label="Neutral Sentiment",
             value=f"{counts.get('Neutral', 0):,}",
-            sub_text=f"{pcts.get('Neutral', 0.0):.1f}% of total",
+            sub_text=f"{pcts.get('Neutral', 0.0):.1f}% of total volume",
             border_accent=SENTIMENT_COLOR_MAP["Neutral"],
         )
 
     with c4:
         render_metric_card(
-            label="Negative Posts",
+            label="Negative Sentiment",
             value=f"{counts.get('Negative', 0):,}",
-            sub_text=f"{pcts.get('Negative', 0.0):.1f}% of total",
+            sub_text=f"{pcts.get('Negative', 0.0):.1f}% of total volume",
             border_accent=SENTIMENT_COLOR_MAP["Negative"],
         )
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
 
-    # Visual Overview Row
-    st.markdown("### 📈 Sentiment Snapshot")
+    # 2. Analytics Visualization Grid
     if total_rows == 0:
-        st.info("No records available in the active dataset. Load the sample dataset or upload a CSV in Dataset Explorer.")
-    col_left, col_right = st.columns([1, 1])
+        st.info("No records found in active dataset. Ingest a dataset or reload the sample corpus in Dataset Explorer.")
+    else:
+        col_left, col_right = st.columns([1, 1])
 
-    with col_left:
-        fig_donut = plot_sentiment_donut(counts, title=f"Sentiment Proportions ({source_label})")
-        st.plotly_chart(fig_donut, use_container_width=True)
+        with col_left:
+            fig_donut = plot_sentiment_donut(counts, title=f"Sentiment Share ({source_label})")
+            st.plotly_chart(fig_donut, use_container_width=True)
 
-    with col_right:
-        fig_bar = plot_sentiment_bars(counts, title=f"Sentiment Volumes ({source_label})")
-        st.plotly_chart(fig_bar, use_container_width=True)
+        with col_right:
+            fig_bar = plot_sentiment_bars(counts, title=f"Sentiment Volumes ({source_label})")
+            st.plotly_chart(fig_bar, use_container_width=True)
 
-    # Active Model Information Card
-    st.markdown("### 🤖 Production Machine Learning Model")
+    # 3. Active Production ML Model Status Banner
+    st.markdown("<div style='height: 8px;'></div>", unsafe_allow_html=True)
     if model_artifact:
         metrics = model_artifact.get("metrics", {})
         m_name = model_artifact.get("model_name", "Sentiment Classifier")
         acc = metrics.get("accuracy", 0.0) * 100
-        f1 = metrics.get("macro_f1", 0.0)
+        mf1 = metrics.get("macro_f1", 0.0)
         dur = metrics.get("training_duration_seconds", 0.0)
+        feat = str(model_artifact.get("feature_type", "tfidf")).upper()
 
-        st.info(
-            f"**Active Model:** `{m_name}` &nbsp;|&nbsp; "
-            f"**Held-out Test Accuracy:** `{acc:.2f}%` &nbsp;|&nbsp; "
-            f"**Macro F1:** `{f1:.4f}` &nbsp;|&nbsp; "
-            f"**Training Time:** `{dur:.2f}s` &nbsp;|&nbsp; "
-            f"**Feature Representation:** `{model_artifact.get('feature_type', 'tfidf').upper()}`"
+        st.markdown(
+            f"""
+            <div style="background-color: #FAFAFA; border: 1px solid #E5E5E5; border-radius: 8px; padding: 16px 20px; margin: 12px 0 24px 0;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                    <div>
+                        <span style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #666666;">
+                            Active Machine Learning Pipeline
+                        </span>
+                        <div style="font-size: 16px; font-weight: 700; color: #111111; margin-top: 2px;">
+                            {m_name} ({feat})
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 24px; font-size: 13px;">
+                        <div>
+                            <span style="color: #666666;">Held-Out Accuracy:</span>
+                            <strong style="color: #111111; margin-left: 4px;">{acc:.2f}%</strong>
+                        </div>
+                        <div>
+                            <span style="color: #666666;">Macro F1:</span>
+                            <strong style="color: #111111; margin-left: 4px;">{mf1:.4f}</strong>
+                        </div>
+                        <div>
+                            <span style="color: #666666;">Training Latency:</span>
+                            <strong style="color: #111111; margin-left: 4px;">{dur:.2f}s</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
     else:
-        st.warning(
-            "⚠️ No production model artifact loaded. Run `python scripts/train_model.py` or use the ML Lab tab to initialize the model."
-        )
+        st.warning("⚠️ No machine learning model currently loaded. Visit the ML Lab to benchmark and initialize.")
 
-    # Quick Navigation Call-To-Action
-    st.markdown("### 🚀 Quick Start Actions")
+    # 4. Structured Workflow Call-To-Action Cards
+    st.markdown("#### Primary Analytics Workflows")
     q1, q2, q3 = st.columns(3)
     with q1:
-        st.markdown(
-            """
-            <div class="metric-card">
-                <h4 style="margin: 0; color: #818CF8;">1. Test Single Prediction</h4>
-                <p style="color: #94A3B8; font-size: 13px; margin: 8px 0 0 0;">
-                    Type or paste any social media post to test real-time sentiment inference with token explainability.
-                </p>
-            </div>
-            """,
-            unsafe_allow_html=True,
+        render_action_card(
+            number="01",
+            title="Live Single Inference",
+            description="Type or paste any customer review, tweet, or statement to test real-time inference with token-level feature attribution.",
         )
     with q2:
-        st.markdown(
-            """
-            <div class="metric-card">
-                <h4 style="margin: 0; color: #34D399;">2. Upload Custom CSV</h4>
-                <p style="color: #94A3B8; font-size: 13px; margin: 8px 0 0 0;">
-                    Upload custom datasets with automatic column mapping, duplicate removal, and quality profiling.
-                </p>
-            </div>
-            """,
-            unsafe_allow_html=True,
+        render_action_card(
+            number="02",
+            title="Ingest Custom CSV",
+            description="Upload proprietary datasets with automatic column schema mapping, deduplication, and row quality profiling.",
         )
     with q3:
-        st.markdown(
-            """
-            <div class="metric-card">
-                <h4 style="margin: 0; color: #F472B6;">3. Explore ML Lab</h4>
-                <p style="color: #94A3B8; font-size: 13px; margin: 8px 0 0 0;">
-                    Inspect the 4-algorithm benchmark leaderboard, confusion matrices, and ROC curves.
-                </p>
-            </div>
-            """,
-            unsafe_allow_html=True,
+        render_action_card(
+            number="03",
+            title="ML Lab & Generalization",
+            description="Inspect the 4-algorithm benchmark leaderboard, Group-CV template-isolation audit, and confusion matrices.",
         )

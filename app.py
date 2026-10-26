@@ -35,13 +35,13 @@ from src.sentimentscope.ui.pages.search_page import render_search_page
 
 # Page Configuration
 st.set_page_config(
-    page_title="SentimentScope AI — Social Sentiment & ML Lab",
+    page_title="SentimentScope AI — AI Sentiment & ML Lab",
     page_icon="🔬",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# Apply Custom Theme CSS
+# Apply Custom Monochrome Theme CSS
 apply_theme()
 
 
@@ -106,51 +106,58 @@ def init_session_state():
 def main():
     init_session_state()
 
-    # Sidebar Navigation
+    # Sidebar Navigation & Application Shell
     with st.sidebar:
         st.markdown(
             """
-            <div style="padding: 8px 0 16px 0;">
-                <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #FFFFFF;">
-                    🔬 SentimentScope
-                </h2>
-                <div style="color: #94A3B8; font-size: 12px; margin-top: 4px;">
-                    AI Sentiment & Trend Lab
+            <div style="padding: 4px 0 16px 0; border-bottom: 1px solid #E5E5E5; margin-bottom: 16px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 20px;">🔬</span>
+                    <span style="font-size: 17px; font-weight: 700; color: #111111; letter-spacing: -0.02em;">
+                        SentimentScope AI
+                    </span>
+                </div>
+                <div style="color: #666666; font-size: 12px; margin-top: 4px; margin-left: 28px;">
+                    AI Sentiment & Trend Intelligence
                 </div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
+        st.caption("NAVIGATION")
         nav_choice = st.radio(
-            "Navigation:",
+            "Select Section:",
             options=[
-                "🏠 Home / Overview",
-                "⚡ Live Prediction",
-                "📁 Dataset Explorer",
-                "🔬 ML Lab / Benchmark",
-                "📊 Visual Analytics",
-                "🔍 Keyword Search",
-                "📄 Reports & Export",
-                "📘 About & Architecture",
+                "Overview Dashboard",
+                "Live Prediction",
+                "Dataset Explorer",
+                "ML Lab & Benchmark",
+                "Visual Analytics",
+                "Keyword Search",
+                "Reports & Export",
+                "About & Architecture",
             ],
             index=0,
+            label_visibility="collapsed",
         )
 
-        st.markdown("<hr style='border-color: rgba(255,255,255,0.06);'>", unsafe_allow_html=True)
+        st.markdown("<div style='border-top: 1px solid #E5E5E5; margin: 18px 0;'></div>", unsafe_allow_html=True)
 
-        # Active Model Sidebar Pill
-        st.markdown("#### 🤖 Model Status")
+        # Active Model Sidebar Status Card
+        st.caption("SYSTEM STATUS")
         model_artifact = st.session_state.get("model_artifact")
         if model_artifact:
             m_name = model_artifact.get("model_name", "Production Model")
             acc = model_artifact.get("metrics", {}).get("accuracy", 0.0) * 100
             st.markdown(
                 f"""
-                <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; padding: 10px 12px;">
-                    <div style="color: #10B981; font-weight: 600; font-size: 13px;">● Model Active</div>
-                    <div style="color: #F8FAFC; font-size: 12px; margin-top: 4px;">{m_name}</div>
-                    <div style="color: #94A3B8; font-size: 11px;">Accuracy: {acc:.1f}%</div>
+                <div class="sidebar-status-card">
+                    <div style="display: flex; align-items: center; font-size: 12px; font-weight: 600; color: #111111;">
+                        <span class="status-dot-active"></span> Model Active
+                    </div>
+                    <div style="color: #333333; font-size: 12px; margin-top: 4px; font-weight: 500;">{m_name}</div>
+                    <div style="color: #666666; font-size: 11px; margin-top: 2px;">Accuracy: {acc:.1f}% (Held-out)</div>
                 </div>
                 """,
                 unsafe_allow_html=True,
@@ -158,49 +165,53 @@ def main():
         else:
             st.markdown(
                 """
-                <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px; padding: 10px 12px;">
-                    <div style="color: #EF4444; font-weight: 600; font-size: 13px;">● No Model Loaded</div>
-                    <div style="color: #94A3B8; font-size: 11px; margin-top: 4px;">Train in ML Lab</div>
+                <div class="sidebar-status-card">
+                    <div style="display: flex; align-items: center; font-size: 12px; font-weight: 600; color: #111111;">
+                        <span class="status-dot-inactive"></span> No Model Loaded
+                    </div>
+                    <div style="color: #666666; font-size: 11px; margin-top: 4px;">Train in ML Lab</div>
                 </div>
                 """,
                 unsafe_allow_html=True,
             )
 
-        # Dataset Status Pill
+        # Dataset Status Sidebar Card
         active_df = st.session_state.get("active_df")
         row_cnt = len(active_df) if active_df is not None and not active_df.empty else 0
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("#### 📊 Dataset Status")
         st.markdown(
             f"""
-            <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 8px; padding: 10px 12px;">
-                <div style="color: #818CF8; font-weight: 600; font-size: 13px;">● Active Dataset</div>
-                <div style="color: #F8FAFC; font-size: 12px; margin-top: 4px;">{st.session_state.get('dataset_name', 'None')}</div>
-                <div style="color: #94A3B8; font-size: 11px;">{row_cnt:,} Cleaned Posts</div>
+            <div class="sidebar-status-card">
+                <div style="display: flex; align-items: center; font-size: 12px; font-weight: 600; color: #111111;">
+                    <span class="status-dot-active"></span> Active Dataset
+                </div>
+                <div style="color: #333333; font-size: 12px; margin-top: 4px; font-weight: 500;">
+                    {st.session_state.get('dataset_name', 'None')}
+                </div>
+                <div style="color: #666666; font-size: 11px; margin-top: 2px;">{row_cnt:,} Cleaned Posts</div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-        st.markdown("<hr style='border-color: rgba(255,255,255,0.06);'>", unsafe_allow_html=True)
-        st.caption("SentimentScope AI | Streamlit Cloud Ready | Free Tier Optimized")
+        st.markdown("<div style='border-top: 1px solid #E5E5E5; margin: 18px 0;'></div>", unsafe_allow_html=True)
+        st.caption("SentimentScope AI | Production Release v2.0 | Pure Python & Streamlit Cloud Ready")
 
     # Main Router
-    if nav_choice == "🏠 Home / Overview":
+    if nav_choice == "Overview Dashboard":
         render_home_page()
-    elif nav_choice == "⚡ Live Prediction":
+    elif nav_choice == "Live Prediction":
         render_prediction_page()
-    elif nav_choice == "📁 Dataset Explorer":
+    elif nav_choice == "Dataset Explorer":
         render_dataset_explorer()
-    elif nav_choice == "🔬 ML Lab / Benchmark":
+    elif nav_choice == "ML Lab & Benchmark":
         render_ml_lab_page()
-    elif nav_choice == "📊 Visual Analytics":
+    elif nav_choice == "Visual Analytics":
         render_analytics_page()
-    elif nav_choice == "🔍 Keyword Search":
+    elif nav_choice == "Keyword Search":
         render_search_page()
-    elif nav_choice == "📄 Reports & Export":
+    elif nav_choice == "Reports & Export":
         render_reports_page()
-    elif nav_choice == "📘 About & Architecture":
+    elif nav_choice == "About & Architecture":
         render_about_page()
 
 

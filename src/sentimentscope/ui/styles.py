@@ -1,6 +1,7 @@
 """
-SentimentScope AI — Custom CSS Styles and Theme Tokens
-Implements sleek dark mode, glassmorphism, badges, and responsive typography.
+SentimentScope AI — Custom CSS Styles and Monochrome Design System Tokens
+Implements a minimalist, high-contrast black-and-white SaaS aesthetic
+with restrained semantic colors for sentiment classification.
 """
 
 CUSTOM_CSS = """
@@ -8,120 +9,185 @@ CUSTOM_CSS = """
 /* Import Inter Font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-html, body, [class*="css"] {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+/* Global Font & Canvas Reset */
+html, body, [class*="css"], [class*="st-"] {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #111111;
 }
 
-/* App Background & Header */
+/* Primary Application Canvas */
 .stApp {
-    background: radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.05) 0%, transparent 40%),
-                #0F172A;
-    color: #F8FAFC;
+    background-color: #FFFFFF !important;
+    color: #111111 !important;
 }
 
-/* Hero Banner */
-.hero-container {
-    background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(12px);
-    border-radius: 16px;
-    padding: 24px 32px;
+/* Clean Header Bar */
+header[data-testid="stHeader"] {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    border-bottom: 1px solid #E5E5E5 !important;
+}
+
+/* Sidebar Shell */
+section[data-testid="stSidebar"] {
+    background-color: #FAFAFA !important;
+    border-right: 1px solid #E5E5E5 !important;
+    padding-top: 1.5rem !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
+    color: #444444 !important;
+}
+
+/* Sidebar Radio Navigation */
+section[data-testid="stSidebar"] div[role="radiogroup"] > label {
+    background: transparent;
+    padding: 8px 12px;
+    margin-bottom: 4px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+    cursor: pointer;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
+    background: #F0F0F0;
+    border-color: #E5E5E5;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] > label[data-checked="true"],
+section[data-testid="stSidebar"] div[role="radiogroup"] > label:has(input:checked) {
+    background: #FFFFFF !important;
+    border: 1px solid #E5E5E5 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    font-weight: 600;
+}
+
+/* Modern Page Header Container (Non-Gradient, Monochrome SaaS) */
+.page-header-container {
+    background-color: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    border-radius: 8px;
+    padding: 24px 28px;
     margin-bottom: 24px;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
-.hero-title {
-    font-size: 28px;
+.page-header-title {
+    font-size: 24px;
     font-weight: 700;
-    background: linear-gradient(90deg, #FFFFFF 0%, #C7D2FE 50%, #818CF8 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #111111;
+    letter-spacing: -0.02em;
     margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.hero-subtitle {
-    color: #94A3B8;
+.page-header-subtitle {
+    color: #666666;
     font-size: 14px;
     margin-top: 6px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
+    line-height: 1.5;
 }
 
-/* Glassmorphism Metric Cards */
+/* Monochrome Metric Cards */
 .metric-card {
-    background: rgba(30, 41, 59, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
-    padding: 16px 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    background-color: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    border-radius: 8px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    height: 100%;
 }
 
 .metric-card:hover {
-    border-color: rgba(99, 102, 241, 0.4);
-    transform: translateY(-2px);
+    border-color: #D4D4D4;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
 .metric-label {
-    color: #94A3B8;
+    color: #666666;
     font-size: 12px;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    margin-bottom: 4px;
 }
 
 .metric-value {
-    color: #F8FAFC;
+    color: #111111;
     font-size: 26px;
     font-weight: 700;
-    margin-top: 4px;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
 }
 
 .metric-sub {
-    color: #64748B;
-    font-size: 11px;
-    margin-top: 2px;
+    color: #8A8A8A;
+    font-size: 12px;
+    margin-top: 4px;
+    line-height: 1.4;
 }
 
-/* Badges */
+/* Restrained Semantic Sentiment Badges */
 .badge-pos {
-    background: rgba(16, 185, 129, 0.15);
-    color: #10B981;
-    border: 1px solid rgba(16, 185, 129, 0.3);
-    padding: 4px 10px;
-    border-radius: 20px;
+    background-color: #F0FDF4;
+    color: #15803D;
+    border: 1px solid #BBF7D0;
+    padding: 3px 10px;
+    border-radius: 9999px;
     font-size: 12px;
     font-weight: 600;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .badge-neu {
-    background: rgba(100, 116, 139, 0.15);
-    color: #94A3B8;
-    border: 1px solid rgba(100, 116, 139, 0.3);
-    padding: 4px 10px;
-    border-radius: 20px;
+    background-color: #F8FAFC;
+    color: #475569;
+    border: 1px solid #E2E8F0;
+    padding: 3px 10px;
+    border-radius: 9999px;
     font-size: 12px;
     font-weight: 600;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .badge-neg {
-    background: rgba(239, 68, 68, 0.15);
-    color: #EF4444;
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    padding: 4px 10px;
-    border-radius: 20px;
+    background-color: #FEF2F2;
+    color: #B91C1C;
+    border: 1px solid #FECACA;
+    padding: 3px 10px;
+    border-radius: 9999px;
     font-size: 12px;
     font-weight: 600;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.badge-neutral {
+    background-color: #F5F5F5;
+    color: #444444;
+    border: 1px solid #E5E5E5;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
 }
 
 .badge-warning {
-    background: rgba(245, 158, 11, 0.15);
-    color: #F59E0B;
-    border: 1px solid rgba(245, 158, 11, 0.3);
-    padding: 4px 12px;
+    background-color: #FFFBEB;
+    color: #B45309;
+    border: 1px solid #FDE68A;
+    padding: 6px 12px;
     border-radius: 6px;
     font-size: 13px;
     font-weight: 500;
@@ -129,53 +195,209 @@ html, body, [class*="css"] {
 
 /* Token Attribution Tags */
 .token-support {
-    background: rgba(16, 185, 129, 0.2);
-    color: #34D399;
-    border-bottom: 2px solid #10B981;
-    padding: 2px 6px;
+    background-color: #F0FDF4;
+    color: #15803D;
+    border: 1px solid #BBF7D0;
+    padding: 3px 8px;
     border-radius: 4px;
-    margin: 2px;
+    margin: 3px 4px 3px 0;
     display: inline-block;
     font-size: 13px;
+    font-weight: 500;
 }
 
 .token-oppose {
-    background: rgba(239, 68, 68, 0.2);
-    color: #F87171;
-    border-bottom: 2px solid #EF4444;
-    padding: 2px 6px;
+    background-color: #FEF2F2;
+    color: #B91C1C;
+    border: 1px solid #FECACA;
+    padding: 3px 8px;
     border-radius: 4px;
-    margin: 2px;
+    margin: 3px 4px 3px 0;
     display: inline-block;
     font-size: 13px;
+    font-weight: 500;
 }
 
 .token-neutral {
-    background: rgba(100, 116, 139, 0.15);
-    color: #94A3B8;
-    padding: 2px 6px;
+    background-color: #F5F5F5;
+    color: #666666;
+    border: 1px solid #E5E5E5;
+    padding: 3px 8px;
     border-radius: 4px;
-    margin: 2px;
+    margin: 3px 4px 3px 0;
     display: inline-block;
     font-size: 13px;
 }
 
-/* Sidebar Styling */
-section[data-testid="stSidebar"] {
-    background-color: #0B1120;
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
+/* Status Cards in Sidebar */
+.sidebar-status-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin-top: 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
 }
 
-/* Buttons */
-.stButton>button {
+.status-dot-active {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #15803D;
+    margin-right: 6px;
+}
+
+.status-dot-inactive {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #B91C1C;
+    margin-right: 6px;
+}
+
+.status-dot-neutral {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #64748B;
+    margin-right: 6px;
+}
+
+/* Primary Action Buttons */
+.stButton > button {
+    border-radius: 6px !important;
+    font-weight: 500 !important;
+    border: 1px solid #E5E5E5 !important;
+    transition: all 0.15s ease !important;
+    font-size: 13px !important;
+}
+
+.stButton > button[kind="primary"],
+div[data-testid="stFormSubmitButton"] > button {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+    border-color: #000000 !important;
+}
+
+.stButton > button[kind="primary"]:hover,
+div[data-testid="stFormSubmitButton"] > button:hover {
+    background-color: #262626 !important;
+    border-color: #262626 !important;
+    color: #FFFFFF !important;
+}
+
+.stDownloadButton > button {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #000000 !important;
+    border-radius: 6px !important;
+    font-weight: 500 !important;
+    transition: all 0.15s ease !important;
+}
+
+.stDownloadButton > button:hover {
+    background-color: #262626 !important;
+    border-color: #262626 !important;
+}
+
+/* Callout / Info Containers */
+.info-callout {
+    background-color: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-left: 4px solid #111111;
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    color: #334155;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Quick Action Cards */
+.action-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E5E5E5;
     border-radius: 8px;
-    font-weight: 500;
-    transition: all 0.2s ease;
+    padding: 18px 20px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    transition: all 0.15s ease;
+    height: 100%;
 }
 
-.stButton>button:hover {
-    border-color: #6366F1;
-    box-shadow: 0 0 12px rgba(99, 102, 241, 0.3);
+.action-card:hover {
+    border-color: #111111;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.action-card h4 {
+    margin: 0 0 6px 0;
+    color: #111111;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.action-card p {
+    color: #666666;
+    font-size: 13px;
+    line-height: 1.45;
+    margin: 0;
+}
+
+/* Academic Callout Banner */
+.academic-callout {
+    background-color: #FAFAFA;
+    border: 1px solid #E5E5E5;
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 16px 0;
+}
+
+.academic-callout h4 {
+    color: #111111;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+/* Text Inputs and Selectboxes */
+.stTextInput > div > div > input,
+.stTextArea > div > div > textarea,
+.stSelectbox > div > div {
+    background-color: #FFFFFF !important;
+    border: 1px solid #E5E5E5 !important;
+    border-radius: 6px !important;
+    color: #111111 !important;
+    font-size: 14px !important;
+}
+
+.stTextInput > div > div > input:focus,
+.stTextArea > div > div > textarea:focus {
+    border-color: #111111 !important;
+    box-shadow: 0 0 0 1px #111111 !important;
+}
+
+/* Streamlit Tabs */
+.stTabs [data-baseweb="tab-list"] {
+    border-bottom: 1px solid #E5E5E5;
+    gap: 8px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    background-color: transparent;
+    border: none;
+    color: #666666;
+    font-weight: 500;
+    padding: 8px 16px;
+}
+
+.stTabs [aria-selected="true"] {
+    color: #111111 !important;
+    font-weight: 600 !important;
+    border-bottom: 2px solid #000000 !important;
 }
 </style>
 """

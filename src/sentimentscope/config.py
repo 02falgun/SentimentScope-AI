@@ -35,9 +35,9 @@ REQUIRED_SCHEMA_FIELDS: List[str] = [
 # Accepted Sentiment Classes & Normalized Mapping
 CANONICAL_SENTIMENTS: List[str] = ["Negative", "Neutral", "Positive"]
 SENTIMENT_COLOR_MAP: Dict[str, str] = {
-    "Positive": "#10B981",  # Emerald Green
-    "Neutral": "#64748B",   # Slate Grey
-    "Negative": "#EF4444",  # Crimson Red
+    "Positive": "#15803D",  # Restrained Forest/Emerald Green
+    "Neutral": "#64748B",   # Restrained Slate Grey
+    "Negative": "#B91C1C",  # Restrained Crimson Red
 }
 
 LABEL_NORMALIZATION_MAP: Dict[str, str] = {

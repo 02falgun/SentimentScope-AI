@@ -1,5 +1,7 @@
 """
-SentimentScope AI — Dataset Explorer and Upload Page
+SentimentScope AI — Dataset Explorer and Ingestion Workspace
+Supports CSV ingestion, automatic heuristic schema mapping, row quality profiling,
+and interactive data filtering adhering to the monochrome SaaS design system.
 """
 
 import streamlit as st
@@ -9,48 +11,54 @@ from src.sentimentscope.config import DEFAULT_SAMPLE_DATASET, MAX_UPLOAD_SIZE_MB
 from src.sentimentscope.data.loading import detect_all_likely_columns, load_csv
 from src.sentimentscope.data.validation import validate_and_profile_dataframe
 from src.sentimentscope.ml.prediction import predict_batch_texts
-from src.sentimentscope.ui.components import render_hero, render_metric_card
+from src.sentimentscope.ui.components import (
+    render_header,
+    render_metric_card,
+)
 
 
 def render_dataset_explorer():
-    render_hero(
+    render_header(
         title="Dataset Explorer & Ingestion",
-        subtitle="Upload Custom Datasets, Validate Data Quality, and Inspect Schema Integrity",
-        badge_text="Ephemeral In-Memory",
+        subtitle="Ingest Custom Datasets, Validate Schema Integrity, and Profile Row Quality Metrics",
+        badge_text="Ephemeral In-Memory Processing",
+        category_label="DATA WORKSPACE",
     )
 
-    # 1. Dataset Upload or Reset Section
-    st.markdown("### 📁 Dataset Source")
+    # 1. Dataset Source Selection
+    st.markdown("### Dataset Source")
     col_up, col_reset = st.columns([3, 1])
 
     with col_up:
         uploaded_file = st.file_uploader(
-            f"Upload a CSV file (Max {MAX_UPLOAD_SIZE_MB}MB):",
+            f"Upload CSV Dataset (Maximum {MAX_UPLOAD_SIZE_MB}MB):",
             type=["csv"],
-            help="Uploaded data is processed strictly in-memory during this session and is not permanently saved to disk.",
+            help="Uploaded data is parsed strictly in-memory within this active session and is never written to disk.",
         )
 
     with col_reset:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
-        if st.button("🔄 Reset to Sample Data", use_container_width=True):
+        if st.button("Reset to Default Sample", use_container_width=True):
             df_sample, err = load_csv(DEFAULT_SAMPLE_DATASET)
             if df_sample is not None:
                 st.session_state.active_df = df_sample
                 st.session_state.dataset_name = "Built-In Sample Dataset"
-                st.success("Reset to default sample dataset!")
+                if "raw_uploaded_df" in st.session_state:
+                    del st.session_state.raw_uploaded_df
+                st.success("Corpus reset to default sample dataset.")
                 st.rerun()
 
-    # Load uploaded file if provided
+    # Ingestion handler
     if uploaded_file is not None:
-        with st.spinner("Parsing uploaded CSV file..."):
+        with st.spinner("Parsing uploaded CSV file and detecting schema..."):
             raw_df, err = load_csv(uploaded_file)
             if err or raw_df is None:
-                st.error(f"Error loading CSV: {err}")
+                st.error(f"Error parsing CSV: {err}")
                 return
             st.session_state.raw_uploaded_df = raw_df
             st.session_state.dataset_name = uploaded_file.name
 
-    # Determine working raw DataFrame
+    # Determine active working dataframe
     if "raw_uploaded_df" in st.session_state and st.session_state.raw_uploaded_df is not None:
         working_raw = st.session_state.raw_uploaded_df
     else:
@@ -61,12 +69,13 @@ def render_dataset_explorer():
         working_raw = st.session_state.active_df
 
     if working_raw.empty:
-        st.warning("No dataset is currently loaded.")
+        st.warning("No dataset is currently available in the active session.")
         return
 
-    # 2. Schema Mapping Controls
-    st.markdown("### 🗂️ Column Schema Mapping")
-    st.caption("Automatic heuristic guessing has mapped the columns below. Adjust if necessary.")
+    # 2. Schema Mapping Section
+    st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
+    st.markdown("### Column Schema Mapping")
+    st.caption("Automatic heuristic guessing has mapped standard columns below. Adjust manually if needed.")
 
     cols = list(working_raw.columns)
     detected = detect_all_likely_columns(cols)
@@ -85,12 +94,12 @@ def render_dataset_explorer():
         )
     with c2:
         platform_col = st.selectbox(
-            "Platform Column (Optional):",
+            "Platform / Channel Column (Optional):",
             options=["None"] + cols,
             index=(cols.index(detected["platform"]) + 1) if detected["platform"] in cols else 0,
         )
         date_col = st.selectbox(
-            "Date Column (Optional):",
+            "Timestamp / Date Column (Optional):",
             options=["None"] + cols,
             index=(cols.index(detected["date"]) + 1) if detected["date"] in cols else 0,
         )
@@ -120,56 +129,60 @@ def render_dataset_explorer():
     st.session_state.active_df = cleaned_df
     st.session_state.quality_profile = profile
 
-    # 3. Data Quality Profile Summary
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("### 🛡️ Data Quality & Row Attrition Profile")
+    # 3. Data Quality & Row Attrition Metrics
+    st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
+    st.markdown("### Quality Profiling & Attrition")
 
     q1, q2, q3, q4 = st.columns(4)
     with q1:
-        render_metric_card("Total Ingested", f"{profile.total_loaded:,}", "Raw rows loaded")
+        render_metric_card("Total Ingested", f"{profile.total_loaded:,}", "Raw loaded rows", "#111111")
     with q2:
-        render_metric_card("Duplicates Dropped", f"{profile.duplicates_removed:,}", "Identical text removed", "#F59E0B")
+        render_metric_card("Duplicates Dropped", f"{profile.duplicates_removed:,}", "Exact text deduplication", "#666666")
     with q3:
-        render_metric_card("Missing Text Dropped", f"{profile.missing_text_removed:,}", "Empty / null text", "#EF4444")
+        render_metric_card("Empty Text Dropped", f"{profile.missing_text_removed:,}", "Null or blank entries", "#B91C1C")
     with q4:
-        render_metric_card("Cleaned Retained", f"{profile.retained_rows:,}", "Ready for modeling", "#10B981")
+        render_metric_card("Cleaned Retained", f"{profile.retained_rows:,}", "Ready for modeling", "#15803D")
 
-    # Quality warnings banner
+    # Quality warnings
     if profile.warnings:
         for w in profile.warnings:
             st.warning(f"⚠️ {w}")
 
-    # 4. Batch Prediction Action (if sentiment is not present or user wants model inferences)
+    # 4. Batch Model Inference Action
     model_artifact = st.session_state.get("model_artifact")
     if model_artifact and not cleaned_df.empty:
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("### ⚡ Batch Model Inference")
+        st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
+        st.markdown("### Batch Inference with Active Model")
         b1, b2 = st.columns([1, 2])
         with b1:
-            if st.button("🚀 Predict Sentiments with Active Model", type="primary", use_container_width=True):
-                with st.spinner("Generating batch model predictions..."):
+            if st.button("Generate Batch Predictions", type="primary", use_container_width=True):
+                with st.spinner("Evaluating predictions across active corpus..."):
                     preds_df = predict_batch_texts(cleaned_df["Text"].tolist(), model_artifact)
                     cleaned_df["Predicted_Sentiment"] = preds_df["Predicted_Sentiment"].values
                     cleaned_df["Model_Confidence"] = preds_df["Confidence"].values
                     st.session_state.active_df = cleaned_df
-                    st.success("Batch predictions appended to active dataset!")
+                    st.success("Batch predictions and calibrated confidences appended to active dataset!")
+        with b2:
+            st.caption(
+                f"Applies active classifier ({model_artifact.get('model_name', 'Model')}) to generate sentiment labels "
+                "for all cleaned records without ground-truth annotation."
+            )
 
-    # 5. Interactive Data Preview & Filtering
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("### 🔍 Active Dataset Preview & Filter")
+    # 5. Interactive Table Preview & Filters
+    st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
+    st.markdown("### Dataset Preview & Filtering")
 
     f1, f2, f3 = st.columns([1, 1, 2])
     with f1:
         avail_plats = list(cleaned_df["Platform"].unique()) if "Platform" in cleaned_df.columns else []
-        selected_plats = st.multiselect("Filter Platform:", options=avail_plats, default=avail_plats)
+        selected_plats = st.multiselect("Filter Platforms:", options=avail_plats, default=avail_plats)
     with f2:
         sentiment_col_name = "Sentiment" if "Sentiment" in cleaned_df.columns else ("Predicted_Sentiment" if "Predicted_Sentiment" in cleaned_df.columns else None)
         avail_sents = list(cleaned_df[sentiment_col_name].unique()) if sentiment_col_name else []
-        selected_sents = st.multiselect("Filter Sentiment:", options=avail_sents, default=avail_sents)
+        selected_sents = st.multiselect("Filter Sentiments:", options=avail_sents, default=avail_sents)
     with f3:
-        search_query = st.text_input("Search Text in Dataset:", placeholder="Filter by text keyword...")
+        search_query = st.text_input("Filter by Text Keyword:", placeholder="Type to filter posts by content...")
 
-    # Filter dataframe
     filtered_df = cleaned_df.copy()
     if selected_plats and "Platform" in filtered_df.columns:
         filtered_df = filtered_df[filtered_df["Platform"].isin(selected_plats)]
@@ -181,10 +194,10 @@ def render_dataset_explorer():
     st.caption(f"Displaying {len(filtered_df):,} of {len(cleaned_df):,} records")
     st.dataframe(filtered_df, use_container_width=True, height=350)
 
-    # 6. CSV Download
+    # 6. CSV Download Action
     csv_bytes = filtered_df.to_csv(index=False).encode("utf-8")
     st.download_button(
-        label="📥 Download Cleaned Dataset (CSV)",
+        label="Download Cleaned Dataset (CSV)",
         data=csv_bytes,
         file_name="sentimentscope_cleaned_dataset.csv",
         mime="text/csv",
